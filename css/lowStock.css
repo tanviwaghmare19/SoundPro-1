@@ -1,0 +1,169 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f5f6fa;
+padding:20px;
+min-height:100vh;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Header */
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:25px;
+}
+
+.header a{
+color:#333;
+font-size:24px;
+text-decoration:none;
+}
+
+.header a:hover
+
+.header h2{
+font-size:32px;
+color:#222;
+}
+
+/* Product Cards */
+
+.product{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+padding:15px;
+margin-bottom:18px;
+border-radius:15px;
+background:#fafafa;
+transition:0.3s;
+}
+
+.product:hover{
+transform:translateY(-3px);
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.product img{
+width:70px;
+height:70px;
+object-fit:contain;
+}
+
+.details{
+flex:1;
+}
+
+.details h3{
+font-size:18px;
+margin-bottom:6px;
+color:#222;
+}
+
+.details p{
+color:#e36b2c;
+font-weight:bold;
+margin-bottom:4px;
+}
+
+.details span{
+color:#ff9800;
+font-weight:bold;
+font-size:14px;
+}
+
+.warning{
+color:#f4b400;
+font-size:28px;
+}
+
+/* Buttons */
+
+.button-section{
+display:flex;
+gap:15px;
+margin-top:30px;
+}
+
+.dashboard-btn{
+flex:1;
+background:#6c4df6;
+color:white;
+border:none;
+padding:15px;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dashboard-btn:hover{
+background:#563be8;
+transform:translateY(-2px);
+}
+
+.logout-btn{
+flex:1;
+background:#ff3b30;
+color:white;
+border:none;
+padding:15px;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#e12b21;
+transform:translateY(-2px);
+}
+
+.dashboard-btn i,
+.logout-btn i{
+margin-right:8px;
+}
+
+/* Responsive */
+
+@media(max-width:600px){
+
+body{
+    padding:10px;
+}
+
+.container{
+    padding:15px;
+}
+
+.header h2{
+    font-size:24px;
+}
+
+.product{
+    flex-wrap:wrap;
+}
+
+.button-section{
+    flex-direction:column;
+}
+}

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth.js"></script>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reports</title>
+
+    <link rel="stylesheet"
+          href="../css/reports.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <div class="header">
+
+            <i class="fa-solid fa-arrow-left"
+               onclick="goBack()"></i>
+
+            <h1>Reports</h1>
+
+        </div>
+
+        <!-- Month Filter -->
+
+        <div class="month-box">
+
+            <select id="monthSelect">
+
+                <option>This Month</option>
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+
+            </select>
+
+        </div>
+
+        <!-- Cards -->
+
+        <div class="cards">
+
+            <div class="card sales">
+
+                <p>Total Sales</p>
+
+                <h2>₹12,45,000</h2>
+
+                <span class="green">+12.5%</span>
+
+            </div>
+
+            <div class="card orders">
+
+                <p>Total Orders</p>
+
+                <h2>230</h2>
+
+                <span class="green">+8.2%</span>
+
+            </div>
+
+            <div class="card customers">
+
+                <p>New Customers</p>
+
+                <h2>85</h2>
+
+                <span class="green">+8.2%</span>
+
+            </div>
+
+            <div class="card products">
+
+                <p>Top Selling Product</p>
+
+                <h2>JBL SRX</h2>
+
+                <span class="green">25 Sold</span>
+
+            </div>
+
+        </div>
+
+        <!-- Sales Overview -->
+
+        <div class="chart-box">
+
+            <h2>Sales Overview</h2>
+
+            <div class="legend">
+
+                <span>
+                    <span class="desktop-dot"></span>
+                    Desktop
+                </span>
+
+                <span>
+                    <span class="mobile-dot"></span>
+                    Mobile
+                </span>
+
+            </div>
+
+            <div class="chart">
+
+                <div class="bars">
+
+                    <div class="bar-group">
+
+                        <div class="bar desktop h1"></div>
+                        <div class="bar mobile h2"></div>
+
+                        <span>Jan</span>
+
+                    </div>
+
+                    <div class="bar-group">
+
+                        <div class="bar desktop h3"></div>
+                        <div class="bar mobile h4"></div>
+
+                        <span>Feb</span>
+
+                    </div>
+
+                    <div class="bar-group">
+
+                        <div class="bar desktop h5"></div>
+                        <div class="bar mobile h6"></div>
+
+                        <span>Mar</span>
+
+                    </div>
+
+                    <div class="bar-group">
+
+                        <div class="bar desktop h7"></div>
+                        <div class="bar mobile h8"></div>
+
+                        <span>Apr</span>
+
+                    </div>
+
+                    <div class="bar-group">
+
+                        <div class="bar desktop h9"></div>
+                        <div class="bar mobile h10"></div>
+
+                        <span>May</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="button-section">
+
+            <button class="report-btn"
+                    onclick="openSalesReport()">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                View Detailed Sales Report
+
+            </button>
+
+            <button class="logout-btn"
+                    onclick="logout()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="../js/reports.js"></script>
+
+</body>
+
+</html>

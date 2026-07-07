@@ -1,0 +1,278 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+    color:#333;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+    min-height:100vh;
+    padding:25px 20px 110px;
+}
+
+
+/*SUCCESS SECTION*/
+
+
+.success-section{
+    text-align:center;
+    margin-top:20px;
+}
+
+.success-icon{
+    width:120px;
+    height:120px;
+    margin:auto;
+    border-radius:50%;
+    background:#22c55e;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:70px;
+    box-shadow:0 10px 25px rgba(34,197,94,.35);
+}
+
+.success-section h1{
+    margin-top:20px;
+    font-size:30px;
+    font-weight:700;
+}
+
+.success-section h2{
+    color:#22c55e;
+    margin-top:6px;
+    font-size:22px;
+}
+
+
+/*INVOICE CARD*/
+
+.invoice-card{
+    background:#fff;
+    margin-top:30px;
+    border-radius:15px;
+    padding:22px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.invoice-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+.invoice-row:last-child{
+    border-bottom:none;
+}
+
+.invoice-row span{
+    color:#777;
+    font-size:16px;
+}
+
+.invoice-row h3{
+    font-size:18px;
+    font-weight:600;
+}
+
+.invoice-row h2{
+    color:#f57c00;
+    font-size:28px;
+}
+
+
+
+
+
+.action-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:30px;
+}
+
+.action-btn{
+    border:none;
+    background:#ffffff;
+    border-radius:12px;
+    padding:18px 10px;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    transition:.3s;
+}
+
+.action-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.action-btn i{
+
+    font-size:28px;
+    color:#f57c00;
+    margin-bottom:10px;
+
+}
+
+.action-btn span{
+
+    font-size:15px;
+    font-weight:600;
+    color:#333;
+
+}
+
+
+
+
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    background:#fff;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    padding:15px;
+
+    box-shadow:0 -2px 10px rgba(0,0,0,.12);
+
+}
+
+.bottom-nav button{
+
+    width:48%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#f57c00;
+
+    color:#fff;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    transition:.3s;
+
+}
+
+.bottom-nav button:hover{
+
+    background:#e56d00;
+
+}
+
+.bottom-nav i{
+
+    font-size:18px;
+
+}
+
+
+/* RESPONSIVE*/
+
+@media(max-width:600px){
+
+.container{
+
+    padding:20px 15px 110px;
+
+}
+
+.success-icon{
+
+    width:100px;
+    height:100px;
+    font-size:60px;
+
+}
+
+.success-section h1{
+
+    font-size:26px;
+
+}
+
+.invoice-row h2{
+
+    font-size:24px;
+
+}
+
+.action-buttons{
+
+    grid-template-columns:1fr;
+
+}
+
+.action-btn{
+
+    flex-direction:row;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+.action-btn i{
+
+    margin-bottom:0;
+
+}
+
+.bottom-nav{
+
+    padding:12px;
+
+}
+
+.bottom-nav button{
+
+    height:50px;
+    font-size:15px;
+
+}
+
+}

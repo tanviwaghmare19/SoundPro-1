@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Bill Generated</title>
+
+ <link rel="stylesheet" href="../CSS/billGenerated.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+   
+       <!--Success Icon--> 
+   
+
+    <div class="success-section">
+
+        <div class="success-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+        <h1>Bill Generated</h1>
+
+        <h2>Successfully</h2>
+
+    </div>
+
+    
+        <!--Invoice Card-->
+    
+    <div class="invoice-card">
+
+        <div class="invoice-row">
+
+            <span>Invoice No</span>
+
+            <h3 id="invoiceNo">
+                INV0001
+            </h3>
+
+        </div>
+
+        <div class="invoice-row">
+
+            <span>Customer</span>
+
+            <h3 id="customerName">
+                Rahul Sharma
+            </h3>
+
+        </div>
+
+        <div class="invoice-row">
+
+            <span>Total Amount</span>
+
+            <h2 id="totalAmount">
+                ₹0.00
+            </h2>
+
+        </div>
+
+    </div>
+
+      
+       <!--- Action Buttons-->
+    
+    <div class="action-buttons">
+
+        <button id="pdfBtn" class="action-btn">
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            <span>Get PDF</span>
+
+        </button>
+
+        <button id="printBtn" class="action-btn">
+
+            <i class="fa-solid fa-print"></i>
+
+            <span>Print Bill</span>
+
+        </button>
+
+        <button id="saveBtn" class="action-btn">
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            <span>Save Bill</span>
+
+        </button>
+
+    </div>
+
+    
+        <!--Bottom Navigation-->
+   
+
+    <div class="bottom-nav">
+
+        <button id="homeBtn">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Home</span>
+
+        </button>
+
+        <button id="newBillBtn">
+
+            <i class="fa-solid fa-file-circle-plus"></i>
+
+            <span>New Bill</span>
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- jsPDF Library -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- JavaScript -->
+
+<script src="../JS/billGenerated.js"></script>
+
+</body>
+</html>

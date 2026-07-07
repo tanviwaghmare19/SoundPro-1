@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Preview Bill</title>
+
+   <link rel="stylesheet" href="../CSS/billPreview.css">
+    
+</head>
+
+<body>
+
+<!-- ================= Header ================= -->
+
+<header class="header">
+
+    <button class="back-btn" id="backBtn">
+
+        <i class="fas fa-arrow-left"></i>
+
+    </button>
+
+    <h2>Bill Preview</h2>
+
+</header>
+
+
+<!-- ================= Main ================= -->
+
+<div class="container">
+
+<div class="bill-card">
+
+<!-- Invoice -->
+
+<div class="invoice">
+
+    <div>
+
+        <p>Invoice No.</p>
+
+        <h3 id="invoiceNumber"></h3>
+
+    </div>
+
+    <div>
+
+        <p>Date</p>
+
+        <h3 id="invoiceDate"></h3>
+
+    </div>
+
+</div>
+
+<hr>
+
+<!-- Customer -->
+
+<div class="customer">
+
+    <h3>Customer Details</h3>
+
+    <div class="customer-box">
+
+        <div class="avatar" id="customerAvatar">
+
+            <i class="fas fa-user"></i>
+
+        </div>
+
+        <div class="customer-info">
+
+            <h4 id="customerName"></h4>
+
+            <p id="customerMobile"></p>
+
+            <p id="customerCity"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<!-- Products -->
+
+<h3 class="title">
+
+    Products
+
+</h3>
+
+<div class="table-head">
+
+    <span>Product</span>
+
+    <span>Qty</span>
+
+    <span>Rate</span>
+
+    <span>Amount</span>
+
+</div>
+
+<div id="productContainer">
+
+<!-- JavaScript Products -->
+
+</div>
+
+<hr>
+
+<!-- Summary -->
+
+<div class="summary">
+
+<div class="row">
+
+<span>Subtotal</span>
+
+<span id="subtotal">₹0</span>
+
+</div>
+
+<div class="row">
+
+<span>Discount</span>
+
+<span id="discount">₹0</span>
+
+</div>
+
+<div class="row">
+
+<span id="gstTitle">
+
+GST
+
+</span>
+
+<span id="gstAmount">
+
+₹0
+
+</span>
+
+</div>
+
+<hr>
+
+<div class="row grand">
+
+<span>Grand Total</span>
+
+<span id="grandTotal">
+
+₹0
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Bottom Button -->
+
+<div class="bottom-bar">
+
+<button id="finalBillBtn">
+
+Generate Final Bill
+
+</button>
+
+</div>
+
+<script src="../JS/billPreview.js"></script>
+
+</body>
+
+</html>
