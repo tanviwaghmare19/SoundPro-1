@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Low Stock Alert</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6fa;
+    display:flex;
+    justify-content:center;
+    padding:40px 20px;
+}
+
+.container{
+    width:100%;
+    max-width:800px;
+    background:white;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.header i{
+    font-size:28px;
+    cursor:pointer;
+}
+
+.header h1{
+    font-size:42px;
+}
+
+.product{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fafafa;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.product-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.product-left img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+}
+
+.product-info h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.stock{
+    color:#ff6600;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.min{
+    color:#ff9900;
+    font-weight:bold;
+}
+
+.warning{
+    color:#ffb400;
+    font-size:32px;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    margin-top:30px;
+}
+
+.btn{
+    flex:1;
+    border:none;
+    padding:18px;
+    border-radius:15px;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.dashboard-btn{
+    background:#6c4df6;
+}
+
+.logout-btn{
+    background:#ff3b30;
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+
+@media(max-width:700px){
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .header h1{
+        font-size:30px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <i class="fa-solid fa-arrow-left"
+           onclick="goBack()"></i>
+
+        <h1>Low Stock Alert</h1>
+
+    </div>
+
+    <div class="product">
+
+        <div class="product-left">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3659/3659899.png">
+
+            <div class="product-info">
+
+                <h3>JBL SRX 725 Speaker</h3>
+
+                <div class="stock">Stock : 1</div>
+
+                <div class="min">Min : 5</div>
+
+            </div>
+
+        </div>
+
+        <i class="fa-solid fa-triangle-exclamation warning"></i>
+
+    </div>
+
+    <div class="product">
+
+        <div class="product-left">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
+
+            <div class="product-info">
+
+                <h3>Wireless Microphone</h3>
+
+                <div class="stock">Stock : 0</div>
+
+                <div class="min">Min : 5</div>
+
+            </div>
+
+        </div>
+
+        <i class="fa-solid fa-triangle-exclamation warning"></i>
+
+    </div>
+
+    <div class="product">
+
+        <div class="product-left">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png">
+
+            <div class="product-info">
+
+                <h3>Audio Mixer</h3>
+
+                <div class="stock">Stock : 2</div>
+
+                <div class="min">Min : 4</div>
+
+            </div>
+
+        </div>
+
+        <i class="fa-solid fa-triangle-exclamation warning"></i>
+
+    </div>
+
+    <div class="product">
+
+        <div class="product-left">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png">
+
+            <div class="product-info">
+
+                <h3>Power Amplifier</h3>
+
+                <div class="stock">Stock : 1</div>
+
+                <div class="min">Min : 3</div>
+
+            </div>
+
+        </div>
+
+        <i class="fa-solid fa-triangle-exclamation warning"></i>
+
+    </div>
+
+    <div class="product">
+
+        <div class="product-left">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/1048/1048941.png">
+
+            <div class="product-info">
+
+                <h3>Studio Headphones</h3>
+
+                <div class="stock">Stock : 3</div>
+
+                <div class="min">Min : 4</div>
+
+            </div>
+
+        </div>
+
+        <i class="fa-solid fa-triangle-exclamation warning"></i>
+
+    </div>
+
+    <div class="buttons">
+
+        <button
+        class="btn dashboard-btn"
+        onclick="goDashboard()">
+
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+
+        </button>
+
+        <button
+        class="btn logout-btn"
+        onclick="logout()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+// LOGIN PROTECTION
+
+if(localStorage.getItem("isLoggedIn") !== "true"){
+    window.location.href = "login.html";
+}
+
+// BACK BUTTON
+
+function goBack(){
+    window.location.href = "dashboard.html";
+}
+
+// DASHBOARD BUTTON
+
+function goDashboard(){
+    window.location.href = "dashboard.html";
+}
+
+// LOGOUT BUTTON
+
+function logout(){
+
+    if(confirm("Are you sure you want to logout?")){
+
+        localStorage.removeItem("isLoggedIn");
+
+        window.location.href = "login.html";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

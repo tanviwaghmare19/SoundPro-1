@@ -99,4 +99,8 @@ document.getElementById("printBtn").addEventListener("click", () => {
 
 });
 
+<<<<<<< HEAD
 console.log("Bill Generated Successfully");
+=======
+console.log("Bill Generated Successfully");
+>>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5

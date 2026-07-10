@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <head>
 
@@ -13,11 +14,23 @@
 
     <link rel="stylesheet"
         href="../CSS/addProductsbilling.css">
+=======
+<head>
+    <script src="../js/auth.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+ <link rel="stylesheet" href="../css/addProductsbilling.css">
+
+>>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
 
 </head>
 
 <body>
 
+<<<<<<< HEAD
     <!-- Header -->
 
     <header class="header">
@@ -409,4 +422,276 @@
 
 </body>
 
+=======
+<!-- Header -->
+
+<header class="header">
+
+    <button class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <h2>Add Products</h2>
+
+</header>
+
+<!-- Customer -->
+
+<section class="customer">
+
+    <div class="customer-left">
+
+        <div id="customerAvatar" class="avatar purple">
+            <i class="fas fa-user"></i>
+        </div>
+
+        <div class="customer-details">
+
+            <h3 id="customerName">Rahul Sharma</h3>
+
+            <p id="customerMobile">
+                <i class="fa fa-phone"></i>
+                9876543210
+            </p>
+
+            <p id="customerCity">
+                <i class="fa fa-location-dot"></i>
+                Ahmedabad
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Search -->
+
+<div class="search-box">
+
+    <i class="fa fa-search"></i>
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="Search Product">
+
+</div>
+
+<!-- Product List -->
+
+<div id="productList" class="product-list">
+
+    <!-- Product 1 -->
+
+    <div class="product-card"
+    data-name="Bluetooth Speaker"
+    data-price="2500">
+
+        <img src="images/speaker.png">
+
+        <div class="info">
+
+            <h4>Bluetooth Speaker</h4>
+
+            <span>₹2500</span>
+
+        </div>
+
+        <div class="qty">
+
+            <button class="minus">-</button>
+
+            <span class="count">1</span>
+
+            <button class="plus">+</button>
+
+        </div>
+
+        <div class="subtotal">
+
+            ₹<span class="itemTotal">2500</span>
+
+        </div>
+
+        <button class="delete">
+
+            <i class="fa fa-trash"></i>
+
+        </button>
+
+    </div>
+
+    <!-- Product 2 -->
+
+    <div class="product-card"
+    data-name="Wireless Mic"
+    data-price="1800">
+
+        <img src="images/mic.png">
+
+        <div class="info">
+
+            <h4>Wireless Mic</h4>
+
+            <span>₹1800</span>
+
+        </div>
+
+        <div class="qty">
+
+            <button class="minus">-</button>
+
+            <span class="count">1</span>
+
+            <button class="plus">+</button>
+
+        </div>
+
+        <div class="subtotal">
+
+            ₹<span class="itemTotal">1800</span>
+
+        </div>
+
+        <button class="delete">
+
+            <i class="fa fa-trash"></i>
+
+        </button>
+
+    </div>
+
+    <!-- Product 3 -->
+
+    <div class="product-card"
+    data-name="Audio Mixer"
+    data-price="6500">
+
+        <img src="images/mixer.png">
+
+        <div class="info">
+
+            <h4>Audio Mixer</h4>
+
+            <span>₹6500</span>
+
+        </div>
+
+        <div class="qty">
+
+            <button class="minus">-</button>
+
+            <span class="count">1</span>
+
+            <button class="plus">+</button>
+
+        </div>
+
+        <div class="subtotal">
+
+            ₹<span class="itemTotal">6500</span>
+
+        </div>
+
+        <button class="delete">
+
+            <i class="fa fa-trash"></i>
+
+        </button>
+
+    </div>
+
+    <!-- Product 4 -->
+
+    <div class="product-card"
+    data-name="Amplifier"
+    data-price="8500">
+
+        <img src="images/amplifier.png">
+
+        <div class="info">
+
+            <h4>Amplifier</h4>
+
+            <span>₹8500</span>
+
+        </div>
+
+        <div class="qty">
+
+            <button class="minus">-</button>
+
+            <span class="count">1</span>
+
+            <button class="plus">+</button>
+
+        </div>
+
+        <div class="subtotal">
+
+            ₹<span class="itemTotal">8500</span>
+
+        </div>
+
+        <button class="delete">
+
+            <i class="fa fa-trash"></i>
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- Footer -->
+
+<footer class="footer">
+
+    <div class="total">
+
+        <h3>Total Amount</h3>
+
+        <h2 id="grandTotal">₹19300</h2>
+
+    </div>
+
+   <div class="gst-section">
+
+<label class="gst-box">
+<input type="radio" name="gst" value="0" checked>
+No GST
+</label>
+
+<label class="gst-box">
+<input type="radio" name="gst" value="5">
+5%
+</label>
+
+<label class="gst-box">
+<input type="radio" name="gst" value="12">
+12%
+</label>
+
+<label class="gst-box">
+<input type="radio" name="gst" value="18">
+18%
+</label>
+
+</div>
+    <button id="generateBtn">
+
+        Generate Bill
+
+    </button>
+
+</footer>
+
+<script src="../js/addProductsbilling.js"></script>
+
+</body>
+>>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
 </html>

@@ -1,0 +1,275 @@
+/* ==========================
+        GOOGLE FONT
+========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ==========================
+        RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f6fa;
+}
+
+/* ==========================
+        CONTAINER
+========================== */
+
+.profile-container{
+    max-width:500px;
+    margin:30px auto;
+    padding:20px;
+}
+
+/* ==========================
+        HEADER
+========================== */
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.header i{
+    font-size:24px;
+    cursor:pointer;
+    color:#333;
+}
+
+.header h2{
+    font-size:28px;
+    font-weight:600;
+}
+
+/* ==========================
+      PROFILE CARD
+========================== */
+
+.profile-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    margin-bottom:25px;
+}
+
+.profile-card img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:4px solid #ff7a00;
+    object-fit:cover;
+    margin-bottom:15px;
+}
+
+.profile-card h2{
+    font-size:28px;
+    color:#222;
+}
+
+.profile-card p{
+    color:#666;
+    margin-top:5px;
+}
+
+/* ==========================
+      DETAILS
+========================== */
+
+.details{
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:18px;
+}
+
+.input-group label{
+    font-size:15px;
+    color:#555;
+    margin-bottom:8px;
+    font-weight:500;
+}
+
+.input-group input,
+.input-group textarea{
+
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
+    resize:none;
+    background:#fafafa;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+
+    border-color:#ff7a00;
+    background:white;
+}
+
+.input-group input:disabled,
+.input-group textarea:disabled{
+
+    background:#eeeeee;
+    color:#555;
+    cursor:not-allowed;
+}
+
+/* ==========================
+      BUTTONS
+========================== */
+
+.button-group{
+    margin-top:25px;
+    display:flex;
+    gap:12px;
+}
+
+.button-group button{
+
+    flex:1;
+    height:50px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.edit-btn{
+
+    background:#ff7a00;
+    color:white;
+}
+
+.edit-btn:hover{
+
+    background:#e76600;
+}
+
+.save-btn{
+
+    background:#28a745;
+    color:white;
+    display:none;
+}
+
+.save-btn:hover{
+
+    background:#1f8a38;
+}
+
+.cancel-btn{
+
+    background:#dc3545;
+    color:white;
+    display:none;
+}
+
+.cancel-btn:hover{
+
+    background:#b52b38;
+}
+
+/* ==========================
+      RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+.profile-container{
+
+    padding:15px;
+}
+
+.profile-card{
+
+    padding:22px;
+}
+
+.profile-card img{
+
+    width:100px;
+    height:100px;
+}
+
+.button-group{
+
+    flex-direction:column;
+}
+
+}
+
+@media(max-width:480px){
+
+.header h2{
+
+    font-size:24px;
+}
+
+.profile-card h2{
+
+    font-size:24px;
+}
+
+.profile-card img{
+
+    width:90px;
+    height:90px;
+}
+
+.input-group input,
+.input-group textarea{
+
+    font-size:14px;
+}
+
+.button-group button{
+
+    height:46px;
+    font-size:15px;
+}
+
+}
+
+/* ==========================
+      SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#ff7a00;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f1f1f1;
+}
