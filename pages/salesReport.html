@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth.js"></script>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sales Report</title>
+
+    <link rel="stylesheet"
+          href="../css/salesReport.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <div class="header">
+
+            <i class="fa-solid fa-arrow-left"
+               onclick="goBack()"></i>
+
+            <h1>Sales Report</h1>
+
+        </div>
+
+        <!-- Date Range -->
+
+        <div class="date-box">
+
+            <span>
+                May 1 - May 31, 2025
+            </span>
+
+            <i class="fa-regular fa-calendar"></i>
+
+        </div>
+
+        <!-- Revenue -->
+
+        <div class="revenue">
+
+            <h3>Total Revenue</h3>
+
+            <h1>₹12,50,000</h1>
+
+            <p>
+                +21.8% vs last month
+            </p>
+
+        </div>
+
+        <!-- Graph -->
+
+        <div class="graph">
+
+            <svg viewBox="0 0 600 250">
+
+                <polyline
+                    fill="none"
+                    stroke="#6c4df6"
+                    stroke-width="5"
+                    points="
+                    30,200
+                    120,160
+                    220,130
+                    330,90
+                    450,60
+                    560,30
+                    " />
+
+            </svg>
+
+        </div>
+
+        <!-- Top Products -->
+
+        <div class="products">
+
+            <h2>Top Products</h2>
+
+            <div class="item">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png"
+                    alt="Speaker">
+
+                <div class="product-info">
+
+                    <h4>JBL SRX 725 Speaker</h4>
+
+                    <span>₹12,50,000</span>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png"
+                    alt="Speaker">
+
+                <div class="product-info">
+
+                    <h4>JBL SRX 715 Speaker</h4>
+
+                    <span>₹9,80,000</span>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+                    alt="Headphone">
+
+                <div class="product-info">
+
+                    <h4>JBL Headphone</h4>
+
+                    <span>₹7,50,000</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="button-section">
+
+            <button
+                class="download-btn"
+                onclick="downloadReport()">
+
+                <i class="fa-solid fa-download"></i>
+                Download Report
+
+            </button>
+
+            <button
+                class="dashboard-btn"
+                onclick="goDashboard()">
+
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+
+            </button>
+
+            <button
+                class="logout-btn"
+                onclick="logout()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="../js/salesReport.js"></script>
+
+</body>
+
+</html>

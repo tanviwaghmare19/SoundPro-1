@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/auth.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+
+    <link rel="stylesheet" href="../css/addProduct.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- Header -->
+        <div class="header">
+
+            <div class="back-btn" onclick="window.location.href='products.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+
+            <div class="title">
+                Add Product
+            </div>
+
+            <div class="empty"></div>
+
+        </div>
+
+        <!-- Form -->
+        <div class="form-container">
+
+            <!-- Image -->
+            <div class="image-upload">
+
+                <label for="productImage" class="upload-box">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                    <p>Add Product Image</p>
+
+                    <img id="previewImage" src="" alt="">
+
+                </label>
+
+                <input
+                    type="file"
+                    id="productImage"
+                    accept="image/*"
+                    hidden>
+
+            </div>
+
+            <!-- Product Name -->
+
+            <div class="input-group">
+
+                <label>Product Name</label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Enter Product Name">
+
+            </div>
+
+            <!-- SKU -->
+
+            <div class="input-group">
+
+                <label>SKU / Barcode</label>
+
+                <input
+                    type="text"
+                    id="sku"
+                    placeholder="Enter SKU / Barcode">
+
+            </div>
+
+            <!-- Price -->
+
+            <div class="input-group">
+
+                <label>Price</label>
+
+                <input
+                    type="number"
+                    id="price"
+                    placeholder="Enter Price">
+
+            </div>
+
+            <!-- Stock -->
+
+            <div class="input-group">
+
+                <label>Stock Quantity</label>
+
+                <input
+                    type="number"
+                    id="stock"
+                    placeholder="Enter Stock Quantity">
+
+            </div>
+
+            <!-- Category -->
+
+            <div class="input-group">
+
+                <label>Category</label>
+
+                <select id="category">
+
+                    <option value="">Select Category</option>
+
+                    <option value="Speaker">Speaker</option>
+                    <option value="Mixer">Mixer</option>
+                    <option value="Microphone">Microphone</option>
+                    <option value="Amplifier">Amplifier</option>
+                    <option value="Cable">Cable</option>
+                    <option value="Headphone">Headphone</option>
+
+                </select>
+
+            </div>
+
+            <!-- Brand -->
+
+            <div class="input-group">
+
+                <label>Brand</label>
+
+                <input
+                    type="text"
+                    id="brand"
+                    placeholder="Enter Brand">
+
+            </div>
+
+            <!-- Save Button -->
+
+            <button
+                type="button"
+                id="saveBtn"
+                class="save-btn">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Product
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="../js/addProduct.js"></script>
+
+</body>
+
+</html>
