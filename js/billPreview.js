@@ -1,51 +1,50 @@
-
-
-
+// ======================================
 // Invoice Number & Date
+// ======================================
 
+const invoiceNo = "INV" + Date.now();
 
-
-document.getElementById("invoiceNumber").textContent =
-"INV" + Date.now();
+document.getElementById("invoiceNumber").textContent = invoiceNo;
 
 const today = new Date();
 
 document.getElementById("invoiceDate").textContent =
 today.toLocaleDateString("en-IN");
 
-
-
+// ======================================
 // Customer Details
-
+// ======================================
 
 const customer =
 JSON.parse(localStorage.getItem("selectedCustomer"));
 
-if(customer){
+if (customer) {
 
     document.getElementById("customerName").textContent =
-    customer.name;
+        customer.name;
 
     document.getElementById("customerMobile").innerHTML =
-    '<i class="fa fa-phone"></i> ' + customer.mobile;
+        '<i class="fa fa-phone"></i> ' + customer.mobile;
 
     document.getElementById("customerCity").innerHTML =
-    '<i class="fa fa-location-dot"></i> ' + customer.city;
+        '<i class="fa fa-location-dot"></i> ' + customer.city;
 
     const avatar =
-    document.getElementById("customerAvatar");
+        document.getElementById("customerAvatar");
 
-    avatar.className = "avatar " + customer.color;
+    if (avatar) {
 
-    avatar.innerHTML =
-    '<i class="fas fa-user"></i>';
+        avatar.className =
+            "avatar " + customer.color;
 
+        avatar.innerHTML =
+            '<i class="fas fa-user"></i>';
+    }
 }
 
-
+// ======================================
 // Products
-
-
+// ======================================
 
 const products =
 JSON.parse(localStorage.getItem("selectedProducts")) || [];
@@ -54,13 +53,17 @@ const productContainer =
 document.getElementById("productContainer");
 
 let subtotal = 0;
+let totalQty = 0;
 
-products.forEach(product=>{
+products.forEach(product => {
 
-    const amount =
-    product.price * product.qty;
+    const qty = Number(product.qty);
+    const price = Number(product.price);
+
+    const amount = qty * price;
 
     subtotal += amount;
+    totalQty += qty;
 
     productContainer.innerHTML += `
 
@@ -68,102 +71,143 @@ products.forEach(product=>{
 
         <span>${product.name}</span>
 
-        <span>${product.qty}</span>
+        <span>${qty}</span>
 
-        <span>₹${product.price}</span>
+        <span>₹${price.toFixed(2)}</span>
 
-        <span>₹${amount}</span>
+        <span>₹${amount.toFixed(2)}</span>
 
     </div>
 
     `;
-
 });
 
+// ======================================
+// Tax Calculation
+// ======================================
 
-// Discount
+const cgst =
+Number(localStorage.getItem("cgst")) || 0;
 
+const sgst =
+Number(localStorage.getItem("sgst")) || 0;
 
-const discount = 0;
+const igst =
+Number(localStorage.getItem("igst")) || 0;
 
-// GST
+const cgstAmount =
+subtotal * cgst / 100;
 
+const sgstAmount =
+subtotal * sgst / 100;
 
-const gst =
-Number(localStorage.getItem("gst")) || 0;
+const igstAmount =
+subtotal * igst / 100;
 
-let gstAmount =
-(subtotal-discount) * gst / 100;
-
-
+// ======================================
 // Grand Total
-
+// ======================================
 
 const grandTotal =
-(subtotal-discount)+gstAmount;
+subtotal +
+cgstAmount +
+sgstAmount +
+igstAmount;
 
-
+// ======================================
 // Display Summary
-
+// ======================================
 
 document.getElementById("subtotal").textContent =
-"₹"+subtotal.toFixed(2);
+"₹" + subtotal.toFixed(2);
 
-document.getElementById("discount").textContent =
-"₹"+discount.toFixed(2);
+if (document.getElementById("cgstAmount")) {
 
-if(gst==0){
-
-    document.getElementById("gstTitle").textContent =
-    "No GST";
-
-}else{
-
-    document.getElementById("gstTitle").textContent =
-    "GST ("+gst+"%)";
-
+    document.getElementById("cgstAmount").textContent =
+        "₹" + cgstAmount.toFixed(2);
 }
 
-document.getElementById("gstAmount").textContent =
-"₹"+gstAmount.toFixed(2);
+if (document.getElementById("sgstAmount")) {
+
+    document.getElementById("sgstAmount").textContent =
+        "₹" + sgstAmount.toFixed(2);
+}
+
+if (document.getElementById("igstAmount")) {
+
+    document.getElementById("igstAmount").textContent =
+        "₹" + igstAmount.toFixed(2);
+}
 
 document.getElementById("grandTotal").textContent =
-"₹"+grandTotal.toFixed(2);
+"₹" + grandTotal.toFixed(2);
 
+// ======================================
+// Amount in Words
+// ======================================
 
+function numberToWords(num) {
+
+    return "Indian Rupees " +
+        Math.round(num) +
+        " Only";
+}
+
+// ======================================
 // Generate Final Bill
-
-document.getElementById("finalBillBtn").addEventListener("click", () => {
-
-    const invoiceData = {
-        invoiceNo: "INV" + Date.now(),
-        date: new Date().toLocaleDateString("en-IN"),
-
-        customer: {
-            name: customer?.name || "",
-            city: customer?.city || "",
-            mobile: customer?.mobile || ""
-        },
-
-        products: products || [],
-
-        totalQty: totalQty || 0,
-        subtotal: subtotal || 0,
-        gst: gst || 0,
-        gstAmount: gstAmount || 0,
-        grandTotal: grandTotal || 0
-    };
-
-    localStorage.setItem("currentInvoice", JSON.stringify(invoiceData));
-
-    console.log("Saved Invoice:", invoiceData);
-
-    window.location.href = "billGenerated.html";
-});
+// ======================================
 
 document.getElementById("finalBillBtn")
-.addEventListener("click",()=>{
+.addEventListener("click", () => {
 
-    window.location.href="billGenerated.html";
+    const invoiceData = {
+
+        invoiceNo: invoiceNo,
+
+        date:
+            today.toLocaleDateString("en-IN"),
+
+        customer: {
+
+            name: customer ? customer.name : "",
+
+            city: customer ? customer.city : "",
+
+            mobile: customer ? customer.mobile : ""
+
+        },
+
+        products: products,
+
+        totalQty: totalQty,
+
+        subtotal: subtotal,
+
+        cgst: cgst,
+        sgst: sgst,
+        igst: igst,
+
+        cgstAmount: cgstAmount,
+        sgstAmount: sgstAmount,
+        igstAmount: igstAmount,
+
+        grandTotal: grandTotal,
+
+        amountWords:
+            numberToWords(grandTotal)
+
+    };
+
+    localStorage.setItem(
+        "currentInvoice",
+        JSON.stringify(invoiceData)
+    );
+
+    console.log("Invoice Saved");
+
+    console.log(invoiceData);
+
+    window.location.href =
+        "billGenerated.html";
 
 });

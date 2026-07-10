@@ -1,50 +1,50 @@
+// =====================================
+// Load Current Invoice
+// =====================================
 
-// Load Invoice Details
+const invoice = JSON.parse(localStorage.getItem("currentInvoice"));
 
+if (!invoice) {
 
-const invoice = JSON.parse(
-    localStorage.getItem("currentInvoice")
-);
+    alert("Invoice not found.");
 
-if (invoice) {
+    window.location.href = "createBill.html";
 
-    document.getElementById("invoiceNo").textContent =
-        invoice.invoiceNo;
-
-    document.getElementById("customerName").textContent =
-        invoice.customer;
-
-    document.getElementById("totalAmount").textContent =
-        invoice.totalAmount;
 }
 
+// =====================================
+// Display Invoice Details
+// =====================================
 
-// Save Bill
+document.getElementById("invoiceNo").textContent =
+invoice.invoiceNo;
 
+document.getElementById("customerName").textContent =
+invoice.customer.name;
 
-document.getElementById("saveBtn")
-.addEventListener("click", () => {
+document.getElementById("totalAmount").textContent =
+"₹" + Number(invoice.grandTotal).toFixed(2);
 
-    let history = JSON.parse(
-        localStorage.getItem("invoiceHistory")
-    ) || [];
+// =====================================
+// Save Bill History
+// =====================================
+
+document.getElementById("saveBtn").addEventListener("click", () => {
+
+    let history =
+    JSON.parse(localStorage.getItem("invoiceHistory")) || [];
 
     history.push({
 
-        invoiceNo:
-            document.getElementById("invoiceNo").textContent,
+        invoiceNo: invoice.invoiceNo,
 
-        customer:
-            document.getElementById("customerName").textContent,
+        customer: invoice.customer.name,
 
-        total:
-            document.getElementById("totalAmount").textContent,
+        total: invoice.grandTotal,
 
-        date:
-            new Date().toLocaleDateString(),
+        date: invoice.date,
 
-        time:
-            new Date().toLocaleTimeString()
+        time: new Date().toLocaleTimeString()
 
     });
 
@@ -57,72 +57,46 @@ document.getElementById("saveBtn")
 
 });
 
+// =====================================
+// Home
+// =====================================
 
-// Home Button
-
-document.getElementById("homeBtn")
-.addEventListener("click", () => {
-
-    window.location.href = "createBill.html";
-
-});
-
-
-// New Bill Button
-
-
-
-document.getElementById("newBillBtn")
-.addEventListener("click", () => {
+document.getElementById("homeBtn").addEventListener("click", () => {
 
     window.location.href = "createBill.html";
 
 });
 
 
-// Get PDF
+// New Bill
 
 
-document.getElementById("pdfBtn").addEventListener("click",function(){
+document.getElementById("newBillBtn").addEventListener("click", () => {
 
-    window.location.href="pdfViewer.html";
+    localStorage.removeItem("currentInvoice");
+
+    window.location.href = "createBill.html";
 
 });
 
 
-// Print Bill
+// PDF Viewer
 
 
-document.getElementById("printBtn")
-.addEventListener("click", () => {
+document.getElementById("pdfBtn").addEventListener("click", () => {
+
+    window.location.href = "pdfViewer.html";
+
+});
+
+
+// Print
+
+
+document.getElementById("printBtn").addEventListener("click", () => {
 
     window.print();
 
 });
-
-
-// Auto Save Current Invoice
-
-const currentInvoice = {
-
-    invoiceNo:
-        document.getElementById("invoiceNo").textContent,
-
-    customer:
-        document.getElementById("customerName").textContent,
-
-    totalAmount:
-        document.getElementById("totalAmount").textContent
-
-};
-
-localStorage.setItem(
-    "currentInvoice",
-    JSON.stringify(currentInvoice)
-);
-
-
-// Success Message
-
 
 console.log("Bill Generated Successfully");

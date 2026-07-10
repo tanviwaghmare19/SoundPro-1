@@ -60,3 +60,47 @@ app.post('/api/login', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`SoundPro server running at http://localhost:${PORT}`);
 });
+app.post("/api/customers", (req,res)=>{
+
+    const {
+        customer_name,
+        customer_address,
+        customer_phone,
+        customer_gst,
+        user_email
+    } = req.body;
+
+    const sql = `
+    INSERT INTO clients
+    (customer_name,
+    customer_address,
+    customer_phone,
+    customer_gst,
+    user_email)
+
+    VALUES (?,?,?,?,?)
+    `;
+
+    db.query(sql,[
+        customer_name,
+        customer_address,
+        customer_phone,
+        customer_gst,
+        user_email
+    ],(err,result)=>{
+
+        if(err){
+            console.log(err);
+            return res.status(500).json({
+                success:false
+            });
+        }
+
+        res.json({
+            success:true,
+            message:"Customer Saved"
+        });
+
+    });
+
+});
