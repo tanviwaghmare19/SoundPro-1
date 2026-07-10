@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Products</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet"
+        href="../CSS/addProductsbilling.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <button class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <h2>Add Products</h2>
+
+    </header>
+
+    <!-- Customer -->
+
+    <section class="customer">
+
+        <div class="customer-left">
+
+            <div id="customerAvatar" class="avatar purple">
+                <i class="fas fa-user"></i>
+            </div>
+
+            <div class="customer-details">
+
+                <h3 id="customerName">Rahul Sharma</h3>
+
+                <p id="customerMobile">
+                    <i class="fa fa-phone"></i>
+                    9876543210
+                </p>
+
+                <p id="customerCity
+                    <i class="fa fa-location-dot"></i>
+                    Ahmedabad
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <i class="fa fa-search"></i>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search Product">
+
+    </div>
+
+    <!-- Product List -->
+
+    <div id="productList" class="product-list">
+
+        <table class="product-table">
+
+            <thead>
+
+                <tr>
+
+                    <!-- <th>Select</th> -->
+                    <th>Sr No</th>
+                    <th>Product Name</th>
+                    <th>Rate</th>
+                    <th>Qty</th>
+                    <th>Delete</th>
+                    <th>Amount</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <!-- Product 1 -->
+
+                <tr class="product-row">
+
+                    <td>1</td>
+
+                    <td>Bluetooth Speaker</td>
+
+                    <td>
+
+                        <input type="number"
+                            class="rate-input"
+                            value="2500">
+
+                    </td>
+
+                    <td>
+
+                        <input type="number"
+                            class="qty-input"
+                            value="1"
+                            min="1">
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn">
+
+                            🗑️
+
+                        </button>
+
+                    </td>
+
+                    <td class="amount">
+
+                        2500.00
+
+                    </td>
+
+                </tr>
+
+                <!-- Product 2 -->
+
+                <tr class="product-row">
+
+                    <td>2</td>
+
+                    <td>Wireless Mic</td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            class="rate-input"
+                            value="1800">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            class="qty-input"
+                            value="1"
+                            min="1">
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn">
+
+                            🗑️
+
+                        </button>
+
+                    </td>
+
+                    <td class="amount">
+
+                        1800.00
+
+                    </td>
+
+                </tr>
+
+                <!-- Product 3 -->
+
+                <tr class="product-row">
+
+                    <td>3</td>
+
+                    <td>Audio Mixer</td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            class="rate-input"
+                            value="6500">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            class="qty-input"
+                            value="1"
+                            min="1">
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn">
+
+                            🗑️
+
+                        </button>
+
+                    </td>
+
+                    <td class="amount">
+
+                        6500.00
+
+                    </td>
+
+                </tr>
+
+                <!-- Product 4 -->
+
+                <tr class="product-row">
+
+                    <td>4</td>
+
+                    <td>Amplifier</td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            class="rate-input"
+                            value="8500">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                            type="number"
+                            class="qty-input"
+                            value="1"
+                            min="1">
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn">
+
+                            🗑️
+
+                        </button>
+
+                    </td>
+
+                    <td class="amount">
+
+                        8500.00
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- Bottom Toggle Button -->
+    <!-- ===================== -->
+
+    <div class="bottom-toggle" id="toggleSummary">
+
+        <i class="fa-solid fa-chevron-up" id="toggleIcon"></i>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- Bottom Sheet -->
+    <!-- ===================== -->
+
+    <footer class="footer" id="bottomSheet">
+
+        <!-- GST -->
+
+        <div class="tax-options">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="gstType"
+                    value="none"
+                    checked>
+
+                No GST
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="gstType"
+                    value="cgstsgst">
+
+                CGST 9% + SGST 9%
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="gstType"
+                    value="igst">
+
+                IGST 18%
+
+            </label>
+
+        </div>
+
+        <!-- Total -->
+
+        <div class="total-box">
+
+            <div class="total-row">
+
+                <span>Subtotal</span>
+
+                <span id="grandTotal">
+                    ₹0.00
+                </span>
+
+            </div>
+
+            <div class="total-row">
+
+                <span>CGST</span>
+
+                <span id="cgstAmount">
+                    ₹0.00
+                </span>
+
+            </div>
+
+            <div class="total-row">
+
+                <span>SGST</span>
+
+                <span id="sgstAmount">
+                    ₹0.00
+                </span>
+
+            </div>
+
+            <div class="total-row">
+
+                <span>IGST</span>
+
+                <span id="igstAmount">
+                    ₹0.00
+                </span>
+
+            </div>
+
+            <div class="total-row final-total">
+
+                <strong>Net Total</strong>
+
+                <strong id="netTotal">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+        <button id="generateBtn">
+
+            Generate Bill
+
+        </button>
+
+    </footer>
+
+    <script src="../JS/addProductsbilling.js"></script>
+
+</body>
+
+</html>

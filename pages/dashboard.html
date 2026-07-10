@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <script src="../js/auth.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AudioTonic Dashboard</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <i class="fa-solid fa-arrow-left"
+                onclick="toggleSidebar()"></i>
+
+            <h2>AUDIO<span>TONIC</span></h2>
+
+        </div>
+
+        <!-- Profile -->
+
+        <div class="profile">
+
+            <div class="profile-img">
+                <img src="../assets/admin.png" alt="Admin">
+            </div>
+
+            <div class="profile-info">
+                <h3>Admin</h3>
+                <p>Administrator</p>
+            </div>
+
+        </div>
+
+        <!-- Menu -->
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="products.html">
+                    <i class="fa-solid fa-box"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="orders.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="salesReport.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Sales Report</span>
+                </a>
+            </li>
+
+           <li>
+    <a href="createBill.html">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <span>Billing</span>
+    </a>
+</li>
+
+            <li>
+                <a href="returns.html">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Returns & Refunds</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#"
+                    class="logout-link"
+                    onclick="logout()">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <div class="menu-title">
+
+            <i class="fa-solid fa-bars"
+                onclick="toggleSidebar()"></i>
+
+            <h2>Dashboard</h2>
+
+        </div>
+
+    </header>
+
+    <!-- Cards -->
+
+    <section class="cards">
+
+        <!-- Products -->
+
+        <div class="card purple"
+            onclick="location.href='products.html'">
+
+            <div class="card-content">
+                <h3>Total Products</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card-footer">
+                <span>View All</span>
+                <span>&gt;</span>
+            </div>
+
+        </div>
+
+        <!-- Low Stock -->
+
+        <div class="card green"
+     onclick="location.href='lowStock.html'">
+
+            <div class="card-content">
+                <h3>Low Stock Items</h3>
+                <p>15</p>
+            </div>
+
+            <div class="card-footer">
+                <span>View All</span>
+                <span>&gt;</span>
+            </div>
+
+        </div>
+
+        <!-- Orders -->
+
+        <div class="card blue"
+            onclick="location.href='orders.html'">
+
+            <div class="card-content">
+                <h3>Total Orders</h3>
+                <p>250</p>
+            </div>
+
+            <div class="card-footer">
+                <span>View All</span>
+                <span>&gt;</span>
+            </div>
+
+        </div>
+
+        <!-- Revenue -->
+
+       <div class="card orange"
+    onclick="openRevenueModal()">
+    
+            <div class="card-content">
+                <h3>Total Revenue</h3>
+                <p>₹4,50,000</p>
+            </div>
+
+            <div class="card-footer">
+                <span>View Revenue</span>
+                <span>&gt;</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Charts -->
+
+    <section class="chart-container">
+
+        <!-- Revenue Graph -->
+
+        <div class="section"
+            id="revenueSection">
+
+            <h2>Total Revenue</h2>
+
+            <div class="graph">
+
+                <svg viewBox="0 0 600 300">
+
+                    <polyline
+                        fill="none"
+                        stroke="#4a77f0"
+                        stroke-width="4"
+                        points="
+                        50,250
+                        150,180
+                        250,170
+                        350,90
+                        450,70
+                        550,40" />
+
+                </svg>
+
+            </div>
+
+        </div>
+
+        <!-- Stock Overview -->
+
+        <div class="section">
+
+            <h2>Stock Overview</h2>
+
+            <div class="stock-box">
+
+                <div class="pie-chart"></div>
+
+                <div class="legend">
+
+                    <p>
+                        <span class="dot green-dot"></span>
+                        In Stock
+                    </p>
+
+                    <p>
+                        <span class="dot orange-dot"></span>
+                        Low Stock
+                    </p>
+
+                    <p>
+                        <span class="dot red-dot"></span>
+                        Out Of Stock
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script src="../js/dashboard.js"></script>
+    <!-- Revenue Popup -->
+
+<div class="revenue-modal" id="revenueModal">
+
+    <div class="revenue-box">
+
+        <span class="close-btn"
+              onclick="closeRevenueModal()">
+            &times;
+        </span>
+
+        <h2>Total Revenue</h2>
+
+        <div class="revenue-amount">
+            ₹4,50,000
+        </div>
+
+        <!-- Revenue Graph -->
+
+        <div class="graph">
+
+            <svg viewBox="0 0 600 300">
+
+                <polyline
+                    fill="none"
+                    stroke="#4a77f0"
+                    stroke-width="4"
+                    points="
+                    50,250
+                    150,180
+                    250,170
+                    350,90
+                    450,70
+                    550,40" />
+
+            </svg>
+
+        </div>
+
+        <br><br>
+
+        <h2>Stock Overview</h2>
+
+        <div class="stock-box">
+
+            <div class="pie-chart"></div>
+
+            <div class="legend">
+
+                <p>
+                    <span class="dot green-dot"></span>
+                    In Stock
+                </p>
+
+                <p>
+                    <span class="dot orange-dot"></span>
+                    Low Stock
+                </p>
+
+                <p>
+                    <span class="dot red-dot"></span>
+                    Out Of Stock
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
