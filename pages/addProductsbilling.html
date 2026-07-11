@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Add Products</title>
 
     <link rel="stylesheet"
@@ -14,23 +11,10 @@
 
     <link rel="stylesheet"
         href="../CSS/addProductsbilling.css">
-=======
-<head>
-    <script src="../js/auth.js"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Products</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
- <link rel="stylesheet" href="../css/addProductsbilling.css">
-
->>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
-
 </head>
 
 <body>
 
-<<<<<<< HEAD
     <!-- Header -->
 
     <header class="header">
@@ -43,7 +27,7 @@
 
     </header>
 
-    <!-- Customer -->
+    <!-- Customer Details -->
 
     <section class="customer">
 
@@ -53,19 +37,60 @@
                 <i class="fas fa-user"></i>
             </div>
 
-            <div class="customer-details">
+            <div class="customer-info">
 
-                <h3 id="customerName">Rahul Sharma</h3>
+                <div class="customer-line">
 
-                <p id="customerMobile">
-                    <i class="fa fa-phone"></i>
-                    9876543210
-                </p>
+                    <strong id="customerName">
+                        Rahul Sharma
+                    </strong>
 
-                <p id="customerCity
-                    <i class="fa fa-location-dot"></i>
-                    Ahmedabad
-                </p>
+                    <span id="customerMobile">
+                        <i class="fa fa-phone"></i>
+                        9876543210
+                    </span>
+
+                    <span id="customerCity">
+                        <i class="fa fa-location-dot"></i>
+                        Ahmedabad
+                    </span>
+
+                </div>
+
+                <!-- GST Options directly below customer -->
+
+                <div class="gst-options">
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="No GST"
+                            checked>
+                        No GST
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="CGST+SGST">
+                        CGST+SGST
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="CGST+SGST+IGST">
+                        CGST+SGST+IGST
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="IGST">
+                        IGST
+                    </label>
+
+                </div>
 
             </div>
 
@@ -86,7 +111,7 @@
 
     </div>
 
-    <!-- Product List -->
+    <!-- Product Table -->
 
     <div id="productList" class="product-list">
 
@@ -96,21 +121,19 @@
 
                 <tr>
 
-                    <!-- <th>Select</th> -->
                     <th>Sr No</th>
                     <th>Product Name</th>
                     <th>Rate</th>
                     <th>Qty</th>
-                    <th>Delete</th>
+                    <th>Tax</th>
                     <th>Amount</th>
+                    <th>Delete</th>
 
                 </tr>
 
             </thead>
 
             <tbody>
-
-                <!-- Product 1 -->
 
                 <tr class="product-row">
 
@@ -119,42 +142,33 @@
                     <td>Bluetooth Speaker</td>
 
                     <td>
-
                         <input type="number"
                             class="rate-input"
                             value="2500">
-
                     </td>
 
                     <td>
-
                         <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         2500.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
-
-                <!-- Product 2 -->
 
                 <tr class="product-row">
 
@@ -163,44 +177,33 @@
                     <td>Wireless Mic</td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="rate-input"
                             value="1800">
-
                     </td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         1800.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
-
-                <!-- Product 3 -->
 
                 <tr class="product-row">
 
@@ -209,44 +212,33 @@
                     <td>Audio Mixer</td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="rate-input"
                             value="6500">
-
                     </td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         6500.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
-
-                <!-- Product 4 -->
 
                 <tr class="product-row">
 
@@ -255,39 +247,30 @@
                     <td>Amplifier</td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="rate-input"
                             value="8500">
-
                     </td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         8500.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
@@ -298,400 +281,42 @@
 
     </div>
 
-    <!-- ===================== -->
-    <!-- Bottom Toggle Button -->
-    <!-- ===================== -->
+    <!-- ================= BILL SUMMARY ================= -->
 
-    <div class="bottom-toggle" id="toggleSummary">
+<div class="bill-summary">
 
-        <i class="fa-solid fa-chevron-up" id="toggleIcon"></i>
-
+    <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="grandTotal">₹0.00</span>
     </div>
 
-    <!-- ===================== -->
-    <!-- Bottom Sheet -->
-    <!-- ===================== -->
-
-    <footer class="footer" id="bottomSheet">
-
-        <!-- GST -->
-
-        <div class="tax-options">
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gstType"
-                    value="none"
-                    checked>
-
-                No GST
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gstType"
-                    value="cgstsgst">
-
-                CGST 9% + SGST 9%
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gstType"
-                    value="igst">
-
-                IGST 18%
-
-            </label>
-
-        </div>
-
-        <!-- Total -->
-
-        <div class="total-box">
-
-            <div class="total-row">
-
-                <span>Subtotal</span>
-
-                <span id="grandTotal">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>CGST</span>
-
-                <span id="cgstAmount">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>SGST</span>
-
-                <span id="sgstAmount">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>IGST</span>
-
-                <span id="igstAmount">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row final-total">
-
-                <strong>Net Total</strong>
-
-                <strong id="netTotal">
-                    ₹0.00
-                </strong>
-
-            </div>
-
-        </div>
-
-        <button id="generateBtn">
-
-            Generate Bill
-
-        </button>
-
-    </footer>
-
-    <script src="../JS/addProductsbilling.js"></script>
-
-</body>
-
-=======
-<!-- Header -->
-
-<header class="header">
-
-    <button class="back-btn">
-        <i class="fa-solid fa-arrow-left"></i>
-    </button>
-
-    <h2>Add Products</h2>
-
-</header>
-
-<!-- Customer -->
-
-<section class="customer">
-
-    <div class="customer-left">
-
-        <div id="customerAvatar" class="avatar purple">
-            <i class="fas fa-user"></i>
-        </div>
-
-        <div class="customer-details">
-
-            <h3 id="customerName">Rahul Sharma</h3>
-
-            <p id="customerMobile">
-                <i class="fa fa-phone"></i>
-                9876543210
-            </p>
-
-            <p id="customerCity">
-                <i class="fa fa-location-dot"></i>
-                Ahmedabad
-            </p>
-
-        </div>
-
+    <div class="summary-row">
+        <span>CGST</span>
+        <span id="cgstAmount">₹0.00</span>
     </div>
 
-</section>
-
-
-<!-- Search -->
-
-<div class="search-box">
-
-    <i class="fa fa-search"></i>
-
-    <input
-    type="text"
-    id="searchInput"
-    placeholder="Search Product">
-
-</div>
-
-<!-- Product List -->
-
-<div id="productList" class="product-list">
-
-    <!-- Product 1 -->
-
-    <div class="product-card"
-    data-name="Bluetooth Speaker"
-    data-price="2500">
-
-        <img src="images/speaker.png">
-
-        <div class="info">
-
-            <h4>Bluetooth Speaker</h4>
-
-            <span>₹2500</span>
-
-        </div>
-
-        <div class="qty">
-
-            <button class="minus">-</button>
-
-            <span class="count">1</span>
-
-            <button class="plus">+</button>
-
-        </div>
-
-        <div class="subtotal">
-
-            ₹<span class="itemTotal">2500</span>
-
-        </div>
-
-        <button class="delete">
-
-            <i class="fa fa-trash"></i>
-
-        </button>
-
+    <div class="summary-row">
+        <span>SGST</span>
+        <span id="sgstAmount">₹0.00</span>
     </div>
 
-    <!-- Product 2 -->
-
-    <div class="product-card"
-    data-name="Wireless Mic"
-    data-price="1800">
-
-        <img src="images/mic.png">
-
-        <div class="info">
-
-            <h4>Wireless Mic</h4>
-
-            <span>₹1800</span>
-
-        </div>
-
-        <div class="qty">
-
-            <button class="minus">-</button>
-
-            <span class="count">1</span>
-
-            <button class="plus">+</button>
-
-        </div>
-
-        <div class="subtotal">
-
-            ₹<span class="itemTotal">1800</span>
-
-        </div>
-
-        <button class="delete">
-
-            <i class="fa fa-trash"></i>
-
-        </button>
-
+    <div class="summary-row">
+        <span>IGST</span>
+        <span id="igstAmount">₹0.00</span>
     </div>
 
-    <!-- Product 3 -->
-
-    <div class="product-card"
-    data-name="Audio Mixer"
-    data-price="6500">
-
-        <img src="images/mixer.png">
-
-        <div class="info">
-
-            <h4>Audio Mixer</h4>
-
-            <span>₹6500</span>
-
-        </div>
-
-        <div class="qty">
-
-            <button class="minus">-</button>
-
-            <span class="count">1</span>
-
-            <button class="plus">+</button>
-
-        </div>
-
-        <div class="subtotal">
-
-            ₹<span class="itemTotal">6500</span>
-
-        </div>
-
-        <button class="delete">
-
-            <i class="fa fa-trash"></i>
-
-        </button>
-
+    <div class="summary-row final-total">
+        <span>Net Total</span>
+        <span id="netTotal">₹0.00</span>
     </div>
 
-    <!-- Product 4 -->
-
-    <div class="product-card"
-    data-name="Amplifier"
-    data-price="8500">
-
-        <img src="images/amplifier.png">
-
-        <div class="info">
-
-            <h4>Amplifier</h4>
-
-            <span>₹8500</span>
-
-        </div>
-
-        <div class="qty">
-
-            <button class="minus">-</button>
-
-            <span class="count">1</span>
-
-            <button class="plus">+</button>
-
-        </div>
-
-        <div class="subtotal">
-
-            ₹<span class="itemTotal">8500</span>
-
-        </div>
-
-        <button class="delete">
-
-            <i class="fa fa-trash"></i>
-
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<!-- Footer -->
-
-<footer class="footer">
-
-    <div class="total">
-
-        <h3>Total Amount</h3>
-
-        <h2 id="grandTotal">₹19300</h2>
-
-    </div>
-
-   <div class="gst-section">
-
-<label class="gst-box">
-<input type="radio" name="gst" value="0" checked>
-No GST
-</label>
-
-<label class="gst-box">
-<input type="radio" name="gst" value="5">
-5%
-</label>
-
-<label class="gst-box">
-<input type="radio" name="gst" value="12">
-12%
-</label>
-
-<label class="gst-box">
-<input type="radio" name="gst" value="18">
-18%
-</label>
-
-</div>
     <button id="generateBtn">
-
         Generate Bill
-
     </button>
 
-</footer>
 
-<script src="../js/addProductsbilling.js"></script>
+<!-- JavaScript -->
+<script src="../JS/addProductsbilling.js"></script>
 
 </body>
->>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
 </html>

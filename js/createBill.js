@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // ======================
 // SEARCH CUSTOMERS
 // ======================
@@ -44,44 +43,6 @@ if (customerList) {
             mobile: card.dataset.mobile || "",
             city: card.dataset.city || "",
             color: card.dataset.color || "purple"
-=======
-const searchInput = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".customer-card");
-
-// Live Search
-
-searchInput.addEventListener("keyup", function () {
-
-    const value = this.value.toLowerCase();
-
-    cards.forEach(card => {
-
-        const text = (
-            card.dataset.name +
-            card.dataset.mobile +
-            card.dataset.code
-        ).toLowerCase();
-
-        card.style.display = text.includes(value) ? "flex" : "none";
-
-    });
-
-});
-
-// Customer Card Click -> Open Add Products Page
-
-cards.forEach(card => {
-
-    card.addEventListener("click", () => {
-
-        const customer = {
-
-            name: card.dataset.name,
-            mobile: card.dataset.mobile,
-            city: card.dataset.city,
-            color: card.dataset.color
-
->>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
         };
 
         localStorage.setItem(
@@ -93,7 +54,6 @@ cards.forEach(card => {
 
     });
 
-<<<<<<< HEAD
 }
 
 // ======================
@@ -239,19 +199,3 @@ if (backBtn) {
     });
 
 }
-=======
-});
-
-// Add New Customer Button
-
-document.getElementById("addCustomerBtn")
-.addEventListener("click", () => {
-
-    window.location.href =
-`addProductsbilling.html?name=${encodeURIComponent(name)}
-&mobile=${encodeURIComponent(mobile)}
-&city=${encodeURIComponent(city)}
-&code=${encodeURIComponent(code)}
-&color=${encodeURIComponent(color)}`;
-});
->>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
