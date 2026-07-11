@@ -1,76 +1,10 @@
-<<<<<<< HEAD
-const searchInput = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".customer-card");
-
-// Live Search
-
-searchInput.addEventListener("keyup", function () {
-
-    const value = this.value.toLowerCase();
-
-    cards.forEach(card => {
-
-        const text = (
-            card.dataset.name +
-            card.dataset.mobile +
-            card.dataset.code
-        ).toLowerCase();
-
-        card.style.display = text.includes(value) ? "flex" : "none";
-
-    });
-
-});
-
-// Customer Card Click -> Open Add Products Page
-
-cards.forEach(card => {
-
-    card.addEventListener("click", () => {
-
-        const customer = {
-
-            name: card.dataset.name,
-            mobile: card.dataset.mobile,
-            city: card.dataset.city,
-            color: card.dataset.color
-
-        };
-
-        localStorage.setItem(
-            "selectedCustomer",
-            JSON.stringify(customer)
-        );
-
-        window.location.href = "addProductsbilling.html";
-
-    });
-
-});
-
-// Add New Customer Button
-
-document.getElementById("addCustomerBtn")
-.addEventListener("click", () => {
-
-    window.location.href =
-`addProductsbilling.html?name=${encodeURIComponent(name)}
-&mobile=${encodeURIComponent(mobile)}
-&city=${encodeURIComponent(city)}
-&code=${encodeURIComponent(code)}
-&color=${encodeURIComponent(color)}`;
-});
-
-
-
-
-
-
-=======
 window.onload = function () {
-    const invoice = JSON.parse(localStorage.getItem("currentInvoice"));
+
+    const invoice =
+        JSON.parse(localStorage.getItem("currentInvoice"));
 
     if (!invoice) {
+
         alert("Invoice Data Not Found");
         window.location.href = "billPreview.html";
         return;
@@ -78,28 +12,60 @@ window.onload = function () {
 
     console.log("Invoice Loaded:", invoice);
 
-    
-    //  ORIGINAL INVOICE RENDER ENGINE//
-   
-    document.getElementById("invoiceNo").textContent = invoice.invoiceNo || "";
-    document.getElementById("invoiceDate").textContent = invoice.date || "";
+    // ==========================
+    // HEADER DETAILS
+    // ==========================
 
-    document.getElementById("customerName").textContent = invoice.customer.name || "";
-    document.getElementById("customerAddress").textContent = invoice.customer.city || "";
-    document.getElementById("customerMobile").textContent = invoice.customer.mobile || "";
+    document.getElementById("invoiceNo").textContent =
+        invoice.invoiceNo || "";
 
-    document.getElementById("customerName2").textContent = invoice.customer.name || "";
-    document.getElementById("customerAddress2").textContent = invoice.customer.city || "";
-    document.getElementById("customerMobile2").textContent = invoice.customer.mobile || "";
+    document.getElementById("invoiceDate").textContent =
+        invoice.date || "";
 
-    const table = document.getElementById("productTable");
+    // ==========================
+    // CUSTOMER DETAILS
+    // ==========================
+
+    document.getElementById("customerName").textContent =
+        invoice.customer?.name || "";
+
+    document.getElementById("customerAddress").textContent =
+        invoice.customer?.city || "";
+
+    document.getElementById("customerMobile").textContent =
+        invoice.customer?.mobile || "";
+
+    document.getElementById("customerName2").textContent =
+        invoice.customer?.name || "";
+
+    document.getElementById("customerAddress2").textContent =
+        invoice.customer?.city || "";
+
+    document.getElementById("customerMobile2").textContent =
+        invoice.customer?.mobile || "";
+
+    // ==========================
+    // PRODUCT TABLE
+    // ==========================
+
+    const table =
+        document.getElementById("productTable");
+
     table.innerHTML = "";
+
     let totalQty = 0;
 
     invoice.products.forEach((item, index) => {
-        const qty = Number(item.qty);
-        const price = Number(item.price);
-        const amount = qty * price;
+
+        const qty =
+            Number(item.qty) || 0;
+
+        const price =
+            Number(item.price) || 0;
+
+        const amount =
+            qty * price;
+
         totalQty += qty;
 
         table.innerHTML += `
@@ -109,76 +75,145 @@ window.onload = function () {
             <td>${item.hsn || "8518"}</td>
             <td>${qty} Pcs</td>
             <td>${price.toFixed(2)}</td>
-            <td>${(invoice.gstAmount / 2).toFixed(2)}</td>
-            <td>${(invoice.gstAmount / 2).toFixed(2)}</td>
+            <td>${(invoice.cgst || 0).toFixed(2)}</td>
+            <td>${(invoice.sgst || 0).toFixed(2)}</td>
             <td>${amount.toFixed(2)}</td>
         </tr>
         `;
     });
 
-    document.getElementById("totalQty").textContent = totalQty + " Pcs";
-    document.getElementById("totalPieces").textContent = totalQty + " Pcs";
-    document.getElementById("grandTotal").textContent = Number(invoice.grandTotal).toFixed(2);
+    // ==========================
+    // TOTALS
+    // ==========================
 
-    document.getElementById("gstPercent").textContent = invoice.gst + "%";
-    document.getElementById("taxableAmount").textContent = Number(invoice.subtotal).toFixed(2);
-    document.getElementById("gstAmount").textContent = Number(invoice.gstAmount).toFixed(2);
-    document.getElementById("cgstAmount").textContent = (Number(invoice.gstAmount) / 2).toFixed(2);
-    document.getElementById("sgstAmount").textContent = (Number(invoice.gstAmount) / 2).toFixed(2);
-    document.getElementById("amountWords").textContent = invoice.amountWords || "";
+    document.getElementById("totalQty").textContent =
+        totalQty + " Pcs";
 
-    
-    //   e-WAY BILL CONDITION ENGINE (>= 50,000)//
-    
-    const ewayPage = document.getElementById("ewayBillPage");
+    document.getElementById("totalPieces").textContent =
+        totalQty + " Pcs";
 
-    if (ewayPage) {
-        if (Number(invoice.grandTotal) >= 50000) {
-            ewayPage.style.display = "block";
-            document.getElementById("mainEwayNo").textContent = "652066202588";
+    document.getElementById("grandTotal").textContent =
+        Number(invoice.grandTotal || 0).toFixed(2);
 
-            // Headers Details
-            document.getElementById("ewayDocNo").textContent = invoice.invoiceNo || "";
-            document.getElementById("ewayDocDate").textContent = invoice.date || "";
-            document.getElementById("ewayAckDate").textContent = invoice.date || "";
-            document.getElementById("ewayGenDate").textContent = (invoice.date || "") + " 1:09 PM";
-            document.getElementById("ewayValidDate").textContent = invoice.date || "";
+    document.getElementById("taxableAmount").textContent =
+        Number(invoice.subtotal || 0).toFixed(2);
 
-            // Dynamic Shipping Data Address
-            document.getElementById("ewayCustomerName").textContent = invoice.customer.name || "";
-            document.getElementById("ewayShipToAddress").innerHTML = 
-                `Behind Majhi Amdar Upendra Shende's office Panchsheel Nagar, ${invoice.customer.city || ""}<br>Mob: ${invoice.customer.mobile || ""}`;
+    document.getElementById("cgstAmount").textContent =
+        Number(invoice.cgst || 0).toFixed(2);
 
-            // Goods Loop Rendering
-            const ewayTable = document.getElementById("ewayProducts");
-            ewayTable.innerHTML = "";
+    document.getElementById("sgstAmount").textContent =
+        Number(invoice.sgst || 0).toFixed(2);
 
-            invoice.products.forEach((item) => {
-                const qty = Number(item.qty);
-                const rate = Number(item.price);
-                const amount = qty * rate;
+    document.getElementById("gstAmount").textContent =
+        (
+            Number(invoice.cgst || 0) +
+            Number(invoice.sgst || 0) +
+            Number(invoice.igst || 0)
+        ).toFixed(2);
 
-                ewayTable.innerHTML += `
-                <tr>
-                    <td>${item.hsn || "85184000"}</td>
-                    <td>${item.name} & ${item.hsn || "85184000"}</td>
-                    <td class="text-center">${qty} <span style="font-weight: normal; font-size: 11px;">NOS</span></td>
-                    <td class="text-right">${amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td class="text-right">${invoice.gst || "18"}</td>
-                </tr>
-                `;
-            });
+    document.getElementById("amountWords").textContent =
+        invoice.amountWords || "";
 
-            // Financial Summaries Mapping
-            document.getElementById("ewayTotalTaxable").textContent = Number(invoice.subtotal).toLocaleString("en-IN", { minimumFractionDigits: 2 });
-            document.getElementById("ewayTotalInvAmt").textContent = Number(invoice.grandTotal).toLocaleString("en-IN", { minimumFractionDigits: 2 });
-            document.getElementById("ewayCGSTAmt").textContent = (Number(invoice.gstAmount) / 2).toLocaleString("en-IN", { minimumFractionDigits: 2 });
-            document.getElementById("ewaySGSTAmt").textContent = (Number(invoice.gstAmount) / 2).toLocaleString("en-IN", { minimumFractionDigits: 2 });
+    // GST %
 
-        } else {
-            ewayPage.style.display = "none";
-            document.getElementById("mainEwayNo").textContent = "N/A";
-        }
+    let gstPercent = "0";
+
+    if (invoice.igst > 0) {
+        gstPercent = "18";
+    }
+    else if (
+        invoice.cgst > 0 ||
+        invoice.sgst > 0
+    ) {
+        gstPercent = "18";
+    }
+
+    document.getElementById("gstPercent").textContent =
+        gstPercent + "%";
+
+    // ==========================
+    // E-WAY BILL
+    // ==========================
+
+    const ewayPage =
+        document.getElementById("ewayBillPage");
+
+    if (!ewayPage) return;
+
+    if (Number(invoice.grandTotal) >= 50000) {
+
+        ewayPage.style.display = "block";
+
+        document.getElementById("mainEwayNo").textContent =
+            "652066202588";
+
+        document.getElementById("ewayDocNo").textContent =
+            invoice.invoiceNo || "";
+
+        document.getElementById("ewayDocDate").textContent =
+            invoice.date || "";
+
+        document.getElementById("ewayAckDate").textContent =
+            invoice.date || "";
+
+        document.getElementById("ewayGenDate").textContent =
+            invoice.date + " 1:09 PM";
+
+        document.getElementById("ewayValidDate").textContent =
+            invoice.date || "";
+
+        document.getElementById("ewayCustomerName").textContent =
+            invoice.customer?.name || "";
+
+        document.getElementById("ewayShipToAddress").innerHTML =
+            `${invoice.customer?.city || ""}
+            <br>
+            Mob: ${invoice.customer?.mobile || ""}`;
+
+        const ewayTable =
+            document.getElementById("ewayProducts");
+
+        ewayTable.innerHTML = "";
+
+        invoice.products.forEach(item => {
+
+            const qty =
+                Number(item.qty) || 0;
+
+            const rate =
+                Number(item.price) || 0;
+
+            const amount =
+                qty * rate;
+
+            ewayTable.innerHTML += `
+            <tr>
+                <td>${item.hsn || "85184000"}</td>
+                <td>${item.name}</td>
+                <td>${qty}</td>
+                <td>${amount.toFixed(2)}</td>
+                <td>${gstPercent}</td>
+            </tr>
+            `;
+        });
+
+        document.getElementById("ewayTotalTaxable").textContent =
+            Number(invoice.subtotal || 0).toFixed(2);
+
+        document.getElementById("ewayTotalInvAmt").textContent =
+            Number(invoice.grandTotal || 0).toFixed(2);
+
+        document.getElementById("ewayCGSTAmt").textContent =
+            Number(invoice.cgst || 0).toFixed(2);
+
+        document.getElementById("ewaySGSTAmt").textContent =
+            Number(invoice.sgst || 0).toFixed(2);
+
+    } else {
+
+        ewayPage.style.display = "none";
+
+        document.getElementById("mainEwayNo").textContent =
+            "N/A";
     }
 };
->>>>>>> 0576e7ad4e7adbc3d0442558202571326998f3e5
