@@ -311,10 +311,7 @@ body{
         height:calc(100% - 60px);
     }
 }
-.customer-card{
-    /* existing styles stay the same */
-}
-
+ 
 .card-actions{
     display:flex;
     align-items:center;
