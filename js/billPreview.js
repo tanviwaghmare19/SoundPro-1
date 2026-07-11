@@ -157,57 +157,53 @@ function numberToWords(num) {
 // Generate Final Bill
 // ======================================
 
-document.getElementById("finalBillBtn")
-.addEventListener("click", () => {
+document.getElementById("finalBillBtn").addEventListener("click", () => {
 
     const invoiceData = {
-
         invoiceNo: invoiceNo,
-
-        date:
-            today.toLocaleDateString("en-IN"),
-
+        date: today.toLocaleDateString("en-IN"),
         customer: {
-
             name: customer ? customer.name : "",
-
             city: customer ? customer.city : "",
-
             mobile: customer ? customer.mobile : ""
-
         },
-
         products: products,
-
         totalQty: totalQty,
-
         subtotal: subtotal,
-
         cgst: cgst,
         sgst: sgst,
         igst: igst,
-
         cgstAmount: cgstAmount,
         sgstAmount: sgstAmount,
         igstAmount: igstAmount,
-
         grandTotal: grandTotal,
-
-        amountWords:
-            numberToWords(grandTotal)
-
+        amountWords: numberToWords(grandTotal)
     };
 
-    localStorage.setItem(
-        "currentInvoice",
-        JSON.stringify(invoiceData)
-    );
+    localStorage.setItem("currentInvoice", JSON.stringify(invoiceData));
 
-    console.log("Invoice Saved");
-
-    console.log(invoiceData);
-
-    window.location.href =
-        "billGenerated.html";
+    fetch('/api/bills', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            invoice_no: invoiceNo,
+            customer_name: customer ? customer.name : null,
+            subtotal: subtotal,
+            cgst: cgstAmount,
+            sgst: sgstAmount,
+            igst: igstAmount,
+            discount: 0,
+            grand_total: grandTotal
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) console.error('Bill save failed:', data.message);
+        window.location.href = "billGenerated.html";
+    })
+    .catch(err => {
+        console.error('Error saving bill:', err);
+        window.location.href = "billGenerated.html";
+    });
 
 });

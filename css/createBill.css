@@ -311,3 +311,27 @@ body{
         height:calc(100% - 60px);
     }
 }
+.customer-card{
+    /* existing styles stay the same */
+}
+
+.card-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.delete-customer-btn{
+    background:none;
+    border:none;
+    color:#E53935;
+    font-size:16px;
+    cursor:pointer;
+    padding:6px;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.delete-customer-btn:hover{
+    background:#fdecea;
+}

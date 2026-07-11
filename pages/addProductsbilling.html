@@ -2,10 +2,8 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Add Products</title>
 
     <link rel="stylesheet"
@@ -13,7 +11,6 @@
 
     <link rel="stylesheet"
         href="../CSS/addProductsbilling.css">
-
 </head>
 
 <body>
@@ -30,7 +27,7 @@
 
     </header>
 
-    <!-- Customer -->
+    <!-- Customer Details -->
 
     <section class="customer">
 
@@ -40,19 +37,53 @@
                 <i class="fas fa-user"></i>
             </div>
 
-            <div class="customer-details">
+            <div class="customer-info">
 
-                <h3 id="customerName">Rahul Sharma</h3>
+                <div class="customer-line">
 
-                <p id="customerMobile">
-                    <i class="fa fa-phone"></i>
-                    9876543210
-                </p>
+                    <strong id="customerName">
+                        Rahul Sharma
+                    </strong>
 
-                <p id="customerCity">
-                    <i class="fa fa-location-dot"></i>
-                    Ahmedabad
-                </p>
+                    <span id="customerMobile">
+                        <i class="fa fa-phone"></i>
+                        9876543210
+                    </span>
+
+                    <span id="customerCity">
+                        <i class="fa fa-location-dot"></i>
+                        Ahmedabad
+                    </span>
+
+                </div>
+
+                <!-- GST Options directly below customer -->
+
+                <div class="gst-options">
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="No GST"
+                            checked>
+                        No GST
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="CGST+SGST">
+                        CGST+SGST
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                            name="gstType"
+                            value="IGST">
+                        IGST
+                    </label>
+
+                </div>
 
             </div>
 
@@ -73,7 +104,7 @@
 
     </div>
 
-    <!-- Product List -->
+    <!-- Product Table -->
 
     <div id="productList" class="product-list">
 
@@ -83,13 +114,13 @@
 
                 <tr>
 
-                    <th>Select</th>
                     <th>Sr No</th>
                     <th>Product Name</th>
                     <th>Rate</th>
                     <th>Qty</th>
-                    <th>Delete</th>
+                    <th>Tax</th>
                     <th>Amount</th>
+                    <th>Delete</th>
 
                 </tr>
 
@@ -97,208 +128,142 @@
 
             <tbody>
 
-                <!-- Product 1 -->
-
                 <tr class="product-row">
-
-                    <td>
-                        <input type="checkbox"
-                            class="product-select"
-                            checked>
-                    </td>
 
                     <td>1</td>
 
                     <td>Bluetooth Speaker</td>
 
                     <td>
-
                         <input type="number"
                             class="rate-input"
                             value="2500">
-
                     </td>
 
                     <td>
-
                         <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         2500.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
 
-                <!-- Product 2 -->
-
                 <tr class="product-row">
-
-                    <td>
-                        <input type="checkbox"
-                            class="product-select"
-                            checked>
-                    </td>
 
                     <td>2</td>
 
                     <td>Wireless Mic</td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="rate-input"
                             value="1800">
-
                     </td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         1800.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
 
-                <!-- Product 3 -->
-
                 <tr class="product-row">
-
-                    <td>
-                        <input type="checkbox"
-                            class="product-select"
-                            checked>
-                    </td>
 
                     <td>3</td>
 
                     <td>Audio Mixer</td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="rate-input"
                             value="6500">
-
                     </td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         6500.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
 
-                <!-- Product 4 -->
-
                 <tr class="product-row">
-
-                    <td>
-                        <input type="checkbox"
-                            class="product-select"
-                            checked>
-                    </td>
 
                     <td>4</td>
 
                     <td>Amplifier</td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="rate-input"
                             value="8500">
-
                     </td>
 
                     <td>
-
-                        <input
-                            type="number"
+                        <input type="number"
                             class="qty-input"
                             value="1"
                             min="1">
-
                     </td>
 
-                    <td>
-
-                        <button
-                            class="delete-btn">
-
-                            🗑️
-
-                        </button>
-
+                    <td class="tax-column">
+                        No GST
                     </td>
 
                     <td class="amount">
-
                         8500.00
+                    </td>
 
+                    <td>
+                        <button class="delete-btn">
+                            🗑️
+                        </button>
                     </td>
 
                 </tr>
@@ -309,128 +274,42 @@
 
     </div>
 
-    <!-- ===================== -->
-    <!-- Bottom Toggle Button -->
-    <!-- ===================== -->
+    <!-- ================= BILL SUMMARY ================= -->
 
-    <div class="bottom-toggle" id="toggleSummary">
+<div class="bill-summary">
 
-        <i class="fa-solid fa-chevron-up" id="toggleIcon"></i>
-
+    <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="grandTotal">₹0.00</span>
     </div>
 
-    <!-- ===================== -->
-    <!-- Bottom Sheet -->
-    <!-- ===================== -->
+    <div class="summary-row">
+        <span>CGST</span>
+        <span id="cgstAmount">₹0.00</span>
+    </div>
 
-    <footer class="footer" id="bottomSheet">
+    <div class="summary-row">
+        <span>SGST</span>
+        <span id="sgstAmount">₹0.00</span>
+    </div>
 
-        <!-- GST -->
+    <div class="summary-row">
+        <span>IGST</span>
+        <span id="igstAmount">₹0.00</span>
+    </div>
 
-        <div class="tax-options">
+    <div class="summary-row final-total">
+        <span>Net Total</span>
+        <span id="netTotal">₹0.00</span>
+    </div>
 
-            <label>
+    <button id="generateBtn">
+        Generate Bill
+    </button>
 
-                <input
-                    type="radio"
-                    name="gstType"
-                    value="none"
-                    checked>
 
-                No GST
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gstType"
-                    value="cgstsgst">
-
-                CGST 9% + SGST 9%
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="gstType"
-                    value="igst">
-
-                IGST 18%
-
-            </label>
-
-        </div>
-
-        <!-- Total -->
-
-        <div class="total-box">
-
-            <div class="total-row">
-
-                <span>Subtotal</span>
-
-                <span id="grandTotal">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>CGST</span>
-
-                <span id="cgstAmount">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>SGST</span>
-
-                <span id="sgstAmount">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>IGST</span>
-
-                <span id="igstAmount">
-                    ₹0.00
-                </span>
-
-            </div>
-
-            <div class="total-row final-total">
-
-                <strong>Net Total</strong>
-
-                <strong id="netTotal">
-                    ₹0.00
-                </strong>
-
-            </div>
-
-        </div>
-
-        <button id="generateBtn">
-
-            Generate Bill
-
-        </button>
-
-    </footer>
-
-    <script src="../JS/addProductsbilling.js"></script>
+<!-- JavaScript -->
+<script src="../JS/addProductsbilling.js"></script>
 
 </body>
-
 </html>

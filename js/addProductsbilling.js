@@ -2,47 +2,38 @@
 // CUSTOMER DATA
 // ===============================
 
-const customer = JSON.parse(
-    localStorage.getItem("selectedCustomer")
-);
-
-if (customer) {
-
-    document.getElementById("customerName").textContent =
-        customer.name;
-
-    document.getElementById("customerMobile").innerHTML =
-        '<i class="fa fa-phone"></i> ' +
-        customer.mobile;
-
-    document.getElementById("customerCity").innerHTML =
-        '<i class="fa fa-location-dot"></i> ' +
-        customer.city;
-
-    const avatar =
-        document.getElementById("customerAvatar");
-
-    avatar.className =
-        "avatar " + (customer.color || "purple");
-
-    avatar.innerHTML =
-        '<i class="fas fa-user"></i>';
-}
-
-
-// ===============================
-// PAGE LOAD
-// ===============================
-
 document.addEventListener("DOMContentLoaded", () => {
+
+    const customer = JSON.parse(
+        localStorage.getItem("selectedCustomer")
+    );
+
+    if (customer) {
+
+        document.getElementById("customerName").textContent =
+            customer.name || "";
+
+        document.getElementById("customerMobile").innerHTML =
+            `<i class="fa fa-phone"></i> ${customer.mobile || ""}`;
+
+        document.getElementById("customerCity").innerHTML =
+            `<i class="fa fa-location-dot"></i> ${customer.city || ""}`;
+
+        const avatar =
+            document.getElementById("customerAvatar");
+
+        avatar.className =
+            "avatar " + (customer.color || "purple");
+
+        avatar.innerHTML =
+            '<i class="fas fa-user"></i>';
+    }
 
     const searchInput =
         document.getElementById("searchInput");
 
     const generateBtn =
         document.getElementById("generateBtn");
-
-
 
     // ==========================
     // SEARCH PRODUCT
@@ -58,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach(row => {
 
                 const productName =
-                    row.children[2]
+                    row.children[1]
                         .textContent
                         .toLowerCase();
 
@@ -66,15 +57,47 @@ document.addEventListener("DOMContentLoaded", () => {
                     productName.includes(value)
                         ? ""
                         : "none";
-
             });
-
     });
 
+    // ==========================
+    // UPDATE TAX COLUMN
+    // ==========================
 
+    function updateTaxColumn() {
+
+        const gstType =
+            document.querySelector(
+                'input[name="gstType"]:checked'
+            )?.value || "No GST";
+
+        document
+            .querySelectorAll(".tax-column")
+            .forEach(cell => {
+
+                cell.textContent = gstType;
+
+            });
+    }
 
     // ==========================
-    // TOTAL CALCULATION
+    // UPDATE SERIAL NUMBER
+    // ==========================
+
+    function updateSerialNumbers() {
+
+        document
+            .querySelectorAll(".product-row")
+            .forEach((row, index) => {
+
+                row.children[0].textContent =
+                    index + 1;
+
+            });
+    }
+
+    // ==========================
+    // CALCULATE TOTAL
     // ==========================
 
     function updateGrandTotal() {
@@ -85,66 +108,49 @@ document.addEventListener("DOMContentLoaded", () => {
             .querySelectorAll(".product-row")
             .forEach(row => {
 
-                const checkbox =
-                    row.querySelector(".product-select");
+                const rateInput =
+                    row.querySelector(".rate-input");
 
-                if (
-                    checkbox &&
-                    !checkbox.checked
-                ) {
-                    row.querySelector(".amount")
-                        .textContent = "0.00";
-                    return;
-                }
+                const qtyInput =
+                    row.querySelector(".qty-input");
+
+                const amountCell =
+                    row.querySelector(".amount");
 
                 const rate =
-                    parseFloat(
-                        row.querySelector(".rate-input").value
-                    ) || 0;
+                    parseFloat(rateInput.value) || 0;
 
                 const qty =
-                    parseInt(
-                        row.querySelector(".qty-input").value
-                    ) || 0;
+                    parseInt(qtyInput.value) || 0;
 
                 const amount =
                     rate * qty;
 
-                row.querySelector(".amount")
-                    .textContent =
+                amountCell.textContent =
                     amount.toFixed(2);
 
                 subtotal += amount;
-
             });
-
 
         let cgst = 0;
         let sgst = 0;
         let igst = 0;
 
-        const gstRadio =
+        const gstType =
             document.querySelector(
                 'input[name="gstType"]:checked'
-            );
+            )?.value || "No GST";
 
-        const gstType =
-            gstRadio
-                ? gstRadio.value
-                : "none";
+        switch (gstType) {
 
+            case "CGST+SGST":
+                cgst = subtotal * 0.09;
+                sgst = subtotal * 0.09;
+                break;
 
-        if (gstType === "cgstsgst") {
-
-            cgst = subtotal * 0.09;
-            sgst = subtotal * 0.09;
-
-        }
-
-        else if (gstType === "igst") {
-
-            igst = subtotal * 0.18;
-
+            case "IGST":
+                igst = subtotal * 0.18;
+                break;
         }
 
         const netTotal =
@@ -153,57 +159,30 @@ document.addEventListener("DOMContentLoaded", () => {
             sgst +
             igst;
 
-
-        document.getElementById(
-            "grandTotal"
-        ).textContent =
+        document.getElementById("grandTotal").textContent =
             "₹" + subtotal.toFixed(2);
 
-        document.getElementById(
-            "cgstAmount"
-        ).textContent =
+        document.getElementById("cgstAmount").textContent =
             "₹" + cgst.toFixed(2);
 
-        document.getElementById(
-            "sgstAmount"
-        ).textContent =
+        document.getElementById("sgstAmount").textContent =
             "₹" + sgst.toFixed(2);
 
-        document.getElementById(
-            "igstAmount"
-        ).textContent =
+        document.getElementById("igstAmount").textContent =
             "₹" + igst.toFixed(2);
 
-        document.getElementById(
-            "netTotal"
-        ).textContent =
+        document.getElementById("netTotal").textContent =
             "₹" + netTotal.toFixed(2);
+
+        updateTaxColumn();
     }
-    // ==========================
-// UPDATE SERIAL NUMBERS
-// ==========================
-
-function updateSerialNumbers() {
-
-    const rows =
-        document.querySelectorAll(".product-row");
-
-    rows.forEach((row, index) => {
-
-        row.children[1].textContent = index + 1;
-
-    });
-
-}
 
     // ==========================
-    // RATE / QTY CHANGE
+    // RATE & QTY EVENTS
     // ==========================
 
     document
-        .querySelectorAll(
-            ".rate-input, .qty-input"
-        )
+        .querySelectorAll(".rate-input, .qty-input")
         .forEach(input => {
 
             input.addEventListener(
@@ -211,12 +190,14 @@ function updateSerialNumbers() {
                 updateGrandTotal
             );
 
+            input.addEventListener(
+                "change",
+                updateGrandTotal
+            );
         });
 
-
-
     // ==========================
-    // GST CHANGE
+    // GST EVENTS
     // ==========================
 
     document
@@ -227,40 +208,20 @@ function updateSerialNumbers() {
 
             radio.addEventListener(
                 "change",
-                updateGrandTotal
-            );
+                () => {
 
+                    updateTaxColumn();
+                    updateGrandTotal();
+
+                });
         });
-
-
-
-    // ==========================
-    // PRODUCT SELECT
-    // ==========================
-
-    document
-        .querySelectorAll(
-            ".product-select"
-        )
-        .forEach(box => {
-
-            box.addEventListener(
-                "change",
-                updateGrandTotal
-            );
-
-        });
-
-
 
     // ==========================
     // DELETE PRODUCT
     // ==========================
 
     document
-        .querySelectorAll(
-            ".delete-btn"
-        )
+        .querySelectorAll(".delete-btn")
         .forEach(btn => {
 
             btn.addEventListener(
@@ -273,242 +234,158 @@ function updateSerialNumbers() {
                         )
                     ) {
 
-                        btn
-                         .closest(".product-row")
-                         .remove();
+                        btn.closest(".product-row")
+                            .remove();
 
                         updateSerialNumbers();
-
                         updateGrandTotal();
-
                     }
-
-                }
-            );
-
-        });
-            // ==========================
-    // GENERATE BILL
-    // ==========================
-
-    generateBtn.addEventListener(
-        "click",
-        () => {
-
-            const products = [];
-
-            let subtotal = 0;
-
-            document
-                .querySelectorAll(".product-row")
-                .forEach(row => {
-
-                    const checkbox =
-                        row.querySelector(
-                            ".product-select"
-                        );
-
-                    if (
-                        checkbox &&
-                        !checkbox.checked
-                    ) {
-                        return;
-                    }
-
-                    const productName =
-                        row.children[2].textContent;
-
-                    const rate =
-                        parseFloat(
-                            row.querySelector(
-                                ".rate-input"
-                            ).value
-                        ) || 0;
-
-                    const qty =
-                        parseInt(
-                            row.querySelector(
-                                ".qty-input"
-                            ).value
-                        ) || 0;
-
-                    const amount =
-                        rate * qty;
-
-                    subtotal += amount;
-
-                    products.push({
-                        name: productName,
-                        price: rate,
-                        qty: qty,
-                        amount: amount
-                    });
-
                 });
+        });
 
+    generateBtn.addEventListener("click", () => {
 
-            if (
-                products.length === 0
-            ) {
+    const products = [];
+    let subtotal = 0;
 
-                alert(
-                    "Please select at least one product."
-                );
+    document
+        .querySelectorAll(".product-row")
+        .forEach(row => {
 
-                return;
+            const name =
+                row.children[1].textContent.trim();
+
+            const rate =
+                parseFloat(
+                    row.querySelector(".rate-input").value
+                ) || 0;
+
+            const qty =
+                parseInt(
+                    row.querySelector(".qty-input").value
+                ) || 0;
+
+            if (qty > 0) {
+
+                const amount = rate * qty;
+
+                subtotal += amount;
+
+                products.push({
+                    name,
+                    price: rate,
+                    qty,
+                    amount
+                });
             }
+        });
 
+    if (products.length === 0) {
 
-            let cgst = 0;
-            let sgst = 0;
-            let igst = 0;
+        alert(
+            "Please select at least one product."
+        );
 
-            const gstType =
-                document.querySelector(
-                    'input[name="gstType"]:checked'
-                )?.value || "none";
+        return;
+    }
 
-            if (
-                gstType ===
-                "cgstsgst"
-            ) {
+    let cgst = 0;
+    let sgst = 0;
+    let igst = 0;
 
-                cgst =
-                    subtotal * 0.09;
+    const gstType =
+        document.querySelector(
+            'input[name="gstType"]:checked'
+        )?.value || "No GST";
 
-                sgst =
-                    subtotal * 0.09;
-            }
+    
+    switch (gstType) {
 
-            else if (
-                gstType === "igst"
-            ) {
+        case "CGST+SGST":
+            cgst = subtotal * 0.09;
+            sgst = subtotal * 0.09;
+            break;
 
-                igst =
-                    subtotal * 0.18;
-            }
+        case "IGST":
+            igst = subtotal * 0.18;
+            break;
+    }
 
-            const netTotal =
-                subtotal +
-                cgst +
-                sgst +
-                igst;
+    const grandTotal =
+        subtotal +
+        cgst +
+        sgst +
+        igst;
 
-
-            localStorage.setItem(
-                "selectedProducts",
-                JSON.stringify(
-                    products
-                )
-            );
-
-            localStorage.setItem(
-                "subtotal",
-                subtotal
-            );
-
-            localStorage.setItem(
-                "cgst",
-                cgst
-            );
-
-            localStorage.setItem(
-                "sgst",
-                sgst
-            );
-
-            localStorage.setItem(
-                "igst",
-                igst
-            );
-
-            localStorage.setItem(
-                "grandTotal",
-                netTotal
-            );
-
-            localStorage.setItem(
-                "gstType",
-                gstType
-            );
-
-
-            window.location.href =
-                "billPreview.html";
-
-        }
+    // Save Products
+    localStorage.setItem(
+        "selectedProducts",
+        JSON.stringify(products)
     );
 
-
-
-    // ===============================
-    // BOTTOM SHEET TOGGLE
-    // ===============================
-
-    const toggleSummary =
-        document.getElementById("toggleSummary");
-
-    const bottomSheet =
-        document.getElementById("bottomSheet");
-
-    const toggleIcon =
-        document.getElementById("toggleIcon");
-
-    toggleSummary.addEventListener(
-        "click",
-        () => {
-
-            bottomSheet.classList.toggle("show");
-
-            if (
-                bottomSheet.classList.contains("show")
-            ) {
-
-                toggleIcon.classList.remove(
-                    "fa-chevron-up"
-                );
-
-                toggleIcon.classList.add(
-                    "fa-chevron-down"
-                );
-
-            }
-
-            else {
-
-                toggleIcon.classList.remove(
-                    "fa-chevron-down"
-                );
-
-                toggleIcon.classList.add(
-                    "fa-chevron-up"
-                );
-
-            }
-
-        }
+    // Save Customer
+    localStorage.setItem(
+        "selectedCustomer",
+        JSON.stringify(customer)
     );
 
+    // Save GST — store the RATE percentages, not calculated amounts,
+    // because billPreview.js multiplies these against subtotal itself
+    let cgstRate = 0, sgstRate = 0, igstRate = 0;
 
-// FIRST CALCULATION
+    switch (gstType) {
+        case "CGST+SGST":
+            cgstRate = 9;
+            sgstRate = 9;
+            break;
+        case "IGST":
+            igstRate = 18;
+            break;
+    }
 
-updateSerialNumbers();
+    localStorage.setItem("subtotal", subtotal);
+    localStorage.setItem("cgst", cgstRate);
+    localStorage.setItem("sgst", sgstRate);
+    localStorage.setItem("igst", igstRate);
+    localStorage.setItem("grandTotal", grandTotal);
+    localStorage.setItem("gstType", gstType);
 
-updateGrandTotal();
+    // Invoice Number
+    const invoiceNo =
+        "INV-" + Date.now();
 
+    localStorage.setItem(
+        "invoiceNo",
+        invoiceNo
+    );
 
+    // Current Date
+    const today =
+        new Date().toLocaleDateString(
+            "en-IN"
+        );
+
+    localStorage.setItem(
+        "billDate",
+        today
+    );
+
+    window.location.href =
+        "billPreview.html";
 });
+    // Initial Load
 
-
+    updateTaxColumn();
+    updateSerialNumbers();
+    updateGrandTotal();
+});
 
 // ===============================
 // BACK BUTTON
 // ===============================
 
 const backBtn =
-    document.querySelector(
-        ".back-btn"
-    );
+    document.querySelector(".back-btn");
 
 if (backBtn) {
 
@@ -518,8 +395,5 @@ if (backBtn) {
 
             window.location.href =
                 "createBill.html";
-
-        }
-    );
-
+        });
 }

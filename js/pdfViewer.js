@@ -1,55 +1,73 @@
-
-// LOAD INVOICE DATA FROM PREVIEW PAGE
-
-
 window.onload = function () {
-    
-    const invoice = JSON.parse(localStorage.getItem("currentInvoice"));
+
+    const invoice =
+        JSON.parse(localStorage.getItem("currentInvoice"));
 
     if (!invoice) {
-        alert("Invoice Data Not Found. Please generate from the preview page.");
+
+        alert("Invoice Data Not Found");
+        window.location.href = "billPreview.html";
         return;
     }
 
-    
-    console.log("INVOICE DATA RECEIVED ON INVOICE PAGE:", invoice);
+    console.log("Invoice Loaded:", invoice);
 
-    
-    //  INVOICE NUMBER & DATE
-   
-    document.getElementById("invoiceNo").textContent = invoice.invoiceNo || "";
-    document.getElementById("invoiceDate").textContent = invoice.date || "";
+    // ==========================
+    // HEADER DETAILS
+    // ==========================
 
-   
-    //  CUSTOMER DETAILS (BILLED TO & SHIPPED TO)
-    
-    // Main Billed To elements
-    document.getElementById("customerName").textContent = invoice.customer?.name || "";
-    document.getElementById("customerAddress").textContent = invoice.customer?.city || "";
-    document.getElementById("customerMobile").textContent = invoice.customer?.mobile || "";
+    document.getElementById("invoiceNo").textContent =
+        invoice.invoiceNo || "";
 
-    // Secondary Shipped To elements
-    document.getElementById("customerName2").textContent = invoice.customer?.name || "";
-    document.getElementById("customerAddress2").textContent = invoice.customer?.city || "";
-    document.getElementById("customerMobile2").textContent = invoice.customer?.mobile || "";
+    document.getElementById("invoiceDate").textContent =
+        invoice.date || "";
 
-    
-    //  PRODUCTS & QUANTITY TABLE
-    
-    const table = document.getElementById("productTable");
+    // ==========================
+    // CUSTOMER DETAILS
+    // ==========================
+
+    document.getElementById("customerName").textContent =
+        invoice.customer?.name || "";
+
+    document.getElementById("customerAddress").textContent =
+        invoice.customer?.city || "";
+
+    document.getElementById("customerMobile").textContent =
+        invoice.customer?.mobile || "";
+
+    document.getElementById("customerName2").textContent =
+        invoice.customer?.name || "";
+
+    document.getElementById("customerAddress2").textContent =
+        invoice.customer?.city || "";
+
+    document.getElementById("customerMobile2").textContent =
+        invoice.customer?.mobile || "";
+
+    // ==========================
+    // PRODUCT TABLE
+    // ==========================
+
+    const table =
+        document.getElementById("productTable");
+
     table.innerHTML = "";
 
-    const products = invoice.products || [];
-    let totalQtyCount = 0;
+    let totalQty = 0;
 
-    products.forEach((item, index) => {
-        const qty = Number(item.qty || 0);
-        const price = Number(item.price || 0);
-        const amount = qty * price;
+    invoice.products.forEach((item, index) => {
 
-        totalQtyCount += qty;
+        const qty =
+            Number(item.qty) || 0;
 
-        
+        const price =
+            Number(item.price) || 0;
+
+        const amount =
+            qty * price;
+
+        totalQty += qty;
+
         table.innerHTML += `
         <tr>
             <td>${index + 1}</td>
@@ -57,36 +75,145 @@ window.onload = function () {
             <td>${item.hsn || "8518"}</td>
             <td>${qty} Pcs</td>
             <td>${price.toFixed(2)}</td>
-            <td>0.00</td>
-            <td>0.00</td>
+            <td>${(invoice.cgst || 0).toFixed(2)}</td>
+            <td>${(invoice.sgst || 0).toFixed(2)}</td>
             <td>${amount.toFixed(2)}</td>
         </tr>
         `;
     });
 
-    // Displaying item totals
-    document.getElementById("totalQty").textContent = totalQtyCount + " Pcs";
-    document.getElementById("totalPieces").textContent = totalQtyCount + " Pcs";
+    // ==========================
+    // TOTALS
+    // ==========================
 
-    
-    //  GRAND TOTAL
-    
-    document.getElementById("grandTotal").textContent = Number(invoice.grandTotal || 0).toFixed(2);
+    document.getElementById("totalQty").textContent =
+        totalQty + " Pcs";
 
-   
-    //  GST SUMMARY
-    
-    document.getElementById("gstPercent").textContent = (invoice.gst || 0) + "%";
-    document.getElementById("taxableAmount").textContent = Number(invoice.subtotal || 0).toFixed(2);
-    document.getElementById("gstAmount").textContent = Number(invoice.gstAmount || 0).toFixed(2);
-    
-    // Split GST equally into Central and State taxes (CGST / SGST)
-    const splitTax = (Number(invoice.gstAmount || 0) / 2).toFixed(2);
-    document.getElementById("cgstAmount").textContent = splitTax;
-    document.getElementById("sgstAmount").textContent = splitTax;
+    document.getElementById("totalPieces").textContent =
+        totalQty + " Pcs";
 
-   
-    //  AMOUNT IN WORDS
-    
-    document.getElementById("amountWords").textContent = invoice.amountWords || "Zero Rupees Only";
+    document.getElementById("grandTotal").textContent =
+        Number(invoice.grandTotal || 0).toFixed(2);
+
+    document.getElementById("taxableAmount").textContent =
+        Number(invoice.subtotal || 0).toFixed(2);
+
+    document.getElementById("cgstAmount").textContent =
+        Number(invoice.cgst || 0).toFixed(2);
+
+    document.getElementById("sgstAmount").textContent =
+        Number(invoice.sgst || 0).toFixed(2);
+
+    document.getElementById("gstAmount").textContent =
+        (
+            Number(invoice.cgst || 0) +
+            Number(invoice.sgst || 0) +
+            Number(invoice.igst || 0)
+        ).toFixed(2);
+
+    document.getElementById("amountWords").textContent =
+        invoice.amountWords || "";
+
+    // GST %
+
+    let gstPercent = "0";
+
+    if (invoice.igst > 0) {
+        gstPercent = "18";
+    }
+    else if (
+        invoice.cgst > 0 ||
+        invoice.sgst > 0
+    ) {
+        gstPercent = "18";
+    }
+
+    document.getElementById("gstPercent").textContent =
+        gstPercent + "%";
+
+    // ==========================
+    // E-WAY BILL
+    // ==========================
+
+    const ewayPage =
+        document.getElementById("ewayBillPage");
+
+    if (!ewayPage) return;
+
+    if (Number(invoice.grandTotal) >= 50000) {
+
+        ewayPage.style.display = "block";
+
+        document.getElementById("mainEwayNo").textContent =
+            "652066202588";
+
+        document.getElementById("ewayDocNo").textContent =
+            invoice.invoiceNo || "";
+
+        document.getElementById("ewayDocDate").textContent =
+            invoice.date || "";
+
+        document.getElementById("ewayAckDate").textContent =
+            invoice.date || "";
+
+        document.getElementById("ewayGenDate").textContent =
+            invoice.date + " 1:09 PM";
+
+        document.getElementById("ewayValidDate").textContent =
+            invoice.date || "";
+
+        document.getElementById("ewayCustomerName").textContent =
+            invoice.customer?.name || "";
+
+        document.getElementById("ewayShipToAddress").innerHTML =
+            `${invoice.customer?.city || ""}
+            <br>
+            Mob: ${invoice.customer?.mobile || ""}`;
+
+        const ewayTable =
+            document.getElementById("ewayProducts");
+
+        ewayTable.innerHTML = "";
+
+        invoice.products.forEach(item => {
+
+            const qty =
+                Number(item.qty) || 0;
+
+            const rate =
+                Number(item.price) || 0;
+
+            const amount =
+                qty * rate;
+
+            ewayTable.innerHTML += `
+            <tr>
+                <td>${item.hsn || "85184000"}</td>
+                <td>${item.name}</td>
+                <td>${qty}</td>
+                <td>${amount.toFixed(2)}</td>
+                <td>${gstPercent}</td>
+            </tr>
+            `;
+        });
+
+        document.getElementById("ewayTotalTaxable").textContent =
+            Number(invoice.subtotal || 0).toFixed(2);
+
+        document.getElementById("ewayTotalInvAmt").textContent =
+            Number(invoice.grandTotal || 0).toFixed(2);
+
+        document.getElementById("ewayCGSTAmt").textContent =
+            Number(invoice.cgst || 0).toFixed(2);
+
+        document.getElementById("ewaySGSTAmt").textContent =
+            Number(invoice.sgst || 0).toFixed(2);
+
+    } else {
+
+        ewayPage.style.display = "none";
+
+        document.getElementById("mainEwayNo").textContent =
+            "N/A";
+    }
 };
