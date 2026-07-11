@@ -19,6 +19,20 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("customerCity").innerHTML =
             `<i class="fa fa-location-dot"></i> ${customer.city || ""}`;
 
+            const companyElement =
+    document.getElementById("companyName");
+
+if (companyElement) {
+    companyElement.textContent =
+        customer.company || "";
+}
+
+
+    if (companyElement) {
+        companyElement.textContent =
+            customer.company || "";
+    }
+    
         const avatar =
             document.getElementById("customerAvatar");
 

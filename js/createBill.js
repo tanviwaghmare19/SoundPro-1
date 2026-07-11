@@ -38,12 +38,13 @@ if (customerList) {
 
         if (!card) return;
 
-        const customer = {
-            name: card.dataset.name || "",
-            mobile: card.dataset.mobile || "",
-            city: card.dataset.city || "",
-            color: card.dataset.color || "purple"
-        };
+       const customer = {
+    name: card.dataset.name || "",
+    mobile: card.dataset.mobile || "",
+    city: card.dataset.city || "",
+    company: card.dataset.company || "",
+    color: card.dataset.color || "purple"
+};
 
         localStorage.setItem(
             "selectedCustomer",
@@ -123,11 +124,12 @@ if (saveCustomerBtn) {
 
         const customerHTML = `
         <div class="customer-card"
-             data-name="${name}"
-             data-mobile="${mobile}"
-             data-city="${address}"
-             data-code="${customerCode}"
-             data-color="purple">
+     data-name="${name}"
+     data-mobile="${mobile}"
+     data-city="${address}"
+     data-company="${company}"
+     data-code="${customerCode}"
+     data-color="purple">
 
             <div class="customer-left">
 

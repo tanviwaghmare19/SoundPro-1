@@ -161,101 +161,83 @@
 
         </div>
 
-        <div class="card blue"
-             onclick="location.href='orders.html'">
+       <div class="card blue"
+     onclick="location.href='orders.html'">
 
-            <div class="card-content">
-                <h3>Total Orders</h3>
-                <p>250</p>
-            </div>
+    <div class="card-content">
+        <h3>Total Orders</h3>
+        <p>250</p>
+    </div>
 
-            <div class="card-footer">
-                <span>View All</span>
-                <span>&gt;</span>
-            </div>
+    <div class="card-footer">
+        <span>View All</span>
+        <span>&gt;</span>
+    </div>
 
-        </div>
+</div>
 
-        <div class="card orange"
-             onclick="openRevenueModal()">
+<div class="card orange">
 
-            <div class="card-content">
-                <h3>Total Revenue</h3>
-                <p>₹4,50,000</p>
-            </div>
+    <div class="card-content">
+        <h3>Total Revenue</h3>
+        <p>₹4,50,000</p>
+    </div>
 
-            <div class="card-footer">
-                <span>View Revenue</span>
-                <span>&gt;</span>
-            </div>
+    <div class="card-footer">
+        <span>View Revenue</span>
+        <span>&gt;</span>
+    </div>
 
-        </div>
+</div>
 
-    </section>
+</section>
 
-    <!-- Stock Overview Only -->
-    <section class="chart-container">
+<section class="chart-container">
 
-        <div class="section">
+    <div class="section">
 
-            <h2>Stock Overview</h2>
+        <h2>Total Revenue</h2>
 
-            <div class="stock-box">
+        <div class="graph">
 
-                <div class="pie-chart"></div>
+            <svg viewBox="0 0 600 300">
 
-                <div class="legend">
+                <polyline
+                    fill="none"
+                    stroke="#4a77f0"
+                    stroke-width="4"
+                    points="50,250 150,180 250,170 350,90 450,70 550,40" />
 
-                    <p>
-                        <span class="dot green-dot"></span>
-                        In Stock
-                    </p>
-
-                    <p>
-                        <span class="dot orange-dot"></span>
-                        Low Stock
-                    </p>
-
-                    <p>
-                        <span class="dot red-dot"></span>
-                        Out Of Stock
-                    </p>
-
-                </div>
-
-            </div>
+            </svg>
 
         </div>
 
-    </section>
+    </div>
 
-    <!-- Revenue Popup -->
-    <div id="revenueModal" class="revenue-modal">
+    <div class="section">
 
-        <div class="revenue-box">
+        <h2>Stock Overview</h2>
 
-            <span class="close-btn"
-                  onclick="closeRevenueModal()">
-                &times;
-            </span>
+        <div class="stock-box">
 
-            <h2>Total Revenue</h2>
+            <div class="pie-chart"></div>
 
-            <div class="revenue-amount">
-                ₹4,50,000
-            </div>
+            <div class="legend">
 
-            <div class="graph">
+                <p>
+                    <span class="dot green-dot"></span>
+                    In Stock
+                </p>
 
-                <svg viewBox="0 0 600 300">
+                <p>
+                    <span class="dot orange-dot"></span>
+                    Low Stock
+                </p>
 
-                    <polyline
-                        fill="none"
-                        stroke="#4a77f0"
-                        stroke-width="4"
-                        points="50,250 150,180 250,170 350,90 450,70 550,40" />
-
-                </svg>
+                <p>
+                    <span class="dot red-dot"></span>
+                    Out Of Stock
+                </p>
 
             </div>
 
@@ -263,7 +245,9 @@
 
     </div>
 
-    <script src="../js/dashboard.js"></script>
+</section>
+
+<script src="../js/dashboard.js"></script>
 
 </body>
 

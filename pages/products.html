@@ -15,99 +15,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 </head>
 
 <body>
-
-    <!-- ================= SIDEBAR ================= -->
-
-    <div class="sidebar" id="sidebar">
-
-        <div class="sidebar-header">
-
-            <i class="fa-solid fa-arrow-left close-sidebar" id="closeSidebar"></i>
-
-            <h2>SOUND<span>PRO</span></h2>
-
-        </div>
-
-      <div class="admin">
-
-    <img src="../assets/admin.png" class="admin-img" id="adminImage" alt="Admin">
-
-    <span id="adminNameSidebar">Admin</span>
-
-</div>
-
-        <ul>
-
-            <li onclick="location.href='dashboard.html'">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </li>
-
-            <li class="active">
-                <i class="fa-solid fa-box"></i>
-                Products
-            </li>
-
-            <li onclick="location.href='addProduct.html'">
-                <i class="fa-solid fa-plus"></i>
-                Add Product
-            </li>
-
-            <li onclick="location.href='orders.html'">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Orders
-            </li>
-
-            <li onclick="location.href='lowStock.html'">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                Low Stock
-            </li>
-
-            <li onclick="location.href='reports.html'">
-                <i class="fa-solid fa-file-lines"></i>
-                Reports
-            </li>
-
-            <li onclick="location.href='salesReport.html'">
-                <i class="fa-solid fa-chart-line"></i>
-                Sales Report
-            </li>
-
-            <li onclick="location.href='createBill.html'">
-                <i class="fa-solid fa-file-invoice"></i>
-                Create Bill
-            </li>
-
-            <li onclick="location.href='#'">
-                <i class="fa-solid fa-money-bill-transfer"></i>
-                Return & Refunds
-            </li>
-
-            <li onclick="location.href='profile.html'">
-                <i class="fa-solid fa-user"></i>
-                Profile
-            </li>
-
-            <li onclick="location.href='settings.html'">
-            <i class="fa-solid fa-gear"></i>
-            Settings
-            </li>
-
-        </ul>
-
-        <div class="logout" onclick="logout()">
-
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            Logout
-
-        </div>
-
-    </div>
 
     <!-- ================= MAIN ================= -->
 
@@ -117,22 +27,12 @@
 
         <div class="header">
 
-            <div class="menu">
-
-                <i class="fa-solid fa-bars"></i>
-
-            </div>
-
             <div class="title">
-
                 Products
-
             </div>
 
             <div class="notification">
-
                 <i class="fa-solid fa-bell"></i>
-
             </div>
 
         </div>
@@ -179,15 +79,10 @@
                 <h3>Category</h3>
 
                 <label><input type="checkbox" class="categoryFilter" value="Speaker"> Speaker</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Mixer"> Mixer</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Microphone"> Microphone</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Amplifier"> Amplifier</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Cable"> Cable</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Headphone"> Headphone</label>
 
             </div>
@@ -199,13 +94,9 @@
                 <h3>Brand</h3>
 
                 <label><input type="checkbox" class="brandFilter" value="JBL"> JBL</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Yamaha"> Yamaha</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Sony"> Sony</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Shure"> Shure</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Behringer"> Behringer</label>
 
             </div>
@@ -217,11 +108,8 @@
                 <h3>Price</h3>
 
                 <label><input type="checkbox" class="priceFilter" value="1"> ₹0 - ₹5,000</label>
-
                 <label><input type="checkbox" class="priceFilter" value="2"> ₹5,001 - ₹20,000</label>
-
                 <label><input type="checkbox" class="priceFilter" value="3"> ₹20,001 - ₹50,000</label>
-
                 <label><input type="checkbox" class="priceFilter" value="4"> Above ₹50,000</label>
 
             </div>
@@ -233,9 +121,7 @@
                 <h3>Stock Status</h3>
 
                 <label><input type="checkbox" class="stockFilter" value="instock"> In Stock</label>
-
                 <label><input type="checkbox" class="stockFilter" value="low"> Low Stock</label>
-
                 <label><input type="checkbox" class="stockFilter" value="out"> Out Of Stock</label>
 
             </div>
@@ -247,11 +133,8 @@
                 <h3>Sort By</h3>
 
                 <label><input type="radio" name="sort" value="nameAZ"> Product Name A-Z</label>
-
                 <label><input type="radio" name="sort" value="nameZA"> Product Name Z-A</label>
-
                 <label><input type="radio" name="sort" value="priceLow"> Price Low-High</label>
-
                 <label><input type="radio" name="sort" value="priceHigh"> Price High-Low</label>
 
             </div>
@@ -259,15 +142,11 @@
             <div class="filter-buttons">
 
                 <button id="applyFilter">
-
                     Apply Filter
-
                 </button>
 
                 <button id="resetFilter">
-
                     Reset
-
                 </button>
 
             </div>
@@ -283,9 +162,7 @@
         <!-- Floating Button -->
 
         <button class="floating-btn">
-
             <i class="fa-solid fa-plus"></i>
-
         </button>
 
     </div>
