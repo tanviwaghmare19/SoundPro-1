@@ -290,33 +290,11 @@ window.addEventListener("click", function (e) {
     }
 
 });
-// ======================================
-// SIDEBAR OPEN / CLOSE
-// ======================================
-
-const menu = document.querySelector(".left i");
 const sidebar = document.getElementById("sidebar");
 const closeSidebar = document.getElementById("closeSidebar");
 
-menu.addEventListener("click", function () {
-    sidebar.classList.add("active");
-});
-
 closeSidebar.addEventListener("click", function () {
     sidebar.classList.remove("active");
-});
-
-// Close sidebar when clicking outside
-document.addEventListener("click", function (e) {
-
-    if (
-        sidebar.classList.contains("active") &&
-        !sidebar.contains(e.target) &&
-        !menu.contains(e.target)
-    ) {
-        sidebar.classList.remove("active");
-    }
-
 });
 
 
