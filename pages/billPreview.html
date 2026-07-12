@@ -9,6 +9,9 @@
     <title>Preview Bill</title>
 
    <link rel="stylesheet" href="../CSS/billPreview.css">
+   
+   <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
 </head>
 
@@ -18,11 +21,12 @@
 
 <header class="header">
 
-    <button class="back-btn" id="backBtn">
+    <button class="back-btn"
+        onclick="window.location.href='createBill.html'">
 
-        <i class="fas fa-arrow-left"></i>
+    <i class="fa-solid fa-arrow-left"></i>
 
-    </button>
+</button>
 
     <h2>Bill Preview</h2>
 
@@ -166,6 +170,31 @@ GST
 </span>
 
 </div>
+
+</div>
+<!-- ================= E-Way Bill ================= -->
+
+<div id="ewaySection" style="display:none;">
+
+    <hr>
+
+    <h3 class="title">E-Way Bill</h3>
+
+   <div class="summary"></div>
+
+        <div class="row">
+            <span>E-Way Bill No.</span>
+            <span id="ewayNumber"></span>
+        </div>
+
+        <div class="row">
+            <span>Status</span>
+            <span style="color:green;font-weight:bold;">
+                Generated
+            </span>
+        </div>
+
+    </div>
 
 </div>
 

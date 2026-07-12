@@ -115,6 +115,30 @@ sgstAmount +
 igstAmount;
 
 // ======================================
+// E-WAY BILL
+// ======================================
+
+let ewayBillNo = null;
+
+if (grandTotal > 50000) {
+
+    ewayBillNo =
+        "EWB" +
+        Math.floor(
+            10000000 + Math.random() * 90000000
+        );
+
+    document.getElementById("ewaySection").style.display =
+        "block";
+
+    document.getElementById("ewayNumber").textContent =
+        ewayBillNo;
+
+    document.getElementById("finalBillBtn").textContent =
+        "Generate Final Bill + E-Way Bill";
+}
+
+// ======================================
 // Display Summary
 // ======================================
 
@@ -163,7 +187,7 @@ document.getElementById("finalBillBtn")
     const invoiceData = {
 
         invoiceNo: invoiceNo,
-
+ewayBillNo: ewayBillNo,
         date:
             today.toLocaleDateString("en-IN"),
 
@@ -203,7 +227,19 @@ document.getElementById("finalBillBtn")
         JSON.stringify(invoiceData)
     );
 
-    console.log("Invoice Saved");
+   if (grandTotal > 50000) {
+
+    alert(
+        "Final Bill and E-Way Bill Generated Successfully"
+    );
+
+} else {
+
+    alert(
+        "Final Bill Generated Successfully"
+    );
+
+}
 
     console.log(invoiceData);
 
