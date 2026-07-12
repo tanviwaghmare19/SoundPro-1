@@ -4,249 +4,195 @@
 <head>
     <script src="../js/auth.js"></script>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <title>AudioTonic Dashboard</title>
 
-<title>Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
 
-<link rel="stylesheet"
-      href="../css/dashboard.css">
-
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-<!-- Sidebar -->
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-<div class="sidebar" id="sidebar">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
 
-    <div class="sidebar-header">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-arrow-left"
+               onclick="toggleSidebar()"></i>
 
-        <i class="fa-solid fa-arrow-left"
-           onclick="toggleSidebar()"></i>
+            <h2>AUDIO<span>TONIC</span></h2>
+        </div>
 
-        <h2>
-            SOUND<span>PRO</span>
-        </h2>
+        <div class="profile">
 
+            <div class="profile-img">
+                <img src="../assets/admin.png" alt="Admin">
+            </div>
+
+            <div class="profile-info">
+                <h3>Admin</h3>
+                <p>Administrator</p>
+            </div>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="products.html">
+                    <i class="fa-solid fa-box"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="orders.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="salesReport.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Sales Report</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="createBill.html">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <span>Billing</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="returns.html">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Returns & Refunds</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#"
+                   class="logout-link"
+                   onclick="logout()">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Header -->
+    <header class="header">
+
+        <div class="menu-title">
+
+            <i class="fa-solid fa-bars"
+               onclick="toggleSidebar()"></i>
+
+            <h2>Dashboard</h2>
+
+        </div>
+
+    </header>
+
+    <!-- Dashboard Cards -->
+    <section class="cards">
+
+        <div class="card purple"
+             onclick="location.href='products.html'">
+
+            <div class="card-content">
+                <h3>Total Products</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card-footer">
+                <span>View All</span>
+                <span>&gt;</span>
+            </div>
+
+        </div>
+
+        <div class="card green"
+             onclick="location.href='lowStock.html'">
+
+            <div class="card-content">
+                <h3>Low Stock Items</h3>
+                <p>15</p>
+            </div>
+
+            <div class="card-footer">
+                <span>View All</span>
+                <span>&gt;</span>
+            </div>
+
+        </div>
+
+       <div class="card blue"
+     onclick="location.href='orders.html'">
+
+    <div class="card-content">
+        <h3>Total Orders</h3>
+        <p>250</p>
     </div>
 
-    <div class="profile">
-
-        <div class="profile-img">
-            👨
-        </div>
-
-        <h3>Admin</h3>
-
-    </div>
-
-    <ul>
-
-        <li>
-            <a href="dashboard.html">
-                <i class="fa-solid fa-house"></i>
-                Dashboard
-            </a>
-        </li>
-
-        <li>
-            <a href="products.html">
-                <i class="fa-solid fa-box"></i>
-                Products
-            </a>
-        </li>
-
-        <li>
-            <a href="addProduct.html">
-                <i class="fa-solid fa-plus"></i>
-                Add Product
-            </a>
-        </li>
-
-        <li>
-            <a href="orders.html">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Orders
-            </a>
-        </li>
-
-        <li>
-            <a href="reports.html">
-                <i class="fa-solid fa-file-lines"></i>
-                Reports
-            </a>
-        </li>
-
-        <li>
-            <a href="salesReport.html">
-                <i class="fa-solid fa-chart-line"></i>
-                Sales Report
-            </a>
-        </li>
-
-        <li>
-            <a href="lowStock.html">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                Low Stock
-            </a>
-        </li>
-
-        <li>
-            <a href="createBill.html">
-                <i class="fa-solid fa-file-invoice"></i>
-                Create Bill
-            </a>
-        </li>
-
-        <li>
-            <a href="settings.html">
-                <i class="fa-solid fa-gear"></i>
-                Settings
-            </a>
-        </li>
-
-        <li>
-            <a href="profile.html">
-                <i class="fa-solid fa-user"></i>
-                Profile
-            </a>
-        </li>
-
-        <li>
-            <a href="#"
-               onclick="logout()"
-               class="logout-link">
-
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-
-            </a>
-        </li>
-
-    </ul>
-
-</div>
-
-<!-- Header -->
-
-<div class="header">
-
-    <div class="menu-title">
-
-        <i class="fas fa-bars"
-           onclick="toggleSidebar()"></i>
-
-        <h2>Dashboard</h2>
-
-    </div>
-
-</div>
-
-<!-- Cards -->
-
-<div class="cards">
-
-    <!-- Total Products -->
-
-    <div class="card purple">
-
-        <div class="card-content">
-
-            <h3>Total Products</h3>
-
-            <p>120</p>
-
-        </div>
-
-        <div class="card-footer">
-
-            <span>View All</span>
-
-            <span>&gt;</span>
-
-        </div>
-
-    </div>
-
-    <!-- Low Stock -->
-
-    <div class="card green clickable-card"
-         onclick="window.location.href='lowStock.html'">
-
-        <div class="card-content">
-
-            <h3>Low Stock Items</h3>
-
-            <p>15</p>
-
-        </div>
-
-        <div class="card-footer">
-
-            <span>View All</span>
-
-            <span>&gt;</span>
-
-        </div>
-
-    </div>
-
-    <!-- Total Orders -->
-
-    <div class="card blue">
-
-        <div class="card-content">
-
-            <h3>Total Orders</h3>
-
-            <p>250</p>
-
-        </div>
-
-        <div class="card-footer">
-
-            <span>View All</span>
-
-            <span>&gt;</span>
-
-        </div>
-
-    </div>
-
-    <!-- Total Revenue -->
-
-    <div class="card orange clickable-card"
-         onclick="window.location.href='salesReport.html'">
-
-        <div class="card-content">
-
-            <h3>Total Revenue</h3>
-
-            <p>₹4,50,000</p>
-
-        </div>
-
-        <div class="card-footer">
-
-            <span>View All</span>
-
-            <span>&gt;</span>
-
-        </div>
-
+    <div class="card-footer">
+        <span>View All</span>
+        <span>&gt;</span>
     </div>
 
 </div>
 
-<!-- Charts -->
+<div class="card orange">
 
-<div class="chart-container">
+    <div class="card-content">
+        <h3>Total Revenue</h3>
+        <p>₹4,50,000</p>
+    </div>
+
+    <div class="card-footer">
+        <span>View Revenue</span>
+        <span>&gt;</span>
+    </div>
+
+</div>
+
+</section>
+
+<section class="chart-container">
 
     <div class="section">
 
@@ -260,14 +206,7 @@
                     fill="none"
                     stroke="#4a77f0"
                     stroke-width="4"
-                    points="
-                    50,250
-                    150,180
-                    250,170
-                    350,90
-                    450,70
-                    550,40
-                    " />
+                    points="50,250 150,180 250,170 350,90 450,70 550,40" />
 
             </svg>
 
@@ -306,7 +245,7 @@
 
     </div>
 
-</div>
+</section>
 
 <script src="../js/dashboard.js"></script>
 

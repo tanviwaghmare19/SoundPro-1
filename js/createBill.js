@@ -2,15 +2,27 @@
 // SEARCH CUSTOMERS
 // ======================
 
+// ======================
+// SEARCH CUSTOMERS
+// ======================
+
 const searchInput = document.getElementById("searchInput");
 
 if (searchInput) {
     searchInput.addEventListener("keyup", function () {
+if (searchInput) {
+    searchInput.addEventListener("keyup", function () {
 
+        const value = this.value.toLowerCase();
         const value = this.value.toLowerCase();
 
         document.querySelectorAll(".customer-card").forEach(card => {
+        document.querySelectorAll(".customer-card").forEach(card => {
 
+            const text =
+                ((card.dataset.name || "") +
+                (card.dataset.mobile || "") +
+                (card.dataset.code || "")).toLowerCase();
             const text =
                 ((card.dataset.name || "") +
                 (card.dataset.mobile || "") +
@@ -18,9 +30,28 @@ if (searchInput) {
 
             card.style.display =
                 text.includes(value) ? "flex" : "none";
+            card.style.display =
+                text.includes(value) ? "flex" : "none";
 
         });
+        });
 
+    });
+}
+
+// ======================
+// CUSTOMER CARD CLICK
+// ======================
+
+const customerList = document.getElementById("customerList");
+
+if (customerList) {
+
+    customerList.addEventListener("click", function (e) {
+
+        const card = e.target.closest(".customer-card");
+
+        if (!card) return;
     });
 }
 

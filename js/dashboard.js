@@ -3,7 +3,7 @@
 // ======================
 
 if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
+    window.location.href = "../LoginPage.html";
 }
 
 // ======================
@@ -12,34 +12,63 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
 
 function toggleSidebar() {
 
-    const sidebar =
-    document.getElementById("sidebar");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
 
-    if(sidebar){
-        sidebar.classList.toggle("active");
+    if (!sidebar) return;
+
+    sidebar.classList.toggle("active");
+
+    if (overlay) {
+        overlay.classList.toggle("active");
     }
 }
 
 // ======================
-// CLOSE SIDEBAR
+// CLOSE SIDEBAR ON OUTSIDE CLICK
 // ======================
 
-document.addEventListener("click", function(event){
+document.addEventListener("click", function (event) {
 
-    const sidebar =
-    document.getElementById("sidebar");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const menuButton = document.querySelector(".menu-title i");
 
-    const menuButton =
-    document.querySelector(".menu-title i");
-
-    if(
+    if (
         sidebar &&
         menuButton &&
         sidebar.classList.contains("active") &&
         !sidebar.contains(event.target) &&
         !menuButton.contains(event.target)
-    ){
+    ) {
         sidebar.classList.remove("active");
+
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
+    }
+
+});
+
+// ======================
+// CLOSE SIDEBAR ON ESC
+// ======================
+
+document.addEventListener("keydown", function (event) {
+
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    if (
+        event.key === "Escape" &&
+        sidebar &&
+        sidebar.classList.contains("active")
+    ) {
+        sidebar.classList.remove("active");
+
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
     }
 
 });
@@ -48,48 +77,68 @@ document.addEventListener("click", function(event){
 // LOGOUT
 // ======================
 
-function logout(){
+function logout() {
 
-    const result = confirm(
+    const confirmLogout = confirm(
         "Are you sure you want to logout?"
     );
 
-    if(result){
+    if (confirmLogout) {
 
-        localStorage.removeItem(
-            "isLoggedIn"
-        );
+        localStorage.removeItem("isLoggedIn");
 
-        window.location.href =
-        "login.html";
+        window.location.href = "../LoginPage.html";
     }
 }
 
 // ======================
-// PAGE ANIMATION
+// CARD ANIMATION
 // ======================
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
-    const cards =
-    document.querySelectorAll(".card");
+    const cards = document.querySelectorAll(".card");
 
-    cards.forEach((card,index)=>{
+    cards.forEach((card, index) => {
 
-        card.style.opacity="0";
-        card.style.transform=
-        "translateY(20px)";
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            card.style.transition=
-            "all 0.4s ease";
+            card.style.transition = "all 0.4s ease";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
 
-            card.style.opacity="1";
-            card.style.transform=
-            "translateY(0)";
+        }, index * 120);
 
-        },index*150);
+    });
+
+});
+
+// ======================
+// AUTO CLOSE SIDEBAR
+// AFTER MENU CLICK
+// ======================
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll(".sidebar a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("overlay");
+
+            if (sidebar) {
+                sidebar.classList.remove("active");
+            }
+
+            if (overlay) {
+                overlay.classList.remove("active");
+            }
+
+        });
 
     });
 
