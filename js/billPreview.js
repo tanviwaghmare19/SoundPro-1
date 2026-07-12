@@ -19,39 +19,31 @@ const customer =
 JSON.parse(localStorage.getItem("selectedCustomer"));
 
 if (customer) {
-if (customer) {
 
     document.getElementById("customerName").textContent =
         customer.name;
-        customer.name;
+    
 
     document.getElementById("customerMobile").innerHTML =
         '<i class="fa fa-phone"></i> ' + customer.mobile;
-        '<i class="fa fa-phone"></i> ' + customer.mobile;
-
+        
     document.getElementById("customerCity").innerHTML =
-        '<i class="fa fa-location-dot"></i> ' + customer.city;
         '<i class="fa fa-location-dot"></i> ' + customer.city;
 
     const avatar =
         document.getElementById("customerAvatar");
 
-    if (avatar) {
-        document.getElementById("customerAvatar");
-
+   
     if (avatar) {
 
         avatar.className =
             "avatar " + customer.color;
-        avatar.className =
-            "avatar " + customer.color;
+
 
         avatar.innerHTML =
             '<i class="fas fa-user"></i>';
     }
-        avatar.innerHTML =
-            '<i class="fas fa-user"></i>';
-    }
+        
 }
 
 // ======================================
@@ -67,7 +59,6 @@ document.getElementById("productContainer");
 let subtotal = 0;
 let totalQty = 0;
 
-products.forEach(product => {
 products.forEach(product => {
 
     const qty = Number(product.qty);
@@ -181,43 +172,32 @@ document.getElementById("subtotal").textContent =
 "₹" + subtotal.toFixed(2);
 
 if (document.getElementById("cgstAmount")) {
-if (document.getElementById("cgstAmount")) {
+
 
     document.getElementById("cgstAmount").textContent =
         "₹" + cgstAmount.toFixed(2);
 }
-    document.getElementById("cgstAmount").textContent =
-        "₹" + cgstAmount.toFixed(2);
-}
-
-if (document.getElementById("sgstAmount")) {
+   
 if (document.getElementById("sgstAmount")) {
 
     document.getElementById("sgstAmount").textContent =
         "₹" + sgstAmount.toFixed(2);
 }
-    document.getElementById("sgstAmount").textContent =
-        "₹" + sgstAmount.toFixed(2);
-}
+
 
 if (document.getElementById("igstAmount")) {
-if (document.getElementById("igstAmount")) {
 
-    document.getElementById("igstAmount").textContent =
-        "₹" + igstAmount.toFixed(2);
     document.getElementById("igstAmount").textContent =
         "₹" + igstAmount.toFixed(2);
 }
 
 document.getElementById("grandTotal").textContent =
 "₹" + grandTotal.toFixed(2);
-"₹" + grandTotal.toFixed(2);
 
 // ======================================
 // Amount in Words
 // ======================================
 
-function numberToWords(num) {
 function numberToWords(num) {
 
     return "Indian Rupees " +
