@@ -20,8 +20,36 @@ body{
 }
 
 /* ================= HEADER ================= */
+/* ================= HEADER ================= */
 
 .navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background:#f57c00;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.navbar h1{
+    margin:0;
+    font-size:20px;
+    font-weight:500;
+}
+
+.back-btn{
+    position:absolute;
+    left:16px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
     position:fixed;
     top:0;
     left:0;
@@ -59,8 +87,16 @@ body{
     color:#fff;
     font-size:22px;
     cursor:pointer;
+    position:absolute;
+    right:16px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
 }
 
+/* ================= APP ================= */
 /* ================= APP ================= */
 
 .app{
@@ -69,6 +105,7 @@ body{
     padding:0 20px;
 }
 
+/* ================= SEARCH ================= */
 /* ================= SEARCH ================= */
 
 .search-section{
@@ -100,6 +137,8 @@ body{
 
 /* ================= CONTENT ================= */
 
+/* ================= CONTENT ================= */
+
 .content{
     padding:20px 0;
 }
@@ -109,6 +148,8 @@ body{
     font-size:17px;
     margin:10px 0 15px;
 }
+
+/* ================= CUSTOMER CARD ================= */
 
 /* ================= CUSTOMER CARD ================= */
 
@@ -173,6 +214,8 @@ body{
 
 /* ================= BOTTOM BAR ================= */
 
+/* ================= BOTTOM BAR ================= */
+
 .bottom-bar{
     position:fixed;
     left:0;
@@ -181,6 +224,7 @@ body{
     background:#fff;
     padding:12px 16px;
     box-shadow:0 -2px 10px rgba(0,0,0,.08);
+    z-index:1000;
     z-index:1000;
 }
 
@@ -198,6 +242,98 @@ body{
 
 .bottom-bar button:hover{
     opacity:.95;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.modal-content{
+    background:#fff;
+    width:400px;
+    max-width:90%;
+    padding:20px;
+    border-radius:10px;
+}
+
+.modal-content h2{
+    margin-bottom:15px;
+    color:#333;
+}
+
+.modal-content input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+.modal-content button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    background:#f57c00;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.close-btn{
+    float:right;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* ================= SIDE MENU ================= */
+
+.side-menu{
+    position:fixed;
+    top:60px;
+    right:-260px;
+    width:250px;
+    height:100%;
+    background:#fff;
+    box-shadow:-2px 0 10px rgba(0,0,0,.15);
+    transition:.3s;
+    z-index:9999;
+}
+
+.side-menu.show{
+    right:0;
+}
+
+.side-menu a{
+    display:block;
+    padding:15px;
+    color:#333;
+    text-decoration:none;
+    border-bottom:1px solid #eee;
+    font-size:15px;
+}
+
+.side-menu a i{
+    width:25px;
+    color:#f57c00;
+}
+
+.side-menu a:hover{
+    background:#f5f5f5;
+}
+
+/* ================= TABLET ================= */
 }
 
 /* ================= MODAL ================= */
@@ -310,4 +446,25 @@ body{
     .side-menu{
         height:calc(100% - 60px);
     }
+}
+ 
+.card-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.delete-customer-btn{
+    background:none;
+    border:none;
+    color:#E53935;
+    font-size:16px;
+    cursor:pointer;
+    padding:6px;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.delete-customer-btn:hover{
+    background:#fdecea;
 }

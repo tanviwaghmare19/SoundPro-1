@@ -19,6 +19,95 @@
 
 <body>
 
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <i class="fa-solid fa-arrow-left close-sidebar" id="closeSidebar"></i>
+
+            <h2>SOUND<span>PRO</span></h2>
+
+        </div>
+
+      <div class="admin">
+
+    <img src="../assets/admin.png" class="admin-img" id="adminImage" alt="Admin">
+
+    <span id="adminNameSidebar">Admin</span>
+
+</div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </li>
+
+            <li class="active">
+                <i class="fa-solid fa-box"></i>
+                Products
+            </li>
+
+            <li onclick="location.href='addProduct.html'">
+                <i class="fa-solid fa-plus"></i>
+                Add Product
+            </li>
+
+            <li onclick="location.href='orders.html'">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Orders
+            </li>
+
+            <li onclick="location.href='lowStock.html'">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Low Stock
+            </li>
+
+            <li onclick="location.href='reports.html'">
+                <i class="fa-solid fa-file-lines"></i>
+                Reports
+            </li>
+
+            <li onclick="location.href='salesReport.html'">
+                <i class="fa-solid fa-chart-line"></i>
+                Sales Report
+            </li>
+
+            <li onclick="location.href='createBill.html'">
+                <i class="fa-solid fa-file-invoice"></i>
+                Create Bill
+            </li>
+
+            <li onclick="location.href='#'">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                Return & Refunds
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+            </li>
+
+        </ul>
+
+        <div class="logout" onclick="logout()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </div>
+
+    </div>
+
     <!-- ================= MAIN ================= -->
 
     <div class="main-container">

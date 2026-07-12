@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,159 +12,96 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="stylesheet" href="../CSS/createBill.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="../CSS/createBill.css">
 </head>
+
 
 <body>
 
 <div class="app">
 
-    
-<header class="navbar">
+    <!-- HEADER -->
+    <header class="navbar">
 
-    <button class="back-btn"
-            onclick="window.location.href='dashboard.html'">
-        <i class="fa-solid fa-arrow-left"></i>
-    </button>
+        <button class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
 
     <h1>Create Bill</h1>
 
-</header>
+        <button class="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
 
+    </header>
+
+    <!-- SIDE MENU -->
+    <div id="sideMenu" class="side-menu">
+
+        <a href="dashboard.html">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="createBill.html">
+            <i class="fa-solid fa-file-invoice"></i>
+            Create Bill
+        </a>
+
+        <a href="customerList.html">
+            <i class="fa-solid fa-users"></i>
+            Customers
+        </a>
+
+        <a href="reports.html">
+            <i class="fa-solid fa-chart-column"></i>
+            Reports
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </a>
+
+    </div>
 
     <!-- SEARCH -->
     <section class="search-section">
 
+
         <div class="search-box">
 
+
             <i class="fas fa-search"></i>
+
 
             <input
                 type="text"
                 id="searchInput"
                 placeholder="Search by Name / Mobile / Code">
 
+
         </div>
+
 
     </section>
 
     <!-- CUSTOMER LIST -->
-    <main class="content">
-
-        <h3>Recent Customers</h3>
-
-        <div id="customerList">
-
-            <!-- Customer 1 -->
-            <div class="customer-card"
-                 data-name="Rahul Sharma"
-                 data-mobile="9876543210"
-                 data-city="Ahmedabad"
-                 data-code="CUST001"
-                 data-color="purple">
-
-                <div class="customer-left">
-
-                    <div class="avatar purple">
-                        <i class="fas fa-user"></i>
-                    </div>
-
-                    <div class="details">
-                        <h4>Rahul Sharma</h4>
-                        <p>9876543210</p>
-                        <span>CUST001</span>
-                    </div>
-
-                </div>
-
-                <i class="fas fa-chevron-right"></i>
-
-            </div>
-
-            <!-- Customer 2 -->
-            <div class="customer-card"
-                 data-name="Amit Verma"
-                 data-mobile="9876543211"
-                 data-city="Surat"
-                 data-code="CUST002"
-                 data-color="green">
-
-                <div class="customer-left">
-
-                    <div class="avatar green">
-                        <i class="fas fa-user"></i>
-                    </div>
-
-                    <div class="details">
-                        <h4>Amit Verma</h4>
-                        <p>9876543211</p>
-                        <span>CUST002</span>
-                    </div>
-                </div>
-
-                <i class="fas fa-chevron-right"></i>
-
-            </div>
-
-            <!-- Customer 3 -->
-            <div class="customer-card"
-                 data-name="Priya Patel"
-                 data-mobile="9876543212"
-                 data-city="Vadodara"
-                 data-code="CUST003"
-                 data-color="yellow">
-
-                <div class="customer-left">
-
-                    <div class="avatar yellow">
-                        <i class="fas fa-user"></i>
-                    </div>
-
-                    <div class="details">
-                        <h4>Priya Patel</h4>
-                        <p>9876543212</p>
-                        <span>CUST003</span>
-                    </div>
-                </div>
-
-                <i class="fas fa-chevron-right"></i>
-
-            </div>
-
-            <!-- Customer 4 -->
-            <div class="customer-card"
-                 data-name="Neha Singh"
-                 data-mobile="9876543213"
-                 data-city="Rajkot"
-                 data-code="CUST004"
-                 data-color="red">
-
-                <div class="customer-left">
-
-                    <div class="avatar red">
-                        <i class="fas fa-user"></i>
-                    </div>
-
-                    <div class="details">
-                        <h4>Neha Singh</h4>
-                        <p>9876543213</p>
-                        <span>CUST004</span>
-                    </div>
-                </div>
-
-                <i class="fas fa-chevron-right"></i>
-
-            </div>
-
-        </div>
-
-    </main>
+    <div id="customerList"></div>
 
     <!-- BOTTOM BUTTON -->
     <div class="bottom-bar">
 
+
         <button id="addCustomerBtn">
 
+
             <i class="fas fa-plus"></i>
+
 
             Add New Customer
 
@@ -202,11 +140,50 @@
 
             Save Customer
 
+
         </button>
 
     </div>
 
 </div>
+
+<!-- CUSTOMER MODAL -->
+<div id="customerModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn">&times;</span>
+
+        <h2>Add New Customer</h2>
+
+        <input type="text"
+               id="customerName"
+               placeholder="Customer Name">
+
+        <input type="text"
+               id="customerMobile"
+               placeholder="Contact Number">
+
+        <input type="text"
+               id="customerAddress"
+               placeholder="Address">
+
+        <input type="text"
+               id="customerCompany"
+               placeholder="Company Name">
+
+        <button id="saveCustomerBtn">
+
+            Save Customer
+
+        </button>
+
+
+    </div>
+
+</div>
+
+<script src="../JS/createBill.js"></script>
 
 <script src="../JS/createBill.js"></script>
 
