@@ -331,3 +331,9 @@ body{
     }
 
 }
+
+@media(min-width:992px){
+    .header{max-width:1200px;margin:0 auto}
+    .cards{max-width:1200px;margin:0 auto}
+    .chart-container{max-width:1200px;margin:0 auto}
+}

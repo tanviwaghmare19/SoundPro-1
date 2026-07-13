@@ -57,6 +57,100 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.post('/api/clients', async (req, res) => {
+  const { customer_name, customer_phone, customer_address, company_name, user_email } = req.body;
+
+  if (!customer_name || !customer_phone) {
+    return res.status(400).json({ success: false, message: 'Name and contact number are required' });
+  }
+
+  try {
+    await pool.execute(
+      `INSERT INTO clients (id, customer_name, customer_phone, customer_address, company_name, user_email)
+       VALUES (UUID(), ?, ?, ?, ?, ?)`,
+      [customer_name, customer_phone, customer_address || null, company_name || null, user_email || 'admin@soundpro.com']
+    );
+
+    const [rows] = await pool.execute('SELECT * FROM clients WHERE customer_phone = ? ORDER BY created_at DESC LIMIT 1', [customer_phone]);
+
+    res.status(201).json({ success: true, message: 'Customer saved successfully', client: rows[0] });
+  } catch (err) {
+    console.error('Add client error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+app.get('/api/clients', async (req, res) => {
+  try {
+    const [rows] = await pool.execute('SELECT * FROM clients ORDER BY created_at DESC');
+    res.json({ success: true, clients: rows });
+  } catch (err) {
+    console.error('Fetch clients error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+app.get('/api/clients/search', async (req, res) => {
+  const q = req.query.q || '';
+  try {
+    const [rows] = await pool.execute(
+      'SELECT * FROM clients WHERE customer_name LIKE ? OR customer_phone LIKE ? ORDER BY created_at DESC',
+      [`%${q}%`, `%${q}%`]
+    );
+    res.json({ success: true, clients: rows });
+  } catch (err) {
+    console.error('Search clients error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+app.post('/api/bills', async (req, res) => {
+  const { invoice_no, customer_name, subtotal, cgst, sgst, igst, discount, grand_total } = req.body;
+
+  if (!invoice_no || !customer_name || subtotal === undefined) {
+    return res.status(400).json({ success: false, message: 'Missing required bill fields' });
+  }
+
+  try {
+    await pool.execute(
+      `INSERT INTO bills (invoice_no, customer_name, subtotal, cgst, sgst, igst, discount, grand_total)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [invoice_no, customer_name, subtotal, cgst || 0, sgst || 0, igst || 0, discount || 0, grand_total]
+    );
+    res.status(201).json({ success: true, message: 'Bill saved successfully' });
+  } catch (err) {
+    console.error('Save bill error:', err);
+    res.status(500).json({ success: false, message: 'Server error', detail: err.message });
+  }
+});
+
+app.get('/api/bills', async (req, res) => {
+  try {
+    const [rows] = await pool.execute('SELECT * FROM bills ORDER BY bill_date DESC');
+    res.json({ success: true, bills: rows });
+  } catch (err) {
+    console.error('Fetch bills error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+app.delete('/api/clients/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await pool.execute('DELETE FROM clients WHERE id = ?', [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: 'Customer not found' });
+    }
+
+    res.json({ success: true, message: 'Customer deleted successfully' });
+  } catch (err) {
+    console.error('Delete client error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`SoundPro server running at http://localhost:${PORT}`);
 });

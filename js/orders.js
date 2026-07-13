@@ -291,75 +291,24 @@ window.addEventListener("click", function (e) {
 
 });
 // ======================================
-// SIDEBAR OPEN / CLOSE
-// ======================================
-
-const menu = document.querySelector(".left i");
-const sidebar = document.getElementById("sidebar");
-const closeSidebar = document.getElementById("closeSidebar");
-
-menu.addEventListener("click", function () {
-    sidebar.classList.add("active");
-});
-
-closeSidebar.addEventListener("click", function () {
-    sidebar.classList.remove("active");
-});
-
-// Close sidebar when clicking outside
-document.addEventListener("click", function (e) {
-
-    if (
-        sidebar.classList.contains("active") &&
-        !sidebar.contains(e.target) &&
-        !menu.contains(e.target)
-    ) {
-        sidebar.classList.remove("active");
-    }
-
-});
-
-
-// ======================================
 // LOGOUT
 // ======================================
-
 const logoutBtn = document.querySelector(".logout");
 
-logoutBtn.addEventListener("click", function () {
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
 
-    const confirmLogout = confirm("Are you sure you want to logout?");
+        const confirmLogout = confirm("Are you sure you want to logout?");
 
-    if (confirmLogout) {
+        if (confirmLogout) {
 
-        window.location.href = "../LoginPage.html";
+            window.location.href = "../LoginPage.html";
 
-    }
-
-});
-
-
-// ======================================
-// SIDEBAR MENU NAVIGATION
-// ======================================
-
-const menuItems = document.querySelectorAll(".sidebar ul li");
-
-menuItems.forEach(function (item) {
-
-    item.addEventListener("click", function () {
-
-        menuItems.forEach(function (li) {
-            li.classList.remove("active");
-        });
-
-        if (!item.classList.contains("logout")) {
-            item.classList.add("active");
         }
 
     });
+}
 
-});
 function openOrder(id){
 
     const order = orders.find(o => o.id === id);

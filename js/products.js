@@ -347,64 +347,6 @@ function editProduct(index){
 }
 
 // ================================
-// SIDEBAR OPEN / CLOSE
-// ================================
-
-const menu = document.querySelector(".menu");
-const sidebar = document.getElementById("sidebar");
-const closeSidebar = document.getElementById("closeSidebar");
-
-menu.addEventListener("click", function () {
-
-    sidebar.classList.add("active");
-
-});
-
-closeSidebar.addEventListener("click", function () {
-
-    sidebar.classList.remove("active");
-
-});
-
-// Close Sidebar when clicking outside
-
-document.addEventListener("click", function (e) {
-
-    if (
-        sidebar.classList.contains("active") &&
-        !sidebar.contains(e.target) &&
-        !menu.contains(e.target)
-    ) {
-
-        sidebar.classList.remove("active");
-
-    }
-
-});
-
-// ================================
-// ACTIVE MENU
-// ================================
-
-const menuItems = document.querySelectorAll(".sidebar ul li");
-
-menuItems.forEach(function(item){
-
-    item.addEventListener("click", function(){
-
-        menuItems.forEach(function(i){
-
-            i.classList.remove("active");
-
-        });
-
-        this.classList.add("active");
-
-    });
-
-});
-
-// ================================
 // LOGOUT
 // ================================
 
@@ -418,7 +360,7 @@ if(logoutBtn){
 
         if(confirmLogout){
 
-            window.location.href = "login.html";
+            window.location.href = "../LoginPage.html";
 
         }
 

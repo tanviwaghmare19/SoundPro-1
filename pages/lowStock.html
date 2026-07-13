@@ -7,6 +7,7 @@
 
 <title>Low Stock Alert</title>
 
+<link rel="stylesheet" href="/components/sidebar.css">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -291,7 +292,7 @@ body{
 // LOGIN PROTECTION
 
 if(localStorage.getItem("isLoggedIn") !== "true"){
-    window.location.href = "login.html";
+    window.location.href = "../LoginPage.html";
 }
 
 // BACK BUTTON
@@ -314,12 +315,13 @@ function logout(){
 
         localStorage.removeItem("isLoggedIn");
 
-        window.location.href = "login.html";
+window.location.href = "../LoginPage.html";
     }
 
 }
 
 </script>
+<script src="/components/sidebar.js"></script>
 
 </body>
 </html>

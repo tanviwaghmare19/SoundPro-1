@@ -3,7 +3,7 @@
 // ======================
 
 if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
+    window.location.href = "../LoginPage.html";
 }
 
 // ======================
@@ -83,7 +83,7 @@ function logout() {
         );
 
         window.location.href =
-            "login.html";
+            "../LoginPage.html";
     }
 }
 

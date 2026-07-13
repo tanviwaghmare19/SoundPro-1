@@ -1,0 +1,56 @@
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+        <i class="fa-solid fa-arrow-left close-sidebar" id="closeSidebar" onclick="closeSidebar()"></i>
+        <h2>AUDIO<span>TONIC</span></h2>
+    </div>
+
+    <div class="admin">
+        <img src="../assets/admin.png" class="admin-img" id="adminImage" alt="Admin">
+        <div class="admin-info">
+            <h3 id="adminNameSidebar">Admin</h3>
+            <p>Administrator</p>
+        </div>
+    </div>
+
+    <ul>
+        <li data-page="dashboard" onclick="location.href='dashboard.html'">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </li>
+        <li data-page="products" onclick="location.href='products.html'">
+            <i class="fa-solid fa-box"></i>
+            <span>Products</span>
+        </li>
+        <li data-page="orders" onclick="location.href='orders.html'">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Orders</span>
+        </li>
+        <li data-page="reports" onclick="location.href='reports.html'">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Reports</span>
+        </li>
+        <li data-page="salesReport" onclick="location.href='salesReport.html'">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Sales Report</span>
+        </li>
+        <li data-page="createBill" onclick="location.href='createBill.html'">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Billing</span>
+        </li>
+        <li data-page="returns" onclick="location.href='returns.html'">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Returns & Refunds</span>
+        </li>
+        <li data-page="settings" onclick="location.href='settings.html'">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </li>
+    </ul>
+
+    <div class="logout" onclick="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+    </div>
+
+</div>

@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="../js/auth.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill & e-Way Bill</title>
+    
+    <!-- Scripts & Stylesheets -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="../js/auth.js"></script>
     <link rel="stylesheet" href="../css/pdfViewer.css">
+    <link rel="stylesheet" href="../components/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+
+    <div class="header">
+        <button class="back-btn" onclick="history.back()">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h2>Bill & E-Way Bill</h2>
+    </div>
 
     <div class="invoice-box">
         <table>
             <tr>
-                <td colspan="2" class="text-center">
-                    <div class="qr-placeholder">[QR Code]</div>
-                    <div class="header-title text-bold">TAX INVOICE</div>
-                    <div class="company-name">Audio Tonic Traders</div>
-                    <div>Behind Majhi Amdar Upendra Shende's Office, Panchsheel Nagar,</div>
-                    <div>Nagpur-440017, Maharashtra</div>
+                <td colspan="2" style="padding: 15px 15px 10px 15px; overflow: hidden; vertical-align: top;">
+                    <!-- Left Side: Company Details Text -->
+                    <div style="float: left; text-align: left; max-width: 65%; margin-top: 15px;">
+                        <div class="header-title text-bold">TAX INVOICE</div>
+                        <div class="company-name">Audio Tonic Traders</div>
+                        <div style="font-size: 13px; line-height: 1.5; color: #000; margin-top: 5px;">Behind Majhi Amdar Upendra Shende's Office, Panchsheel Nagar,</div>
+                        <div style="font-size: 13px; line-height: 1.5; color: #000;">Nagpur-440017, Maharashtra</div>
+                    </div>
+                    
+                    <!-- Right Side: Maximum Sized Invoice QR Container -->
+                    <div class="qr-placeholder" id="largeInvoiceQr">[QR Code]</div>
                 </td>
             </tr>
 
@@ -127,12 +144,11 @@
                     <div>3. Subject to Nagpur Jurisdiction only.</div>
                 </td>
                 <td width="50%" style="vertical-align: bottom;">
-                    <div class="text-center text-bold" style="margin-bottom: 30px;">Duplicate Copy</div>
+                    <div class="text-center text-bold" style="margin-bottom: 30px;">Customer Copy</div>
                     <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                        <div>Receiver's Signature</div>
+                        <div>Authorised Signatory</div>
                         <div class="text-center">
                             <strong>For AudioTonic Traders</strong><br><br><br>
-                            Authorised Signatory
                         </div>
                     </div>
                 </td>
@@ -140,8 +156,8 @@
         </table>
     </div>
 
+    <!-- E-Way Bill Page Section -->
     <div id="ewayBillPage" class="bill-container" style="display: none; margin-top: 40px;">
-        
         <div class="header-section">
             <div class="header-title-container">
                 <div class="main-title">e-Way Bill</div>
@@ -175,9 +191,9 @@
                 </div>
             </div>
 
-            <div class="qr-code-box">
+            <!-- E-way Bill Maximum Size QR Container Box -->
+            <div class="qr-code-box" id="ewayQrContainer">
                 <div class="qr-header-text">e-Way Bill</div>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkAQMAAABKLAcXAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAD1JREFUeF5VwUERwCAMAMGfGlCDE9SgBhV8w6M2Zp9uA8AsS96mN7wFwBw0W73hLYD6wVsA9Ya3AOoNbwEwX6w/bZHPmNoIAAAAAElFTkSuQmCC" alt="QR Code">
             </div>
         </div>
 
@@ -268,8 +284,7 @@
                     <th style="width: 10%; text-align: right;">Tax Rate<br>(%)</th>
                 </tr>
             </thead>
-            <tbody id="ewayProducts">
-                </tbody>
+            <tbody id="ewayProducts"></tbody>
         </table>
 
         <div class="summary-container">
@@ -349,6 +364,8 @@
         </div>
     </div>
 
+    <!-- Scripts at Bottom -->
     <script src="../js/pdfViewer.js"></script>
+    <script src="/components/sidebar.js"></script>
 </body>
 </html>

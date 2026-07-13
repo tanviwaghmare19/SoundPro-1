@@ -1,0 +1,272 @@
+# SoundPro Improvement Wireframe
+
+## 🔴 Critical Console Errors Found
+
+### 1. `orders.js:299` — TypeError crash
+`document.querySelector(".logout")` returns `null` because `sidebar.js` hasn't injected it yet. This crashes ALL code after line 299, including the order detail modal.
+
+### 2. 8 broken `login.html` redirects
+Every `logout()` function redirects to `login.html` which doesn't exist (the actual file is `/LoginPage.html`). After logout, user sees a 404.
+
+### 3. Login redirects to wrong dashboard
+`js/login.js:35` → `dashboard.html` (root) should be `pages/dashboard.html`.
+
+### 4. `settings.js` — duplicate `backBtn` listeners cancel each other
+Two event listeners on `#backBtn`: one navigates to `products.html`, the other calls `history.back()`. The page jitters back and forth.
+
+---
+
+## Architecture Wireframe
+
+### Current App Map
+```
+LoginPage.html          →  pages/dashboard.html
+                                    │
+                    ┌───────────────┼───────────────┐
+                    ▼               ▼               ▼
+            createBill.html   products.html     orders.html
+                    │               │               │
+                    ▼               ▼               ▼
+          addProductsbilling   addProduct.html   lowStock.html
+                    │
+                    ▼
+            billPreview.html      reports.html
+                    │               │
+                    ▼               ▼
+            billGenerated.html  salesReport.html
+                    │
+                    ▼
+            pdfViewer.html
+                                 profile.html
+                                 settings.html
+                                 changePassword.html
+```
+
+### Navigation Structure
+
+```
+                    ┌─────────────────────────────────┐
+                    │          SIDEBAR                │
+                    │  ┌───────────────────────────┐  │
+                    │  │ 🔷 Dashboard             │  │
+                    │  ├───────────────────────────┤  │
+                    │  │ 📦 Products              │  │
+                    │  │   ├── All Products        │  │
+                    │  │   └── Add Product         │  │
+                    │  ├───────────────────────────┤  │
+                    │  │ 📋 Orders                │  │
+                    │  │ ⚠ Low Stock              │  │
+                    │  ├───────────────────────────┤  │
+                    │  │ 🧾 Billing               │  │
+                    │  │   ├── Create Bill         │  │
+                    │  │   └── Bill History        │  │
+                    │  ├───────────────────────────┤  │
+                    │  │ 📊 Reports               │  │
+                    │  │ 📈 Sales Report          │  │
+                    │  ├───────────────────────────┤  │
+                    │  │ 👤 Profile               │  │
+                    │  │ ⚙ Settings               │  │
+                    │  ├───────────────────────────┤  │
+                    │  │ 🚪 Logout                │  │
+                    └───────────────────────────┘  │
+                    └─────────────────────────────────┘
+```
+
+### Desktop Layout (768px+)
+
+```
+┌────────────┬──────────────────────────────────────────┐
+│            │                                          │
+│  SIDEBAR   │            HEADER                        │
+│  (always   │     [Search Bar]          [🔔] [👤]     │
+│   visible) │──────────────────────────────────────────│
+│  260px     │                                          │
+│            │          CONTENT AREA                    │
+│            │     ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐    │
+│  📦 All    │     │Total │ │Low  │ │Orders│ │Rev  │    │
+│    Products│     │Prod  │ │Stock│ │      │ │enue │    │
+│  ➕ Add    │     └─────┘ └─────┘ └─────┘ └─────┘    │
+│    Product │                                          │
+│  📋 Orders │     ┌──────────────────────────────┐    │
+│  ⚠ Low    │     │      CHART / TABLE            │    │
+│    Stock   │     │                              │    │
+│  🧾 Bill   │     └──────────────────────────────┘    │
+│  📊 Reports│                                          │
+│  👤 Profile│                                          │
+│  ⚙ Settings│                                          │
+│  🚪 Logout │                                          │
+│            │                                          │
+└────────────┴──────────────────────────────────────────┘
+```
+
+### Mobile Layout (<768px)
+
+```
+┌─────────────────────────────────────┐
+│ ☰  Dashboard                🔔 👤  │  ← Header with hamburger
+├─────────────────────────────────────┤
+│                                     │
+│  ┌──────┐ ┌──────┐                 │
+│  │Total │ │Low   │                 │
+│  │Prod  │ │Stock │                 │
+│  └──────┘ └──────┘                 │
+│  ┌──────┐ ┌──────┐                 │
+│  │Orders│ │Rev   │                 │
+│  └──────┘ └──────┘                 │
+│                                     │
+│  ┌─────────────────────────────┐   │
+│  │      CHART / TABLE          │   │
+│  └─────────────────────────────┘   │
+│                                     │
+├─────────────────────────────────────┤
+│ Bottom Nav                          │
+│ [🏠] [📦] [🧾] [📊] [👤]          │
+└─────────────────────────────────────┘
+```
+
+### Sidebar Overlay (mobile, when toggled)
+
+```
+┌────────────┬────────────────────────┐
+│░░░░░░░░░░░░│                        │
+│░░ SIDEBAR ░░│     (dimmed overlay)   │
+│░░ overlay ░░│                        │
+│░░░░░░░░░░░░│                        │
+│ 📦 Products│                        │
+│ ➕ Add Prod│                        │
+│ 📋 Orders  │                        │
+│ ⚠ Low Stck│                        │
+│ 🧾 Bill    │                        │
+│ 📊 Reports │                        │
+│ 👤 Profile │                        │
+│ ⚙ Settings │                        │
+│ 🚪 Logout  │                        │
+│░░░░░░░░░░░░│                        │
+└────────────┴────────────────────────┘
+```
+
+---
+
+## Billing Flow — Current vs Proposed
+
+### Current (5 steps, painful)
+```
+createBill → addProductsbilling → billPreview → billGenerated → pdfViewer
+```
+
+### Proposed (2 steps, wizard)
+```
+┌─────────────────────────────────────────────────────┐
+│              CREATE BILL (single page)              │
+├─────────────────────────────────────────────────────┤
+│  ┌──────────────────────────────────────────────┐   │
+│  │ Step 1: Select / Create Customer             │   │
+│  │ [Search...]   [+ New Customer]               │   │
+│  │ ┌──────────────────────────────────────────┐ │   │
+│  │ │ ○ Rahul Sharma · 9876543210 · Ahmedabad │ │   │
+│  │ │ ○ Amit Verma  · 9876543211 · Surat      │ │   │
+│  │ └──────────────────────────────────────────┘ │   │
+│  └──────────────────────────────────────────────┘   │
+│                                                     │
+│  ┌──────────────────────────────────────────────┐   │
+│  │ Step 2: Add Products                         │   │
+│  │ ┌─────────┬────┬──────┬──────┬──────┐       │   │
+│  │ │Product  │Qty │Rate  │GST   │Total │       │   │
+│  │ ├─────────┼────┼──────┼──────┼──────┤       │   │
+│  │ │Speaker  │ 2  │5000  │CGST  │10000 │       │   │
+│  │ │Mixer    │ 1  │12000 │IGST  │12000 │       │   │
+│  │ └─────────┴────┴──────┴──────┴──────┘       │   │
+│  │ [+ Add Product]                              │   │
+│  └──────────────────────────────────────────────┘   │
+│                                                     │
+│  ┌──────────────────────────────────────────────┐   │
+│  │ Summary                                       │   │
+│  │ Subtotal:  ₹22,000    GST: ₹3,960            │   │
+│  │ Discount:  ₹0         Total: ₹25,960         │   │
+│  │                            [Generate Bill]    │   │
+│  └──────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## Database / API Improvements
+
+```
+┌──────────────────────────────────────────────────────────┐
+│                    API LAYER                              │
+├──────────────────────────────────────────────────────────┤
+│  POST   /api/login       → Auth + JWT token              │
+│  POST   /api/logout      → Invalidate token              │
+│  ─────────────────────────────────────────────────────    │
+│  GET    /api/products    → List (paginated)              │
+│  POST   /api/products    → Create                        │
+│  PUT    /api/products/:id → Update                       │
+│  DELETE /api/products/:id → Delete                       │
+│  ─────────────────────────────────────────────────────    │
+│  GET    /api/clients     → List                          │
+│  POST   /api/clients     → Create                        │
+│  PUT    /api/clients/:id → Update                        │
+│  DELETE /api/clients/:id → Delete                        │
+│  ─────────────────────────────────────────────────────    │
+│  GET    /api/bills       → List                          │
+│  POST   /api/bills       → Create                        │
+│  GET    /api/bills/:id   → Get single with line items    │
+│  ─────────────────────────────────────────────────────    │
+│  GET    /api/inventory/low-stock → Alerts                │
+│  GET    /api/reports/sales      → Sales analytics        │
+└──────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Responsive Breakpoint Strategy
+
+```
+Mobile-first         →  base styles (320px+)
+Tablet               →  @media (min-width: 768px)
+                      • sidebar becomes always-visible
+                      • 2-column card grids
+Desktop              →  @media (min-width: 992px)
+                      • sidebar pinned left (260px)
+                      • max-width: 1200px centered
+                      • 4-column card grids
+Large Desktop        →  @media (min-width: 1200px)
+                      • full-width charts/tables
+```
+
+---
+
+## File Organization (proposed)
+
+```
+/                         ← project root (static serve root)
+├── index.html            ← redirect to pages/dashboard.html
+├── login.html            ← single login page
+├── assets/               ← images/icons
+├── components/
+│   ├── sidebar.html      ← sidebar markup template
+│   ├── sidebar.js        ← sidebar logic
+│   └── sidebar.css       ← sidebar styles
+├── css/
+│   ├── login.css
+│   ├── dashboard.css
+│   ├── products.css
+│   ├── billing.css       ← MERGED: createBill + addProducts + preview
+│   ├── orders.css
+│   ├── reports.css       ← MERGED: reports + salesReport
+│   └── profile.css       ← MERGED: profile + settings + changePassword
+├── js/
+│   ├── auth.js
+│   ├── login.js
+│   ├── dashboard.js
+│   ├── products.js
+│   ├── billing.js        ← MERGED: createBill + addProducts + preview + generated
+│   ├── orders.js
+│   ├── reports.js
+│   └── profile.js
+├── pages/                ← can be flattened to root
+├── server.js
+├── schema.sql
+└── sitemap.xml
+```

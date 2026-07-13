@@ -9,7 +9,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../css/orders.css">
-
+    <link rel="stylesheet" href="/components/sidebar.css">
     <!-- Font Awesome -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -19,123 +19,7 @@
 
     <!-- ================= SIDEBAR ================= -->
 
-    <div class="sidebar" id="sidebar">
 
-        <div class="sidebar-header">
-
-            <i class="fa-solid fa-arrow-left close-sidebar" id="closeSidebar"></i>
-
-            <h2>SOUND<span>PRO</span></h2>
-
-        </div>
-
-        <div class="admin">
-
-    <img src="../assets/admin.png" class="admin-img" id="adminImage" alt="Admin">
-
-    <span id="adminNameSidebar">Admin</span>
-
-</div>
-
-
-        <ul>
-
-            <li onclick="location.href='dashboard.html'">
-
-                <i class="fa-solid fa-house"></i>
-
-                Dashboard
-
-            </li>
-
-            <li onclick="location.href='products.html'">
-
-                <i class="fa-solid fa-box"></i>
-
-                Products
-
-            </li>
-
-            <li onclick="location.href='addProduct.html'">
-
-                <i class="fa-solid fa-plus"></i>
-
-                Add Product
-
-            </li>
-
-            <li class="active" onclick="location.href='orders.html'">
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                Orders
-
-            </li>
-
-            <li onclick="location.href='reports.html'">
-
-                <i class="fa-solid fa-file-lines"></i>
-
-                Reports
-
-            </li>
-
-            <li onclick="location.href='salesReport.html'">
-
-                <i class="fa-solid fa-chart-line"></i>
-
-                Sales Report
-
-            </li>
-
-            <li onclick="location.href='createBill.html'">
-
-                <i class="fa-solid fa-file-invoice"></i>
-
-                Billing
-
-            </li>
-
-            <li onclick="location.href='#'">
-
-                <i class="fa-solid fa-money-bill-transfer"></i>
-
-                Return & Refunds
-            </li>
-
-            <li onclick="location.href='lowStock.html'">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                Low Stock
-
-            </li>
-
-            <li onclick="location.href='profile.html'">
-
-                <i class="fa-solid fa-user"></i>
-
-                Profile
-            </li>
-
-           <li onclick="location.href='settings.html'">
-            <i class="fa-solid fa-gear"></i>
-            Settings
-            </li>
-
-        </ul>
-
-        <hr class="sidebar-line">
-
-        <div class="logout" onclick="logout()">
-
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            Logout
-
-        </div>
-
-    </div>
 
     <!-- ================= MAIN CONTAINER ================= -->
 
@@ -147,7 +31,7 @@
 
             <div class="left">
 
-                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-bars" onclick="toggleSidebar()"></i>
 
                 <h2>Orders</h2>
 
@@ -213,6 +97,7 @@
     <!-- JavaScript -->
 
     <script src="../js/orders.js"></script>
+<script src="/components/sidebar.js"></script>
 
 </body>
 

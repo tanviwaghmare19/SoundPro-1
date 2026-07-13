@@ -1,0 +1,134 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 320px;
+    height: 100vh;
+    background: #5f5f5f;
+    color: #fff;
+    transition: 0.3s;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 22px;
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox ke liye dark scrollbar */
+    scrollbar-color: rgba(255, 255, 255, 0.2) #5f5f5f;
+}
+
+/* Chrome, Safari aur Opera ke liye scrollbar sundar banane ka code */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #5f5f5f;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.close-sidebar {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.sidebar-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.sidebar-header span {
+    color: #ff6a00;
+}
+
+.admin {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.admin img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+}
+
+.admin-info h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.admin-info p {
+    font-size: 13px;
+    color: #ccc;
+    margin: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    flex: 1;
+}
+
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.sidebar ul li i {
+    width: 22px;
+    font-size: 17px;
+}
+
+.sidebar ul li:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.sidebar ul li.active {
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 5px solid orange;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ff3b30;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.logout i {
+    font-size: 17px;
+}

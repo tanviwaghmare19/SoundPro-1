@@ -3,191 +3,91 @@
 
 <head>
     <script src="../js/auth.js"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Preview Bill</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-   <link rel="stylesheet" href="../css/billPreview.css">
-    
+    <link rel="stylesheet" href="../css/billPreview.css">
+    <link rel="stylesheet" href="../components/sidebar.css">
 </head>
 
 <body>
 
-<!-- ================= Header ================= -->
+    <header class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2>Bill Preview</h2>
+    </header>
 
-<header class="header">
+    <div class="container">
 
-    <button class="back-btn" id="backBtn">
+        <div class="bill-card">
+            <!-- Invoice and Date sections completely removed from top -->
 
-        <i class="fas fa-arrow-left"></i>
+            <div class="customer">
+                <h3>Customer Details</h3>
+                <div class="customer-box">
+                    <div class="avatar" id="customerAvatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="customer-info">
+                        <h4 id="customerName"></h4>
+                        <p id="customerMobile"></p>
+                        <p id="customerCity"></p>
+                    </div>
+                </div>
+            </div>
 
-    </button>
+            <hr>
 
-    <h2>Bill Preview</h2>
+            <h3 class="title">Products</h3>
 
-</header>
+            <div class="table-head">
+                <span>Product</span>
+                <span>Qty</span>
+                <span>Rate</span>
+                <span>Amount</span>
+            </div>
 
+            <div id="productContainer"></div>
 
-<!-- ================= Main ================= -->
+            <hr>
 
-<div class="container">
+            <div class="summary">
 
-<div class="bill-card">
+                <div class="row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
 
-<!-- Invoice -->
+                <!-- Dynamic Tax container where selected taxes will appear -->
+                <div id="dynamicTaxContainer"></div>
 
-<div class="invoice">
+                <hr>
 
-    <div>
+                <div class="row grand">
+                    <span>Grand Total</span>
+                    <span id="grandTotal">₹0.00</span>
+                </div>
 
-        <p>Invoice No.</p>
-
-        <h3 id="invoiceNumber"></h3>
-
-    </div>
-
-    <div>
-
-        <p>Date</p>
-
-        <h3 id="invoiceDate"></h3>
-
-    </div>
-
-</div>
-
-<hr>
-
-<!-- Customer -->
-
-<div class="customer">
-
-    <h3>Customer Details</h3>
-
-    <div class="customer-box">
-
-        <div class="avatar" id="customerAvatar">
-
-            <i class="fas fa-user"></i>
-
-        </div>
-
-        <div class="customer-info">
-
-            <h4 id="customerName"></h4>
-
-            <p id="customerMobile"></p>
-
-            <p id="customerCity"></p>
+            </div>
 
         </div>
 
+        <div id="ewaySection" class="eway-section" style="display:none;">
+            <h3>E-Way Bill Generated</h3>
+            <p>E-Way Bill No: <strong id="ewayNumber"></strong></p>
+        </div>
+
     </div>
 
-</div>
+    <div class="bottom-bar">
+        <button id="finalBillBtn">Generate Final Bill</button>
+    </div>
 
-<hr>
-
-<!-- Products -->
-
-<h3 class="title">
-
-    Products
-
-</h3>
-
-<div class="table-head">
-
-    <span>Product</span>
-
-    <span>Qty</span>
-
-    <span>Rate</span>
-
-    <span>Amount</span>
-
-</div>
-
-<div id="productContainer">
-
-<!-- JavaScript Products -->
-
-</div>
-
-<hr>
-
-<!-- Summary -->
-
-<div class="summary">
-
-<div class="row">
-
-<span>Subtotal</span>
-
-<span id="subtotal">₹0</span>
-
-</div>
-
-<div class="row">
-
-<span>Discount</span>
-
-<span id="discount">₹0</span>
-
-</div>
-
-<div class="row">
-
-<span id="gstTitle">
-
-GST
-
-</span>
-
-<span id="gstAmount">
-
-₹0
-
-</span>
-
-</div>
-
-<hr>
-
-<div class="row grand">
-
-<span>Grand Total</span>
-
-<span id="grandTotal">
-
-₹0
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Bottom Button -->
-
-<div class="bottom-bar">
-
-<button id="finalBillBtn">
-
-Generate Final Bill
-
-</button>
-
-</div>
-
-<script src="../js/billPreview.js"></script>
+    <script src="../js/billPreview.js"></script>
+    <script src="../components/sidebar.js"></script>
 
 </body>
 

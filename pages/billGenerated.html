@@ -3,142 +3,109 @@
 
 <head>
     <script src="../js/auth.js"></script>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Bill Generated</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Generated</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
- <link rel="stylesheet" href="../css/billGenerated.css">
-
+    <link rel="stylesheet" href="../css/billGenerated.css">
+<link rel="stylesheet" href="/components/sidebar.css">
 </head>
 
 <body>
 
 <div class="container">
 
-   
-       <!--Success Icon--> 
-   
-
     <div class="success-section">
-
         <div class="success-icon">
-
             <i class="fa-solid fa-circle-check"></i>
-
         </div>
-
         <h1>Bill Generated</h1>
-
         <h2>Successfully</h2>
-
     </div>
 
-    
-        <!--Invoice Card-->
-    
     <div class="invoice-card">
 
         <div class="invoice-row">
-
             <span>Invoice No</span>
-
-            <h3 id="invoiceNo">
-                INV0001
-            </h3>
-
+            <h3 id="invoiceNo">INV0001</h3>
         </div>
 
         <div class="invoice-row">
-
             <span>Customer</span>
-
-            <h3 id="customerName">
-                Rahul Sharma
-            </h3>
-
+            <h3 id="customerName">Rahul Sharma</h3>
         </div>
 
         <div class="invoice-row">
+            <span>Subtotal</span>
+            <h3 id="subtotal">₹0.00</h3>
+        </div>
 
+        <div class="invoice-row" id="cgstRow">
+            <span>CGST</span>
+            <h3 id="cgstAmount">₹0.00</h3>
+        </div>
+
+        <div class="invoice-row" id="sgstRow">
+            <span>SGST</span>
+            <h3 id="sgstAmount">₹0.00</h3>
+        </div>
+
+        <div class="invoice-row" id="igstRow">
+            <span>IGST</span>
+            <h3 id="igstAmount">₹0.00</h3>
+        </div>
+
+        <div class="invoice-row">
             <span>Total Amount</span>
+            <h2 id="totalAmount">₹0.00</h2>
+        </div>
 
-            <h2 id="totalAmount">
-                ₹0.00
-            </h2>
-
+        <div class="invoice-row" id="ewayRow" style="display:none;">
+            <span>E-Way Bill No.</span>
+            <h3 id="ewayBillNo" style="color:#f57c00;">-</h3>
         </div>
 
     </div>
 
-      
-       <!--- Action Buttons-->
-    
     <div class="action-buttons">
 
         <button id="pdfBtn" class="action-btn">
-
             <i class="fa-solid fa-file-pdf"></i>
-
             <span>Get PDF</span>
-
         </button>
 
         <button id="printBtn" class="action-btn">
-
             <i class="fa-solid fa-print"></i>
-
             <span>Print Bill</span>
-
         </button>
 
         <button id="saveBtn" class="action-btn">
-
             <i class="fa-solid fa-floppy-disk"></i>
-
             <span>Save Bill</span>
-
         </button>
 
     </div>
-
-    
-        <!--Bottom Navigation-->
-   
 
     <div class="bottom-nav">
 
         <button id="homeBtn">
-
             <i class="fa-solid fa-house"></i>
-
             <span>Home</span>
-
         </button>
 
         <button id="newBillBtn">
-
             <i class="fa-solid fa-file-circle-plus"></i>
-
             <span>New Bill</span>
-
         </button>
 
     </div>
 
 </div>
 
-<!-- jsPDF Library -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<!-- JavaScript -->
-
 <script src="../js/billGenerated.js"></script>
+<script src="/components/sidebar.js"></script>
 
 </body>
+
 </html>

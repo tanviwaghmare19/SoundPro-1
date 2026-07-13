@@ -276,3 +276,7 @@ body{
 }
 
 }
+
+@media(min-width:768px){
+    .container{max-width:800px;margin:0 auto;padding:30px 24px 120px}
+}

@@ -10,6 +10,7 @@
    
 
     <link rel="stylesheet" href="../css/createBill.css">
+    <link rel="stylesheet" href="../components/sidebar.css">
 </head>
 <body>
 
@@ -25,7 +26,6 @@
 
     </header>
 
-<div class="app"></div>
 
     <!-- Search -->
     <section class="search-section">
@@ -151,8 +151,24 @@ data-city="Vadodara">
         </button>
     </div>
 
+    <!-- Add Customer Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add New Customer</h2>
+            <form id="customerForm">
+                <input type="text" id="customerName" placeholder="Customer Name" required>
+                <input type="tel" id="customerMobile" placeholder="Contact Number" required>
+                <input type="text" id="customerAddress" placeholder="Address (optional)">
+                <input type="text" id="customerCompany" placeholder="Company Name (optional)">
+                <button type="submit" id="saveCustomerBtn">Save Customer</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <script src="../js/createBill.js"></script>
+<script src="../components/sidebar.js"></script>
 </body>
 </html>

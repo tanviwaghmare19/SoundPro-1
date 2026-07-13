@@ -3,46 +3,8 @@
 // ======================
 
 if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
+    window.location.href = "../LoginPage.html";
 }
-
-// ======================
-// SIDEBAR TOGGLE
-// ======================
-
-function toggleSidebar() {
-
-    const sidebar =
-    document.getElementById("sidebar");
-
-    if(sidebar){
-        sidebar.classList.toggle("active");
-    }
-}
-
-// ======================
-// CLOSE SIDEBAR
-// ======================
-
-document.addEventListener("click", function(event){
-
-    const sidebar =
-    document.getElementById("sidebar");
-
-    const menuButton =
-    document.querySelector(".menu-title i");
-
-    if(
-        sidebar &&
-        menuButton &&
-        sidebar.classList.contains("active") &&
-        !sidebar.contains(event.target) &&
-        !menuButton.contains(event.target)
-    ){
-        sidebar.classList.remove("active");
-    }
-
-});
 
 // ======================
 // LOGOUT
@@ -61,7 +23,7 @@ function logout(){
         );
 
         window.location.href =
-        "login.html";
+        "../LoginPage.html";
     }
 }
 
