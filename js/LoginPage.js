@@ -29,7 +29,7 @@ async function login() {
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("userName", data.name);
 
-            window.location.href = "pages/dashboard.html";
+           window.location.href = "dashboard.html";
 
         } else {
 

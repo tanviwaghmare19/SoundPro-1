@@ -1,14 +1,11 @@
 :root{
-
     --primary:#f57c00;
     --bg:#f5f6fb;
     --white:#fff;
     --text:#222;
     --muted:#757575;
     --border:#e8e8e8;
-
     --shadow:0 2px 10px rgba(0,0,0,.08);
-
 }
 
 *{
@@ -18,49 +15,89 @@
 }
 
 body{
-
     font-family:Roboto,sans-serif;
     background:var(--bg);
-
 }
 
+/* ================= HEADER ================= */
+/* ================= HEADER ================= */
 
 .navbar{
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 60px;
-
-    background: #f57c00;
-    color: #fff;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    z-index: 1000;
-    
-}
-
-.menu-btn{
-    position: absolute;
-    left: 16px;
-
-    background: none;
-    border: none;
-    color: #fff;
-
-    font-size: 22px;
-    cursor: pointer;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background:#f57c00;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
 }
 
 .navbar h1{
-    margin: 0;
-    font-size: 20px;
-    font-weight: 500;
+    margin:0;
+    font-size:20px;
+    font-weight:500;
 }
+
+.back-btn{
+    position:absolute;
+    left:16px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    background:#f57c00;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.navbar h1{
+    margin:0;
+    font-size:20px;
+    font-weight:500;
+}
+
+.back-btn{
+    position:absolute;
+    left:16px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.menu-btn{
+    position:absolute;
+    right:16px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    position:absolute;
+    right:16px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* ================= APP ================= */
+/* ================= APP ================= */
 
 .app{
     max-width:900px;
@@ -68,6 +105,8 @@ body{
     padding:0 20px;
 }
 
+/* ================= SEARCH ================= */
+/* ================= SEARCH ================= */
 
 .search-section{
     padding:0;
@@ -81,25 +120,24 @@ body{
     border-radius:8px;
     padding:12px 15px;
     box-shadow:var(--shadow);
-
     margin-top:10px;
 }
 
 .search-box i{
-
     color:#999;
-
 }
 
 .search-box input{
-
     border:none;
     outline:none;
     margin-left:10px;
     width:100%;
     font-size:15px;
-
 }
+
+/* ================= CONTENT ================= */
+
+/* ================= CONTENT ================= */
 
 .content{
     padding:20px 0;
@@ -111,55 +149,42 @@ body{
     margin:10px 0 15px;
 }
 
-.customer-card{
+/* ================= CUSTOMER CARD ================= */
 
+/* ================= CUSTOMER CARD ================= */
+
+.customer-card{
     background:#fff;
     border-radius:10px;
-
     padding:15px;
-
     margin-bottom:12px;
-
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     box-shadow:var(--shadow);
-
     cursor:pointer;
-
     transition:.25s;
-
 }
 
 .customer-card:hover{
-
     transform:translateY(-2px);
-
 }
 
 .customer-left{
-
     display:flex;
     align-items:center;
     gap:14px;
-
 }
 
 .avatar{
-
     width:48px;
     height:48px;
-
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     color:#fff;
     font-size:20px;
-
 }
 
 .purple{background:#7E57C2;}
@@ -168,99 +193,268 @@ body{
 .red{background:#E53935;}
 
 .details h4{
-
     font-size:16px;
     color:#222;
     margin-bottom:4px;
-
 }
 
 .details p{
-
     color:#666;
     font-size:14px;
-
 }
 
 .details span{
-
     color:#999;
     font-size:13px;
-
 }
 
 .customer-card .fa-chevron-right{
-
     color:#999;
-
 }
 
-.bottom-bar{
+/* ================= BOTTOM BAR ================= */
 
+/* ================= BOTTOM BAR ================= */
+
+.bottom-bar{
     position:fixed;
     left:0;
     right:0;
     bottom:0;
-
     background:#fff;
     padding:12px 16px;
-
     box-shadow:0 -2px 10px rgba(0,0,0,.08);
-
+    z-index:1000;
+    z-index:1000;
 }
 
 .bottom-bar button{
-
     width:100%;
     height:50px;
-
     background:var(--primary);
     color:#fff;
-
     border:none;
     border-radius:8px;
-
     font-size:16px;
     font-weight:500;
-
     cursor:pointer;
-
 }
 
 .bottom-bar button:hover{
-
     opacity:.95;
-
 }
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.modal-content{
+    background:#fff;
+    width:400px;
+    max-width:90%;
+    padding:20px;
+    border-radius:10px;
+}
+
+.modal-content h2{
+    margin-bottom:15px;
+    color:#333;
+}
+
+.modal-content input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+.modal-content button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    background:#f57c00;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.close-btn{
+    float:right;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* ================= SIDE MENU ================= */
+
+.side-menu{
+    position:fixed;
+    top:60px;
+    right:-260px;
+    width:250px;
+    height:100%;
+    background:#fff;
+    box-shadow:-2px 0 10px rgba(0,0,0,.15);
+    transition:.3s;
+    z-index:9999;
+}
+
+.side-menu.show{
+    right:0;
+}
+
+.side-menu a{
+    display:block;
+    padding:15px;
+    color:#333;
+    text-decoration:none;
+    border-bottom:1px solid #eee;
+    font-size:15px;
+}
+
+.side-menu a i{
+    width:25px;
+    color:#f57c00;
+}
+
+.side-menu a:hover{
+    background:#f5f5f5;
+}
+
+/* ================= TABLET ================= */
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.modal-content{
+    background:#fff;
+    width:400px;
+    max-width:90%;
+    padding:20px;
+    border-radius:10px;
+}
+
+.modal-content h2{
+    margin-bottom:15px;
+    color:#333;
+}
+
+.modal-content input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+.modal-content button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    background:#f57c00;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.close-btn{
+    float:right;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* ================= SIDE MENU ================= */
+
+.side-menu{
+    position:fixed;
+    top:60px;
+    right:-260px;
+    width:250px;
+    height:100%;
+    background:#fff;
+    box-shadow:-2px 0 10px rgba(0,0,0,.15);
+    transition:.3s;
+    z-index:9999;
+}
+
+.side-menu.show{
+    right:0;
+}
+
+.side-menu a{
+    display:block;
+    padding:15px;
+    color:#333;
+    text-decoration:none;
+    border-bottom:1px solid #eee;
+    font-size:15px;
+}
+
+.side-menu a i{
+    width:25px;
+    color:#f57c00;
+}
+
+.side-menu a:hover{
+    background:#f5f5f5;
+}
+
+/* ================= TABLET ================= */
 
 @media (min-width:768px){
 
     .bottom-bar{
-
         display:flex;
         justify-content:center;
-
     }
 
     .bottom-bar button{
-
         max-width:900px;
-
     }
-
 }
 
-.bottom-bar{
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
+/* ================= DESKTOP ================= */
 
-    background:#fff;
-    padding:12px 16px;
+@media(min-width:992px){
 
-    box-shadow:0 -2px 10px rgba(0,0,0,.08);
+    .side-menu{
+        height:calc(100% - 60px);
+    }
+}
+ 
+.card-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
+<<<<<<< HEAD
     z-index:1000;
 }
 
@@ -343,4 +537,19 @@ body{
     max-width:900px;
     margin:60px auto 90px;
     padding:0 20px;
+=======
+.delete-customer-btn{
+    background:none;
+    border:none;
+    color:#E53935;
+    font-size:16px;
+    cursor:pointer;
+    padding:6px;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.delete-customer-btn:hover{
+    background:#fdecea;
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 }

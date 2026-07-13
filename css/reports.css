@@ -22,6 +22,30 @@ body{
     align-items:center;
     margin-bottom:25px;
 }
+.back-btn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#ff7a00;
+    color:white;
+    cursor:pointer;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-right:15px;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#e66d00;
+    transform:scale(1.05);
+}
+
+.header h1{
+    margin:0;
+}
 
 .header-left{
     display:flex;

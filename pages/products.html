@@ -15,7 +15,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 </head>
 
 <body>
@@ -28,29 +27,26 @@
 
     <div class="main-container">
 
-        <!-- Header -->
+       <div class="header">
 
-        <div class="header">
+    <!-- Back Button -->
+    <button class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
 
+<<<<<<< HEAD
             <div class="menu" onclick="toggleSidebar()">
+=======
+    <div class="title">
+        Products
+    </div>
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 
-                <i class="fa-solid fa-bars"></i>
+    <div class="notification">
+        <i class="fa-solid fa-bell"></i>
+    </div>
 
-            </div>
-
-            <div class="title">
-
-                Products
-
-            </div>
-
-            <div class="notification">
-
-                <i class="fa-solid fa-bell"></i>
-
-            </div>
-
-        </div>
+</div>
 
         <!-- Search -->
 
@@ -94,15 +90,10 @@
                 <h3>Category</h3>
 
                 <label><input type="checkbox" class="categoryFilter" value="Speaker"> Speaker</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Mixer"> Mixer</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Microphone"> Microphone</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Amplifier"> Amplifier</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Cable"> Cable</label>
-
                 <label><input type="checkbox" class="categoryFilter" value="Headphone"> Headphone</label>
 
             </div>
@@ -114,13 +105,9 @@
                 <h3>Brand</h3>
 
                 <label><input type="checkbox" class="brandFilter" value="JBL"> JBL</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Yamaha"> Yamaha</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Sony"> Sony</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Shure"> Shure</label>
-
                 <label><input type="checkbox" class="brandFilter" value="Behringer"> Behringer</label>
 
             </div>
@@ -132,11 +119,8 @@
                 <h3>Price</h3>
 
                 <label><input type="checkbox" class="priceFilter" value="1"> ₹0 - ₹5,000</label>
-
                 <label><input type="checkbox" class="priceFilter" value="2"> ₹5,001 - ₹20,000</label>
-
                 <label><input type="checkbox" class="priceFilter" value="3"> ₹20,001 - ₹50,000</label>
-
                 <label><input type="checkbox" class="priceFilter" value="4"> Above ₹50,000</label>
 
             </div>
@@ -148,9 +132,7 @@
                 <h3>Stock Status</h3>
 
                 <label><input type="checkbox" class="stockFilter" value="instock"> In Stock</label>
-
                 <label><input type="checkbox" class="stockFilter" value="low"> Low Stock</label>
-
                 <label><input type="checkbox" class="stockFilter" value="out"> Out Of Stock</label>
 
             </div>
@@ -162,11 +144,8 @@
                 <h3>Sort By</h3>
 
                 <label><input type="radio" name="sort" value="nameAZ"> Product Name A-Z</label>
-
                 <label><input type="radio" name="sort" value="nameZA"> Product Name Z-A</label>
-
                 <label><input type="radio" name="sort" value="priceLow"> Price Low-High</label>
-
                 <label><input type="radio" name="sort" value="priceHigh"> Price High-Low</label>
 
             </div>
@@ -174,15 +153,11 @@
             <div class="filter-buttons">
 
                 <button id="applyFilter">
-
                     Apply Filter
-
                 </button>
 
                 <button id="resetFilter">
-
                     Reset
-
                 </button>
 
             </div>
@@ -198,9 +173,7 @@
         <!-- Floating Button -->
 
         <button class="floating-btn">
-
             <i class="fa-solid fa-plus"></i>
-
         </button>
 
     </div>

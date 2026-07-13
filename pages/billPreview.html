@@ -2,13 +2,26 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
     <script src="../js/auth.js"></script>
+=======
+
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview Bill</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/billPreview.css">
     <link rel="stylesheet" href="../components/sidebar.css">
+=======
+
+   <link rel="stylesheet" href="../CSS/billPreview.css">
+   
+   <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 </head>
 
 <body>
@@ -22,6 +35,7 @@
 
     <div class="container">
 
+<<<<<<< HEAD
         <div class="bill-card">
             <!-- Invoice and Date sections completely removed from top -->
 
@@ -40,6 +54,14 @@
             </div>
 
             <hr>
+=======
+    <button class="back-btn"
+        onclick="window.location.href='createBill.html'">
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+</button>
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 
             <h3 class="title">Products</h3>
 
@@ -86,8 +108,135 @@
         <button id="finalBillBtn">Generate Final Bill</button>
     </div>
 
+<<<<<<< HEAD
     <script src="../js/billPreview.js"></script>
     <script src="../components/sidebar.js"></script>
+=======
+<hr>
+
+<!-- Products -->
+
+<h3 class="title">
+
+    Products
+
+</h3>
+
+<div class="table-head">
+
+    <span>Product</span>
+
+    <span>Qty</span>
+
+    <span>Rate</span>
+
+    <span>Amount</span>
+
+</div>
+
+<div id="productContainer">
+
+<!-- JavaScript Products -->
+
+</div>
+
+<hr>
+
+<!-- Summary -->
+
+<div class="summary">
+
+<div class="row">
+
+<span>Subtotal</span>
+
+<span id="subtotal">₹0</span>
+
+</div>
+
+<div class="row">
+
+<span>Discount</span>
+
+<span id="discount">₹0</span>
+
+</div>
+
+<div class="row">
+
+<span id="gstTitle">
+
+GST
+
+</span>
+
+<span id="gstAmount">
+
+₹0
+
+</span>
+
+</div>
+
+<hr>
+
+<div class="row grand">
+
+<span>Grand Total</span>
+
+<span id="grandTotal">
+
+₹0
+
+</span>
+
+</div>
+
+</div>
+<!-- ================= E-Way Bill ================= -->
+
+<div id="ewaySection" style="display:none;">
+
+    <hr>
+
+    <h3 class="title">E-Way Bill</h3>
+
+   <div class="summary"></div>
+
+        <div class="row">
+            <span>E-Way Bill No.</span>
+            <span id="ewayNumber"></span>
+        </div>
+
+        <div class="row">
+            <span>Status</span>
+            <span style="color:green;font-weight:bold;">
+                Generated
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Bottom Button -->
+
+<div class="bottom-bar">
+
+<button id="finalBillBtn">
+
+Generate Final Bill
+
+</button>
+
+</div>
+
+<script src="../JS/billPreview.js"></script>
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 
 </body>
 

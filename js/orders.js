@@ -290,6 +290,17 @@ window.addEventListener("click", function (e) {
     }
 
 });
+<<<<<<< HEAD
+=======
+const sidebar = document.getElementById("sidebar");
+const closeSidebar = document.getElementById("closeSidebar");
+
+closeSidebar.addEventListener("click", function () {
+    sidebar.classList.remove("active");
+});
+
+
+>>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 // ======================================
 // LOGOUT
 // ======================================
