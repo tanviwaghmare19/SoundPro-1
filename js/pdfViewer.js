@@ -42,6 +42,9 @@ window.onload = function () {
     table.innerHTML = "";
 
     let totalQty = 0;
+    const sgstRate = Number(invoice.sgst) || 0;
+    const cgstRate = Number(invoice.cgst) || 0;
+    const totalGst = Number(invoice.cgstAmount || 0) + Number(invoice.sgstAmount || 0) + Number(invoice.igstAmount || 0);
 
     invoice.products.forEach((item, index) => {
 
@@ -56,8 +59,8 @@ window.onload = function () {
 
         totalQty += qty;
 
-        const rowSgst = (amount * sgstRate / 100) || (totalGst > 0 ? totalGst / 2 / invoice.products.length : 0);
-        const rowCgst = (amount * cgstRate / 100) || (totalGst > 0 ? totalGst / 2 / invoice.products.length : 0);
+        const rowCgst = cgstRate > 0 ? (amount * cgstRate / 100) : 0;
+        const rowSgst = sgstRate > 0 ? (amount * sgstRate / 100) : 0;
 
         table.innerHTML += `
         <tr>
@@ -66,8 +69,8 @@ window.onload = function () {
             <td>${item.hsn || "8518"}</td>
             <td>${qty} Pcs</td>
             <td>${price.toFixed(2)}</td>
-            <td>${(invoice.gstAmount / 2).toFixed(2)}</td>
-            <td>${(invoice.gstAmount / 2).toFixed(2)}</td>
+            <td>${rowSgst.toFixed(2)}</td>
+            <td>${rowCgst.toFixed(2)}</td>
             <td>${amount.toFixed(2)}</td>
         </tr>
         `;
@@ -77,11 +80,11 @@ window.onload = function () {
     document.getElementById("totalPieces").textContent = totalQty + " Pcs";
     document.getElementById("grandTotal").textContent = Number(invoice.grandTotal).toFixed(2);
 
-    document.getElementById("gstPercent").textContent = invoice.gst + "%";
+    document.getElementById("gstPercent").textContent = (cgstRate + sgstRate + Number(invoice.igst || 0)) + "%";
     document.getElementById("taxableAmount").textContent = Number(invoice.subtotal).toFixed(2);
-    document.getElementById("gstAmount").textContent = Number(invoice.gstAmount).toFixed(2);
-    document.getElementById("cgstAmount").textContent = (Number(invoice.gstAmount) / 2).toFixed(2);
-    document.getElementById("sgstAmount").textContent = (Number(invoice.gstAmount) / 2).toFixed(2);
+    document.getElementById("gstAmount").textContent = totalGst.toFixed(2);
+    document.getElementById("cgstAmount").textContent = Number(invoice.cgstAmount || 0).toFixed(2);
+    document.getElementById("sgstAmount").textContent = Number(invoice.sgstAmount || 0).toFixed(2);
     document.getElementById("amountWords").textContent = invoice.amountWords || "";
 
     
@@ -127,7 +130,7 @@ window.onload = function () {
                     <td>${item.name} & ${item.hsn || "85184000"}</td>
                     <td class="text-center">${qty} <span style="font-weight: normal; font-size: 11px;">NOS</span></td>
                     <td class="text-right">${amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td class="text-right">${invoice.gst || "18"}</td>
+                    <td class="text-right">${cgstRate + sgstRate + Number(invoice.igst || 0) || "18"}</td>
                 </tr>
                 `;
             });
@@ -135,8 +138,8 @@ window.onload = function () {
             // Financial Summaries Mapping
             document.getElementById("ewayTotalTaxable").textContent = Number(invoice.subtotal).toLocaleString("en-IN", { minimumFractionDigits: 2 });
             document.getElementById("ewayTotalInvAmt").textContent = Number(invoice.grandTotal).toLocaleString("en-IN", { minimumFractionDigits: 2 });
-            document.getElementById("ewayCGSTAmt").textContent = (Number(invoice.gstAmount) / 2).toLocaleString("en-IN", { minimumFractionDigits: 2 });
-            document.getElementById("ewaySGSTAmt").textContent = (Number(invoice.gstAmount) / 2).toLocaleString("en-IN", { minimumFractionDigits: 2 });
+            document.getElementById("ewayCGSTAmt").textContent = Number(invoice.cgstAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 });
+            document.getElementById("ewaySGSTAmt").textContent = Number(invoice.sgstAmount || 0).toLocaleString("en-IN", { minimumFractionDigits: 2 });
 
     } else {
 
@@ -144,6 +147,7 @@ window.onload = function () {
 
         document.getElementById("mainEwayNo").textContent =
             "N/A";
+    }
     }
 
     // --- ENHANCED MAXIMUM DIMENSION LOGIC FOR BOTH PAGES ---

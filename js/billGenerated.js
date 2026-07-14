@@ -1,10 +1,16 @@
-const invoice = JSON.parse(localStorage.getItem("currentInvoice"));
+document.addEventListener("DOMContentLoaded", () => {
+    let invoice;
+    try {
+        invoice = JSON.parse(localStorage.getItem("currentInvoice"));
+    } catch (e) {
+        invoice = null;
+    }
 
-if (!invoice) {
-    alert("Invoice not found.");
-    window.location.href = "createBill.html";
-    return;
-}
+    if (!invoice) {
+        alert("Invoice not found.");
+        window.location.href = "createBill.html";
+        return;
+    }
 
 document.getElementById("invoiceNo").textContent = invoice.invoiceNo;
 document.getElementById("customerName").textContent = invoice.customer.name;
@@ -100,4 +106,5 @@ document.getElementById("printBtn").addEventListener("click", () => {
     window.print();
 });
 
-console.log("Bill Generated Successfully");
+    console.log("Bill Generated Successfully");
+});

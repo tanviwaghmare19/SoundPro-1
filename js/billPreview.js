@@ -122,6 +122,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById("finalBillBtn").addEventListener("click", () => {
+        const cgstEntry = gstBreakdown.find(t => t.type === "CGST");
+        const sgstEntry = gstBreakdown.find(t => t.type === "SGST");
+        const igstEntry = gstBreakdown.find(t => t.type === "IGST");
+
         const invoiceData = {
             invoiceNo: invoiceNo,
             ewayBillNo: ewayBillNo,
@@ -137,7 +141,13 @@ document.addEventListener("DOMContentLoaded", () => {
             grandTotal: grandTotal,
             gstType: gstType,
             gstBreakdown: gstBreakdown,
-            amountWords: numberToWords(grandTotal)
+            amountWords: numberToWords(grandTotal),
+            cgst: cgstEntry ? cgstEntry.rate : 0,
+            sgst: sgstEntry ? sgstEntry.rate : 0,
+            igst: igstEntry ? igstEntry.rate : 0,
+            cgstAmount: cgstEntry ? cgstEntry.totalAmount : 0,
+            sgstAmount: sgstEntry ? sgstEntry.totalAmount : 0,
+            igstAmount: igstEntry ? igstEntry.totalAmount : 0
         };
 
         localStorage.setItem("currentInvoice", JSON.stringify(invoiceData));

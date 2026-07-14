@@ -382,31 +382,25 @@ body{
         height:220px;
     }
 }
-
-<<<<<<< HEAD
 }
 
 @media(min-width:992px){
     .header{max-width:1200px;margin:0 auto}
     .cards{max-width:1200px;margin:0 auto}
     .chart-container{max-width:1200px;margin:0 auto}
-=======
-/* Sidebar Scrollbar */
+}
 
+/* Sidebar Scrollbar */
 .sidebar::-webkit-scrollbar {
     width: 10px;
 }
-
 .sidebar::-webkit-scrollbar-track {
     background: #6a6a6a;
 }
-
 .sidebar::-webkit-scrollbar-thumb {
     background: #ff9800;
     border-radius: 10px;
 }
-
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: #ff7b00;
->>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 }
