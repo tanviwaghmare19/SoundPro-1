@@ -1,3 +1,3 @@
 if (!localStorage.getItem("isLoggedIn")) {
-    window.location.href = "../LoginPage.html";
+    window.location.href = "../pages/LoginPage.html";
 }

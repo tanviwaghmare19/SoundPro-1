@@ -33,7 +33,11 @@ if (customerList) {
             if (!confirm(`Delete ${name}? This cannot be undone.`)) return;
 
             fetch(`/api/clients/${id}`, { method: 'DELETE' })
-                .then(res => res.json())
+                // FIX: Pehle check karenge response khali to nahi hai
+                .then(async res => {
+                    const text = await res.text();
+                    return text ? JSON.parse(text) : { success: res.ok };
+                })
                 .then(data => {
                     if (!data.success) {
                         alert(data.message || 'Failed to delete customer');
@@ -112,7 +116,9 @@ if (saveBtn) {
                 })
             });
 
-            const data = await res.json();
+            // FIX: Agar backend khali response bhejta hai to crash hone se bachayega
+            const responseText = await res.text();
+            const data = responseText ? JSON.parse(responseText) : { success: res.ok };
 
             if (!data.success) {
                 alert(data.message || 'Failed to save customer');
@@ -149,10 +155,15 @@ if (backBtn) {
 async function loadRecentCustomers() {
     try {
         const res = await fetch('/api/clients');
-        const data = await res.json();
-        if (!data.success) return;
+        
+        // SAFEGUARD: Get list safe check
+        const responseText = await res.text();
+        const data = responseText ? JSON.parse(responseText) : { success: false };
+        
+        if (!data.success || !data.clients) return;
 
         const container = document.getElementById('customerList');
+        if (!container) return;
         container.innerHTML = '';
 
         data.clients.forEach(client => {
@@ -174,7 +185,7 @@ async function loadRecentCustomers() {
                 </div>
                 <div class="card-actions">
                     <button class="delete-customer-btn" data-id="${client.id}">
-                        <i class="fas fa-trash"></i>
+                        <i class="fas =fa-trash"></i>
                     </button>
                     <i class="fas fa-chevron-right"></i>
                 </div>
