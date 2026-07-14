@@ -52,6 +52,36 @@ function logout() {
 }
 
 // ======================
+// LOAD REPORT DATA
+// ======================
+
+async function loadReportData(month, year) {
+    try {
+        let url = '/api/reports/sales';
+        if (month && year) {
+            url += `?month=${month}&year=${year}`;
+        }
+        const res = await fetch(url);
+        const data = await res.json();
+        if (!data.success) return;
+
+        const report = data.report;
+        const salesEl = document.querySelector('.card.sales h2');
+        const ordersEl = document.querySelector('.card.orders h2');
+
+        if (salesEl) {
+            salesEl.textContent = '₹' + Number(report.totalRevenue).toLocaleString();
+        }
+        if (ordersEl) {
+            ordersEl.textContent = report.totalOrders;
+        }
+
+    } catch (err) {
+        console.error('Failed to load report data:', err);
+    }
+}
+
+// ======================
 // MONTH FILTER
 // ======================
 
@@ -70,14 +100,21 @@ document.addEventListener(
                 "change",
                 function () {
 
-                    console.log(
-                        "Selected Month:",
-                        this.value
-                    );
+                    const monthNames = {
+                        'This Month': null,
+                        'January': 1, 'February': 2, 'March': 3,
+                        'April': 4, 'May': 5, 'June': 6,
+                        'July': 7, 'August': 8, 'September': 9,
+                        'October': 10, 'November': 11, 'December': 12
+                    };
+                    const month = monthNames[this.value];
+                    const year = month ? new Date().getFullYear() : null;
+                    loadReportData(month, year);
 
                 }
             );
 
+            loadReportData();
         }
 
     }

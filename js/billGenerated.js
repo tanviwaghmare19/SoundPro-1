@@ -3,6 +3,7 @@ const invoice = JSON.parse(localStorage.getItem("currentInvoice"));
 if (!invoice) {
     alert("Invoice not found.");
     window.location.href = "createBill.html";
+    return;
 }
 
 document.getElementById("invoiceNo").textContent = invoice.invoiceNo;
@@ -61,15 +62,25 @@ document.getElementById("saveBtn").addEventListener("click", () => {
             invoice_no: invoice.invoiceNo,
             customer_name: invoice.customer.name,
             subtotal: invoice.subtotal,
-            cgst: cgstAmt,
-            sgst: sgstAmt,
-            igst: igstAmt,
+            cgst: Number(invoice.cgst) || 0,
+            sgst: Number(invoice.sgst) || 0,
+            igst: Number(invoice.igst) || 0,
+            cgst_amount: cgstAmt,
+            sgst_amount: sgstAmt,
+            igst_amount: igstAmt,
             discount: 0,
             grand_total: invoice.grandTotal
         })
-    }).catch(err => console.error('Failed to save bill to DB:', err));
-
-    alert("Bill Saved Successfully");
+    }).then(res => res.json()).then(data => {
+        if (data.success) {
+            alert("Bill Saved Successfully");
+        } else {
+            alert("Failed to save bill: " + (data.message || "Server error"));
+        }
+    }).catch(err => {
+        console.error('Failed to save bill:', err);
+        alert("Failed to save bill. Check console for details.");
+    });
 });
 
 document.getElementById("homeBtn").addEventListener("click", () => {

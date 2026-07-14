@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", () => {
-    // Hidden internal processing IDs tracking
     const invoiceNo = "INV" + Date.now();
     const today = new Date();
 
-    // 1. Populate Customer details
     const customer = JSON.parse(localStorage.getItem("selectedCustomer"));
     if (customer) {
         document.getElementById("customerName").textContent = customer.name || "Rahul Sharma";
@@ -18,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 2. Populate Products list and calculate base base billing sums
     const products = JSON.parse(localStorage.getItem("selectedProducts")) || [];
     const productContainer = document.getElementById("productContainer");
 
@@ -43,21 +39,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("subtotal").textContent = "₹" + subtotal.toFixed(2);
 
-    // 3. Dynamic Calculation & UI Display matching your custom multi-tax selections
     const gstType = localStorage.getItem("gstType") || "No GST";
     const gstBreakdown = JSON.parse(localStorage.getItem("gstBreakdown")) || [];
     const dynamicTaxContainer = document.getElementById("dynamicTaxContainer");
-    
-    dynamicTaxContainer.innerHTML = ""; // Clear placeholders
+
+    dynamicTaxContainer.innerHTML = "";
     let combinedTaxValue = 0;
 
-    // Check mapping database structure sent from screen 1
     if (gstBreakdown.length > 0) {
         gstBreakdown.forEach(taxItem => {
             const taxAmount = Number(taxItem.totalAmount) || 0;
             combinedTaxValue += taxAmount;
 
-            // Generate clean row structure dynamically matching your selection list layout
             dynamicTaxContainer.innerHTML += `
                 <div class="row">
                     <span>${taxItem.type} (${taxItem.rate}%)</span>
@@ -66,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         });
     } else {
-        // Fallback backward compatibility calculation if array breakdown object is absent
         let fallbackCgst = 0, fallbackSgst = 0, fallbackIgst = 0;
         if (gstType === "CGST+SGST") {
             fallbackCgst = subtotal * 0.09;
@@ -86,11 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fallbackIgst > 0) dynamicTaxContainer.innerHTML += `<div class="row"><span>IGST (18%)</span><span>₹${fallbackIgst.toFixed(2)}</span></div>`;
     }
 
-    // Set Final calculated figures
     const grandTotal = subtotal + combinedTaxValue;
     document.getElementById("grandTotal").textContent = "₹" + grandTotal.toFixed(2);
 
-    // 4. E-Way configuration block checks
     let ewayBillNo = null;
     if (grandTotal >= 50000) {
         ewayBillNo = "EWB" + Math.floor(10000000 + Math.random() * 90000000);
@@ -111,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Helper translation string generator
     function numberToWords(num) {
         const a = [
             "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
@@ -132,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return "Indian Rupees " + convert(Math.round(num)).trim() + " Only";
     }
 
-    // Save handler trigger dispatch
     document.getElementById("finalBillBtn").addEventListener("click", () => {
         const invoiceData = {
             invoiceNo: invoiceNo,
@@ -163,268 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "billGenerated.html";
     });
 
-    // Back routing listener bind
     const backBtn = document.getElementById("backBtn");
     if(backBtn) {
         backBtn.addEventListener("click", () => {
             window.location.href = "addProductsbilling.html";
         });
     }
-=======
-// ======================================
-// Invoice Number & Date
-// ======================================
-
-const invoiceNo = "INV" + Date.now();
-
-document.getElementById("invoiceNumber").textContent = invoiceNo;
-
-const today = new Date();
-
-document.getElementById("invoiceDate").textContent =
-today.toLocaleDateString("en-IN");
-
-// ======================================
-// Customer Details
-// ======================================
-
-const customer =
-JSON.parse(localStorage.getItem("selectedCustomer"));
-
-if (customer) {
-
-    document.getElementById("customerName").textContent =
-        customer.name;
-    
-
-    document.getElementById("customerMobile").innerHTML =
-        '<i class="fa fa-phone"></i> ' + customer.mobile;
-        
-    document.getElementById("customerCity").innerHTML =
-        '<i class="fa fa-location-dot"></i> ' + customer.city;
-
-    const avatar =
-        document.getElementById("customerAvatar");
-
-   
-    if (avatar) {
-
-        avatar.className =
-            "avatar " + customer.color;
-
-
-        avatar.innerHTML =
-            '<i class="fas fa-user"></i>';
-    }
-        
-}
-
-// ======================================
-// Products
-// ======================================
-
-const products =
-JSON.parse(localStorage.getItem("selectedProducts")) || [];
-
-const productContainer =
-document.getElementById("productContainer");
-
-let subtotal = 0;
-let totalQty = 0;
-
-products.forEach(product => {
-
-    const qty = Number(product.qty);
-    const price = Number(product.price);
-
-    const amount = qty * price;
-
-    subtotal += amount;
-    totalQty += qty;
-
-    productContainer.innerHTML += `
-
-    <div class="product-row">
-
-        <span>${product.name}</span>
-
-        <span>${qty}</span>
-
-        <span>₹${price.toFixed(2)}</span>
-
-        <span>₹${amount.toFixed(2)}</span>
-
-    </div>
-
-    `;
-});
-
-// ======================================
-// Tax Calculation
-// Tax Calculation
-// ======================================
-
-const cgst =
-Number(localStorage.getItem("cgst")) || 0;
-
-const sgst =
-Number(localStorage.getItem("sgst")) || 0;
-
-const igst =
-Number(localStorage.getItem("igst")) || 0;
-const cgst =
-Number(localStorage.getItem("cgst")) || 0;
-
-const sgst =
-Number(localStorage.getItem("sgst")) || 0;
-
-const igst =
-Number(localStorage.getItem("igst")) || 0;
-
-const cgstAmount =
-subtotal * cgst / 100;
-
-const sgstAmount =
-subtotal * sgst / 100;
-
-const igstAmount =
-subtotal * igst / 100;
-const cgstAmount =
-subtotal * cgst / 100;
-
-const sgstAmount =
-subtotal * sgst / 100;
-
-const igstAmount =
-subtotal * igst / 100;
-
-// ======================================
-// Grand Total
-// ======================================
-
-const grandTotal =
-subtotal +
-cgstAmount +
-sgstAmount +
-igstAmount;
-subtotal +
-cgstAmount +
-sgstAmount +
-igstAmount;
-
-// ======================================
-// E-WAY BILL
-// ======================================
-
-let ewayBillNo = null;
-
-if (grandTotal > 50000) {
-
-    ewayBillNo =
-        "EWB" +
-        Math.floor(
-            10000000 + Math.random() * 90000000
-        );
-
-    document.getElementById("ewaySection").style.display =
-        "block";
-
-    document.getElementById("ewayNumber").textContent =
-        ewayBillNo;
-
-    document.getElementById("finalBillBtn").textContent =
-        "Generate Final Bill + E-Way Bill";
-}
-
-// ======================================
-// Display Summary
-// ======================================
-
-document.getElementById("subtotal").textContent =
-"₹" + subtotal.toFixed(2);
-"₹" + subtotal.toFixed(2);
-
-if (document.getElementById("cgstAmount")) {
-
-
-    document.getElementById("cgstAmount").textContent =
-        "₹" + cgstAmount.toFixed(2);
-}
-   
-if (document.getElementById("sgstAmount")) {
-
-    document.getElementById("sgstAmount").textContent =
-        "₹" + sgstAmount.toFixed(2);
-}
-
-
-if (document.getElementById("igstAmount")) {
-
-    document.getElementById("igstAmount").textContent =
-        "₹" + igstAmount.toFixed(2);
-}
-
-document.getElementById("grandTotal").textContent =
-"₹" + grandTotal.toFixed(2);
-
-// ======================================
-// Amount in Words
-// ======================================
-
-function numberToWords(num) {
-
-    return "Indian Rupees " +
-        Math.round(num) +
-        " Only";
-        Math.round(num) +
-        " Only";
-}
-
-// ======================================
-// Generate Final Bill
-// ======================================
-
-document.getElementById("finalBillBtn").addEventListener("click", () => {
-
-    const invoiceData = {
-        invoiceNo: invoiceNo,
-ewayBillNo: ewayBillNo,
-        date:
-            today.toLocaleDateString("en-IN"),
-
-        customer: {
-            name: customer ? customer.name : "",
-            city: customer ? customer.city : "",
-            mobile: customer ? customer.mobile : ""
-        },
-        products: products,
-        totalQty: totalQty,
-        subtotal: subtotal,
-        cgst: cgst,
-        sgst: sgst,
-        igst: igst,
-        cgstAmount: cgstAmount,
-        sgstAmount: sgstAmount,
-        igstAmount: igstAmount,
-        grandTotal: grandTotal,
-        amountWords: numberToWords(grandTotal)
-    };
-
-    localStorage.setItem("currentInvoice", JSON.stringify(invoiceData));
-
-   if (grandTotal > 50000) {
-
-    alert(
-        "Final Bill and E-Way Bill Generated Successfully"
-    );
-
-} else {
-
-    alert(
-        "Final Bill Generated Successfully"
-    );
-
-}
-
->>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 });

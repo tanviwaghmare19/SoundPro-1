@@ -16,32 +16,33 @@ let editIndex = localStorage.getItem("editIndex");
 
 if (editIndex !== null) {
 
-    let products = JSON.parse(localStorage.getItem("products")) || [];
+    (async function loadEditProduct() {
+        try {
+            const res = await fetch(`/api/products/${editIndex}`);
+            const data = await res.json();
+            if (data.success && data.product) {
+                const product = data.product;
+                document.getElementById("productName").value = product.name || '';
+                document.getElementById("sku").value = product.sku || '';
+                document.getElementById("price").value = product.price || '';
+                document.getElementById("stock").value = product.stock || '';
+                document.getElementById("category").value = product.category || '';
+                document.getElementById("brand").value = product.brand || '';
 
-    let product = products[editIndex];
+                imageData = product.image || '';
 
-    if (product) {
+                if (imageData) {
+                    previewImage.src = imageData;
+                    previewImage.style.display = "block";
+                }
 
-        document.getElementById("productName").value = product.name;
-        document.getElementById("sku").value = product.sku;
-        document.getElementById("price").value = product.price;
-        document.getElementById("stock").value = product.stock;
-        document.getElementById("category").value = product.category;
-        document.getElementById("brand").value = product.brand;
-
-        imageData = product.image;
-
-        if (imageData) {
-
-            previewImage.src = imageData;
-            previewImage.style.display = "block";
-
+                saveBtn.innerHTML =
+                `<i class="fa-solid fa-pen"></i> Update Product`;
+            }
+        } catch (err) {
+            console.error('Failed to load product for editing:', err);
         }
-
-        saveBtn.innerHTML =
-        `<i class="fa-solid fa-pen"></i> Update Product`;
-
-    }
+    })();
 
 }
 
@@ -81,7 +82,7 @@ saveBtn.addEventListener("click", saveProduct);
 // SAVE PRODUCT
 // ================================
 
-function saveProduct() {
+async function saveProduct() {
 
     const name = document.getElementById("productName").value.trim();
 
@@ -115,12 +116,6 @@ function saveProduct() {
     }
 
     // ===========================
-    // GET PRODUCTS
-    // ===========================
-
-    let products = JSON.parse(localStorage.getItem("products")) || [];
-
-    // ===========================
     // CREATE OBJECT
     // ===========================
 
@@ -146,34 +141,49 @@ function saveProduct() {
     // UPDATE OR ADD
     // ===========================
 
-    if (editIndex !== null) {
+    try {
+        if (editIndex !== null) {
 
-        products[editIndex] = product;
+            const res = await fetch(`/api/products/${editIndex}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product)
+            });
+            const data = await res.json();
+            if (!data.success) {
+                alert(data.message || 'Failed to update product');
+                return;
+            }
 
-        localStorage.removeItem("editIndex");
+            localStorage.removeItem("editIndex");
+            alert("Product Updated Successfully!");
 
-        alert("Product Updated Successfully!");
+        } else {
 
+            const res = await fetch('/api/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product)
+            });
+            const data = await res.json();
+            if (!data.success) {
+                alert(data.message || 'Failed to add product');
+                return;
+            }
+
+            alert("Product Added Successfully!");
+
+        }
+
+        // ===========================
+        // REDIRECT
+        // ===========================
+
+        window.location.href = "products.html";
+
+    } catch (err) {
+        console.error('Save product error:', err);
+        alert('Failed to save product. Check server connection.');
     }
-
-    else {
-
-        products.push(product);
-
-        alert("Product Added Successfully!");
-
-    }
-
-    // ===========================
-    // SAVE LOCALSTORAGE
-    // ===========================
-
-    localStorage.setItem("products", JSON.stringify(products));
-
-    // ===========================
-    // REDIRECT
-    // ===========================
-
-    window.location.href = "products.html";
 
 }

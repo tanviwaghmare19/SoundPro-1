@@ -7,76 +7,6 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
 }
 
 // ======================
-<<<<<<< HEAD
-=======
-// SIDEBAR TOGGLE
-// ======================
-
-function toggleSidebar() {
-
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-
-    if (!sidebar) return;
-
-    sidebar.classList.toggle("active");
-
-    if (overlay) {
-        overlay.classList.toggle("active");
-    }
-}
-
-// ======================
-// CLOSE SIDEBAR ON OUTSIDE CLICK
-// ======================
-
-document.addEventListener("click", function (event) {
-
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-    const menuButton = document.querySelector(".menu-title i");
-
-    if (
-        sidebar &&
-        menuButton &&
-        sidebar.classList.contains("active") &&
-        !sidebar.contains(event.target) &&
-        !menuButton.contains(event.target)
-    ) {
-        sidebar.classList.remove("active");
-
-        if (overlay) {
-            overlay.classList.remove("active");
-        }
-    }
-
-});
-
-// ======================
-// CLOSE SIDEBAR ON ESC
-// ======================
-
-document.addEventListener("keydown", function (event) {
-
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-
-    if (
-        event.key === "Escape" &&
-        sidebar &&
-        sidebar.classList.contains("active")
-    ) {
-        sidebar.classList.remove("active");
-
-        if (overlay) {
-            overlay.classList.remove("active");
-        }
-    }
-
-});
-
-// ======================
->>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 // LOGOUT
 // ======================
 
@@ -90,12 +20,29 @@ function logout() {
 
         localStorage.removeItem("isLoggedIn");
 
-<<<<<<< HEAD
-        window.location.href =
-        "../LoginPage.html";
-=======
         window.location.href = "../LoginPage.html";
->>>>>>> ca728161e421dd3d34a0115c61517471e3959553
+    }
+}
+
+// ======================
+// LOAD DASHBOARD STATS
+// ======================
+
+async function loadDashboardStats() {
+    try {
+        const res = await fetch('/api/dashboard/stats');
+        const data = await res.json();
+        if (data.success && data.stats) {
+            const cards = document.querySelectorAll(".card-content p");
+            if (cards.length >= 4) {
+                cards[0].textContent = data.stats.totalProducts;
+                cards[1].textContent = data.stats.lowStockCount;
+                cards[2].textContent = data.stats.totalOrders;
+                cards[3].textContent = '₹' + Number(data.stats.totalRevenue).toLocaleString();
+            }
+        }
+    } catch (err) {
+        console.error('Failed to load dashboard stats:', err);
     }
 }
 
@@ -104,6 +51,8 @@ function logout() {
 // ======================
 
 window.addEventListener("load", () => {
+
+    loadDashboardStats();
 
     const cards = document.querySelectorAll(".card");
 

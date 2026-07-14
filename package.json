@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "setup": "node setup.js"
+    "setup": "node setup.js",
+    "start-pg": "node server-pg.js",
+    "setup-pg": "node setup-pg.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -13,6 +15,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "mysql2": "^3.11.0",
+    "pg": "^8.13.0",
     "qrcode": "^1.5.4"
   }
 }

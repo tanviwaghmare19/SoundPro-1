@@ -1,129 +1,21 @@
 // ===============================
-// DUMMY ORDERS DATA
+// ORDERS DATA (from API)
 // ===============================
 
-const orders = [
+let orders = [];
 
-{
-    id:1001,
-    customer:"Rahul Sharma",
-    phone:"9876543210",
-    email:"rahul@gmail.com",
-    address:"Nagpur, Maharashtra",
-    payment:"Paid",
-    status:"Delivered",
-    total:45000,
-
-    products:[
-        {
-            name:"Gaming Mouse",
-            qty:2,
-            price:500
-        },
-
-        {
-            name:"Mechanical Keyboard",
-            qty:1,
-            price:3500
-        },
-
-        {
-            name:"Monitor",
-            qty:2,
-            price:20000
+async function loadOrders() {
+    try {
+        const res = await fetch('/api/orders');
+        const data = await res.json();
+        if (data.success) {
+            orders = data.orders;
+            displayOrders(orders);
         }
-    ]
-},
-
-{
-    id:1002,
-    customer:"Priya Patel",
-    phone:"9988776655",
-    email:"priya@gmail.com",
-    address:"Pune, Maharashtra",
-    payment:"Pending",
-    status:"Pending",
-    total:22000,
-
-    products:[
-        {
-            name:"Printer",
-            qty:1,
-            price:18000
-        },
-
-        {
-            name:"USB Cable",
-            qty:2,
-            price:2000
-        }
-    ]
-},
-
-{
-    id:1003,
-    customer:"Aman Verma",
-    phone:"9870011223",
-    email:"aman@gmail.com",
-    address:"Mumbai",
-    payment:"Paid",
-    status:"Processing",
-    total:18500,
-
-    products:[
-        {
-            name:"SSD 1TB",
-            qty:1,
-            price:8500
-        },
-
-        {
-            name:"RAM 16GB",
-            qty:2,
-            price:5000
-        }
-    ]
-},
-
-{
-    id:1004,
-    customer:"Sneha Joshi",
-    phone:"9090909090",
-    email:"sneha@gmail.com",
-    address:"Amravati",
-    payment:"Refunded",
-    status:"Cancelled",
-    total:12000,
-
-    products:[
-        {
-            name:"Speaker",
-            qty:2,
-            price:6000
-        }
-    ]
-},
-
-{
-    id:1005,
-    customer:"Rohit Singh",
-    phone:"9999999999",
-    email:"rohit@gmail.com",
-    address:"Delhi",
-    payment:"Paid",
-    status:"Delivered",
-    total:32000,
-
-    products:[
-        {
-            name:"CPU",
-            qty:1,
-            price:32000
-        }
-    ]
+    } catch (err) {
+        console.error('Failed to load orders:', err);
+    }
 }
-
-];
 
 
 // ===============================
@@ -155,9 +47,11 @@ function displayOrders(data){
 
     data.forEach(order=>{
 
+        const orderId = typeof order.id === 'string' ? `'${order.id}'` : order.id;
+
         container.innerHTML += `
 
-        <div class="order-card" onclick="openOrder(${order.id})">
+        <div class="order-card" onclick="openOrder(${orderId})">
 
             <div class="order-top">
 
@@ -169,7 +63,7 @@ function displayOrders(data){
 
                 <div class="order-date">
 
-                    ${currentDate()}
+                    ${order.date || currentDate()}
 
                 </div>
 
@@ -186,13 +80,13 @@ function displayOrders(data){
 
                 <div class="amount">
 
-                    ₹${order.total.toLocaleString()}
+                    ₹${Number(order.total).toLocaleString()}
 
                 </div>
 
-                <div class="status ${order.status.toLowerCase()}">
+                <div class="status ${(order.status || 'pending').toLowerCase()}">
 
-                    ${order.status}
+                    ${order.status || 'Pending'}
 
                 </div>
 
@@ -206,7 +100,7 @@ function displayOrders(data){
 
 }
 
-displayOrders(orders);
+loadOrders();
 // ===============================
 // FILTER BUTTONS
 // ===============================
@@ -290,17 +184,6 @@ window.addEventListener("click", function (e) {
     }
 
 });
-<<<<<<< HEAD
-=======
-const sidebar = document.getElementById("sidebar");
-const closeSidebar = document.getElementById("closeSidebar");
-
-closeSidebar.addEventListener("click", function () {
-    sidebar.classList.remove("active");
-});
-
-
->>>>>>> ca728161e421dd3d34a0115c61517471e3959553
 // ======================================
 // LOGOUT
 // ======================================
@@ -322,7 +205,7 @@ if (logoutBtn) {
 
 function openOrder(id){
 
-    const order = orders.find(o => o.id === id);
+    const order = orders.find(o => String(o.id) === String(id));
 
     let rows = "";
     let subtotal = 0;
