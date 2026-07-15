@@ -160,13 +160,17 @@ window.onload = function () {
     }
     }
 
-    // --- ENHANCED MAXIMUM DIMENSION LOGIC FOR BOTH PAGES ---
+    // --- QR CODE GENERATION ---
     setTimeout(() => {
-        // A. Extra-Large Tax Invoice QR Rendering (Right Float Container Box)
+        if (typeof QRCode === "undefined") {
+            console.warn("QRCode library not loaded (CDN failed)");
+            return;
+        }
+
+        // A. Invoice QR
         const invoiceBox = document.getElementById("largeInvoiceQr");
         if (invoiceBox) {
-            invoiceBox.innerHTML = ""; 
-            
+            invoiceBox.innerHTML = "";
             let itemsStr = "";
             (invoice.products || []).forEach((p, i) => {
                 const qty = Number(p.qty || 0);
@@ -175,13 +179,13 @@ window.onload = function () {
                 const itemGst = invoice.subtotal > 0
                     ? Math.round(amount * totalGst / Number(invoice.subtotal))
                     : 0;
-                const name = (p.name || "").length > 14 ? (p.name || "").substring(0, 14) : (p.name || "");
-                itemsStr += `${i+1}  ${name.padEnd(14)} ${(p.hsn||"8518").padEnd(4)} ${String(qty).padStart(3)} ${String(rate).padStart(6)} ${String(itemGst).padStart(5)} ${String(amount).padStart(6)}\n`;
+                const name = (p.name || "").length > 12 ? (p.name || "").substring(0, 12) : (p.name || "");
+                itemsStr += ` ${i+1} ${name.padEnd(12)} ${(p.hsn||"8518").padEnd(4)} ${String(qty).padStart(3)} ${String(rate).padStart(5)} ${String(itemGst).padStart(4)} ${String(amount).padStart(6)}\n`;
             });
 
-            const invoiceQrPayload =
-`            TAX INVOICE
-────────────────────────────────
+            const qrRaw =
+`TAX INVOICE
+==========================
 Inv No : ${invoice.invoiceNo || ""}
 Date   : ${invoice.date || ""}
 
@@ -191,37 +195,41 @@ GSTIN : 27BUPPG3886C1ZC
 Customer : ${invoice.customer?.name || ""}
 Phone    : ${invoice.customer?.mobile || ""}
 
-#  Name           Code  Qty  Rate    GST   Total
-─────────────────────────────────────────────
-${itemsStr}─────────────────────────────────────────────
-Subtotal                        ${String(Number(invoice.subtotal||0)).padStart(6)}
-Total GST                       ${String(totalGst).padStart(6)}
-Grand Total              ₹${Number(invoice.grandTotal||0).toFixed(2).padStart(10)}`;
-            
-            new QRCode(invoiceBox, {
-                text: invoiceQrPayload, 
-                width: 185,
-                height: 185,
-                correctLevel: QRCode.CorrectLevel.M
-            });
+# Name         Code Qty  Rate  GST  Total
+------------------------------------------
+${itemsStr}------------------------------------------
+Subtotal                ${String(Number(invoice.subtotal||0)).padStart(8)}
+Total GST               ${String(totalGst).padStart(8)}
+Grand Total       Rs ${Number(invoice.grandTotal||0).toFixed(2).padStart(10)}`;
+
+            try {
+                new QRCode(invoiceBox, {
+                    text: qrRaw,
+                    width: 185,
+                    height: 185,
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            } catch (e) {
+                invoiceBox.textContent = "[QR Error]";
+            }
         }
 
-        // B. E-Way Bill Dynamic Extra-Large QR Injection
+        // B. E-Way Bill QR
         if (Number(invoice.grandTotal) >= 50000) {
             const ewayBox = document.getElementById("ewayQrContainer");
             if (ewayBox) {
                 const oldQr = ewayBox.querySelector("div:not(.qr-header-text)");
                 if (oldQr) oldQr.remove();
                 const oldImg = ewayBox.querySelector("img");
-                if (oldImg) oldImg.remove(); 
+                if (oldImg) oldImg.remove();
 
                 const qrWrap = document.createElement("div");
                 qrWrap.style.display = "inline-block";
                 ewayBox.appendChild(qrWrap);
 
-                const ewayQrPayload =
-`            E-WAY BILL
-────────────────────────────────
+                const ewayRaw =
+`E-WAY BILL
+==========================
 EWB No : 652066202588
 Inv No : ${invoice.invoiceNo || ""}
 Date   : ${invoice.date || ""}
@@ -231,15 +239,24 @@ To   : ${invoice.customer?.city || ""}
 Dist : 872 KM
 
 Customer : ${invoice.customer?.name || ""}
-Amount   : ₹${Number(invoice.grandTotal||0).toFixed(2)}`;
-                
-                new QRCode(qrWrap, {
-                    text: ewayQrPayload, 
-                    width: 165,
-                    height: 165,
-                    correctLevel: QRCode.CorrectLevel.M
-                });
+Amount   : Rs ${Number(invoice.grandTotal||0).toFixed(2)}`;
+
+                try {
+                    new QRCode(qrWrap, {
+                        text: ewayRaw,
+                        width: 165,
+                        height: 165,
+                        correctLevel: QRCode.CorrectLevel.M
+                    });
+                } catch (e) {
+                    qrWrap.textContent = "[QR Error]";
+                }
             }
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("print") === "1") {
+            setTimeout(() => window.print(), 300);
         }
     }, 400);
 };

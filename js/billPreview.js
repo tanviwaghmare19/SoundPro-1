@@ -152,19 +152,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
         localStorage.setItem("currentInvoice", JSON.stringify(invoiceData));
 
-        if (grandTotal >= 50000) {
-            alert("Final Bill and E-Way Bill Generated Successfully");
-        } else {
-            alert("Final Bill Generated Successfully");
-        }
+        const cgstAmt = Number(invoiceData.cgstAmount) || 0;
+        const sgstAmt = Number(invoiceData.sgstAmount) || 0;
+        const igstAmt = Number(invoiceData.igstAmount) || 0;
 
-        window.location.href = "billGenerated.html";
+        let history = JSON.parse(localStorage.getItem("invoiceHistory")) || [];
+        history.push({
+            invoiceNo: invoiceData.invoiceNo,
+            customer: invoiceData.customer.name,
+            total: invoiceData.grandTotal,
+            date: invoiceData.date,
+            time: new Date().toLocaleTimeString()
+        });
+        localStorage.setItem("invoiceHistory", JSON.stringify(history));
+
+        fetch('/api/bills', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                invoice_no: invoiceData.invoiceNo,
+                customer_name: invoiceData.customer.name,
+                subtotal: invoiceData.subtotal,
+                cgst: Number(invoiceData.cgst) || 0,
+                sgst: Number(invoiceData.sgst) || 0,
+                igst: Number(invoiceData.igst) || 0,
+                cgst_amount: cgstAmt,
+                sgst_amount: sgstAmt,
+                igst_amount: igstAmt,
+                discount: 0,
+                grand_total: invoiceData.grandTotal
+            })
+        });
+
+        window.location.href = "pdfViewer.html?print=1";
     });
 
-    const backBtn = document.getElementById("backBtn");
-    if(backBtn) {
-        backBtn.addEventListener("click", () => {
-            window.location.href = "addProductsbilling.html";
-        });
-    }
+    document.getElementById("editBillBtn")?.addEventListener("click", () => {
+        window.location.href = "addProductsbilling.html";
+    });
 });

@@ -200,10 +200,30 @@ hr{
     background:#fff;
     padding:15px;
     box-shadow:0 -2px 8px rgba(0,0,0,.15);
+    display:flex;
+    gap:12px;
+}
+
+#editBillBtn{
+    flex:1;
+    height:52px;
+    border:2px solid #f57c00;
+    border-radius:8px;
+    background:#fff;
+    color:#f57c00;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#editBillBtn:hover{
+    background:#f57c00;
+    color:#fff;
 }
 
 #finalBillBtn{
-    width:100%;
+    flex:2;
     height:52px;
     border:none;
     border-radius:8px;

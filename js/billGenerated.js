@@ -45,50 +45,6 @@ if (invoice.ewayBillNo) {
     document.getElementById("ewayBillNo").textContent = invoice.ewayBillNo;
 }
 
-document.getElementById("saveBtn").addEventListener("click", () => {
-    let history = JSON.parse(localStorage.getItem("invoiceHistory")) || [];
-
-    history.push({
-        invoiceNo: invoice.invoiceNo,
-        customer: invoice.customer.name,
-        total: invoice.grandTotal,
-        date: invoice.date,
-        time: new Date().toLocaleTimeString()
-    });
-
-    localStorage.setItem("invoiceHistory", JSON.stringify(history));
-
-    const totalGst = cgstAmt + sgstAmt + igstAmt;
-    const gstRate = Number(invoice.cgst) + Number(invoice.sgst) + Number(invoice.igst) || totalGst > 0 ? (totalGst / invoice.subtotal * 100) : 0;
-
-    fetch('/api/bills', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            invoice_no: invoice.invoiceNo,
-            customer_name: invoice.customer.name,
-            subtotal: invoice.subtotal,
-            cgst: Number(invoice.cgst) || 0,
-            sgst: Number(invoice.sgst) || 0,
-            igst: Number(invoice.igst) || 0,
-            cgst_amount: cgstAmt,
-            sgst_amount: sgstAmt,
-            igst_amount: igstAmt,
-            discount: 0,
-            grand_total: invoice.grandTotal
-        })
-    }).then(res => res.json()).then(data => {
-        if (data.success) {
-            alert("Bill Saved Successfully");
-        } else {
-            alert("Failed to save bill: " + (data.message || "Server error"));
-        }
-    }).catch(err => {
-        console.error('Failed to save bill:', err);
-        alert("Failed to save bill. Check console for details.");
-    });
-});
-
 document.getElementById("homeBtn").addEventListener("click", () => {
     window.location.href = "createBill.html";
 });
