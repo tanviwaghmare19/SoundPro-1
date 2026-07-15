@@ -55,6 +55,8 @@
         <input type="text" id="searchInput" placeholder="Search Product">
     </div>
 
+    <div id="searchResults" class="search-results"></div>
+
     <div id="productList" class="product-list">
         <table class="product-table" id="productTable">
             <thead>
@@ -67,40 +69,7 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="product-row">
-                    <td>1</td>
-                    <td class="product-name">Bluetooth Speaker</td>
-                    <td><input type="number" class="rate-input" value="2500"></td>
-                    <td><input type="number" class="qty-input" value="1" min="1"></td>
-                    <td class="amount">2500.00</td>
-                    <td><button class="delete-btn"><i class="fas fa-trash"></i></button></td>
-                </tr>
-                <tr class="product-row">
-                    <td>2</td>
-                    <td class="product-name">Wireless Mic</td>
-                    <td><input type="number" class="rate-input" value="1800"></td>
-                    <td><input type="number" class="qty-input" value="1" min="1"></td>
-                    <td class="amount">1800.00</td>
-                    <td><button class="delete-btn"><i class="fas fa-trash"></i></button></td>
-                </tr>
-                <tr class="product-row">
-                    <td>3</td>
-                    <td class="product-name">Audio Mixer</td>
-                    <td><input type="number" class="rate-input" value="6500"></td>
-                    <td><input type="number" class="qty-input" value="1" min="1"></td>
-                    <td class="amount">6500.00</td>
-                    <td><button class="delete-btn"><i class="fas fa-trash"></i></button></td>
-                </tr>
-                <tr class="product-row">
-                    <td>4</td>
-                    <td class="product-name">Amplifier</td>
-                    <td><input type="number" class="rate-input" value="8500"></td>
-                    <td><input type="number" class="qty-input" value="1" min="1"></td>
-                    <td class="amount">8500.00</td>
-                    <td><button class="delete-btn"><i class="fas fa-trash"></i></button></td>
-                </tr>
-            </tbody>
+            <tbody id="productTableBody"></tbody>
         </table>
     </div>
 

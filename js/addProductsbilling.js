@@ -9,9 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         avatar.innerHTML = '<i class="fas fa-user"></i>';
     }
 
+    let allProducts = [];
     const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
     const generateBtn = document.getElementById("generateBtn");
     const tableHeaderRow = document.getElementById("tableHeaderRow");
+    const tableBody = document.getElementById("productTableBody");
     const dynamicSummaryRows = document.getElementById("dynamicSummaryRows");
 
     const gstRateSettings = {
@@ -21,6 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "No GST": { headers: [], rates: [] }
     };
 
+    fetch("/api/products")
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) allProducts = data.products;
+        })
+        .catch(() => {});
+
     function updateSerialNumbers() {
         document.querySelectorAll(".product-row").forEach((row, index) => {
             row.children[0].textContent = index + 1;
@@ -29,6 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function rebuildTableStructure(gstType) {
         const settings = gstRateSettings[gstType];
+
+        const savedValues = [];
+        document.querySelectorAll(".product-row").forEach(row => {
+            savedValues.push({
+                rate: row.querySelector(".rate-input")?.value || "0",
+                qty: row.querySelector(".qty-input")?.value || "1"
+            });
+        });
+
         tableHeaderRow.innerHTML = `
             <th>Sr No</th>
             <th>Product Name</th>
@@ -39,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <th>Delete</th>
         `;
 
-        document.querySelectorAll(".product-row").forEach(row => {
+        document.querySelectorAll(".product-row").forEach((row, i) => {
             const cells = row.querySelectorAll('td');
             const srNo = cells[0].outerHTML;
             const prodName = cells[1].outerHTML;
@@ -53,6 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }).join('');
 
             row.innerHTML = `${srNo}${prodName}${rateInputCell}${qtyInputCell}${taxCellsHtml}${amountCell}${deleteBtnCell}`;
+
+            if (savedValues[i]) {
+                row.querySelector(".rate-input").value = savedValues[i].rate;
+                row.querySelector(".qty-input").value = savedValues[i].qty;
+            }
         });
 
         dynamicSummaryRows.innerHTML = settings.headers.map(h => {
@@ -129,12 +153,77 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     searchInput.addEventListener("input", () => {
-        const value = searchInput.value.toLowerCase();
-        document.querySelectorAll(".product-row").forEach(row => {
-            const productName = row.querySelector(".product-name").textContent.toLowerCase();
-            row.style.display = productName.includes(value) ? "" : "none";
+        const value = searchInput.value.trim().toLowerCase();
+        if (!value) {
+            searchResults.classList.remove("active");
+            searchResults.innerHTML = "";
+            return;
+        }
+
+        const matches = allProducts.filter(p =>
+            (p.name || "").toLowerCase().includes(value)
+        );
+
+        if (matches.length === 0) {
+            searchResults.classList.remove("active");
+            searchResults.innerHTML = "";
+            return;
+        }
+
+        searchResults.innerHTML = matches.map(p => `
+            <div class="search-result-item" data-id="${p.id}" data-name="${p.name}" data-price="${p.price || 0}">
+                <div>
+                    <div class="result-name">${p.name}</div>
+                    <div class="result-stock">Stock: ${p.stock || 0} | ${p.brand || ""}</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span class="result-price">₹${Number(p.price || 0).toLocaleString()}</span>
+                    <button class="add-btn">Add</button>
+                </div>
+            </div>
+        `).join("");
+
+        searchResults.classList.add("active");
+
+        searchResults.querySelectorAll(".add-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const item = btn.closest(".search-result-item");
+                const name = item.dataset.name;
+                const price = item.dataset.price;
+                addProductRow(name, price);
+                searchResults.classList.remove("active");
+                searchResults.innerHTML = "";
+                searchInput.value = "";
+            });
         });
     });
+
+    function addProductRow(name, price) {
+        const currentGstType = document.querySelector('input[name="gstType"]:checked')?.value || "No GST";
+        const settings = gstRateSettings[currentGstType];
+
+        const taxCellsHtml = settings.rates.map((rate, index) => {
+            return `<td class="tax-cell" data-gst-header="${settings.headers[index]}" data-gst-rate="${rate}">₹0.00 (${rate}%)</td>`;
+        }).join('');
+
+        const tr = document.createElement("tr");
+        tr.className = "product-row";
+        tr.innerHTML = `
+            <td></td>
+            <td class="product-name">${name}</td>
+            <td><input type="number" class="rate-input" value="${price}"></td>
+            <td><input type="number" class="qty-input" value="1" min="1"></td>
+            ${taxCellsHtml}
+            <td class="amount">0.00</td>
+            <td><button class="delete-btn"><i class="fas fa-trash"></i></button></td>
+        `;
+
+        tableBody.appendChild(tr);
+        updateSerialNumbers();
+        calculateTotals();
+        attachInputListeners();
+    }
 
     document.querySelectorAll('input[name="gstType"]').forEach(radio => {
         radio.addEventListener("change", () => {
