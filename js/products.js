@@ -37,15 +37,17 @@ function displayProducts(productArray) {
 <div class="product-details">
 <h3>${p.name}</h3>
 <p><b>SKU :</b> ${p.sku}</p>
-<p><b>Price :</b> ₹${p.price}</p>
+<p><b>Price :</b> ₹<span id="price${i}">${p.price}</span></p>
 <p><b>Category :</b> ${p.category}</p>
 <p><b>Brand :</b> ${p.brand}</p>
 <p class="stock">Stock : <span id="stock${i}">${p.stock}</span></p>
 </div>
 </div>
 <div class="stock-section">
-<input type="number" id="stockInput${i}" placeholder="Stock">
+<input type="number" id="stockInput${i}" placeholder="Stock" style="width:72px">
 <button class="tick-btn" onclick="updateStock(${i})"><i class="fa-solid fa-check"></i></button>
+<input type="number" id="priceInput${i}" placeholder="Price" style="width:72px">
+<button class="tick-btn" onclick="updatePrice(${i})"><i class="fa-solid fa-check"></i></button>
 <button class="edit-btn" onclick="editProduct(${i})"><i class="fa-solid fa-pen"></i></button>
 <button class="delete-btn" onclick="deleteProduct(${i})"><i class="fa-solid fa-trash"></i></button>
 </div>
@@ -113,6 +115,45 @@ async function updateStock(index){
     } catch (err) {
         console.error('Update stock error:', err);
         alert('Failed to update stock');
+    }
+
+}
+
+// ================================
+// UPDATE PRICE
+// ================================
+
+async function updatePrice(index){
+
+    let priceValue = document.getElementById("priceInput" + index).value;
+
+    priceValue = parseFloat(priceValue);
+
+    if(isNaN(priceValue) || priceValue <= 0){
+
+        alert("Please enter a valid price.");
+
+        return;
+
+    }
+
+    const product = products[index];
+    if (!product || !product.id) return;
+
+    try {
+        const res = await fetch(`/api/products/${product.id}/price`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ price: priceValue })
+        });
+        const data = await res.json();
+        if (data.success) {
+            product.price = priceValue;
+            displayProducts(products);
+        }
+    } catch (err) {
+        console.error('Update price error:', err);
+        alert('Failed to update price');
     }
 
 }

@@ -311,6 +311,26 @@ app.patch('/api/products/:id/stock', async (req, res) => {
   }
 });
 
+app.patch('/api/products/:id/price', async (req, res) => {
+  const { price } = req.body;
+  if (!price || price <= 0) {
+    return res.status(400).json({ success: false, message: 'Valid price value required' });
+  }
+  try {
+    const { rows } = await pool.query(
+      'UPDATE inventory_items SET price = $1 WHERE id = $2 RETURNING id, price',
+      [price, req.params.id]
+    );
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    res.json({ success: true, price: rows[0].price });
+  } catch (err) {
+    console.error('Update price error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
 app.delete('/api/products/:id', async (req, res) => {
   try {
     const { rowCount } = await pool.query('DELETE FROM inventory_items WHERE id = $1', [req.params.id]);

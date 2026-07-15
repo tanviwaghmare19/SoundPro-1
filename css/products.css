@@ -20,41 +20,6 @@ body{
     overflow-x:hidden;
 }
 
-/* Back Button */
-
-.back-btn {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-
-    width: 55px;
-    height: 55px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: #ff6b00;
-    color: white;
-
-    font-size: 22px;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-
-    z-index: 1000;
-
-    transition: 0.3s;
-}
-
-.back-btn:hover {
-    background: #e65c00;
-    transform: scale(1.05);
-}
-
 /* ===========================
         MAIN CONTAINER
 =========================== */
