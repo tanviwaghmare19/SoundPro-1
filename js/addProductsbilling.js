@@ -161,7 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const matches = allProducts.filter(p =>
-            (p.name || "").toLowerCase().includes(value)
+            (p.name || "").toLowerCase().includes(value) ||
+            (p.sku || "").toLowerCase().includes(value)
         );
 
         if (matches.length === 0) {

@@ -17,7 +17,7 @@ function logout() {
     if (confirm("Are you sure you want to logout?")) {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("userEmail");
-        window.location.href = "/LoginPage.html";
+        window.location.href = "../pages/LoginPage.html";
     }
 }
 

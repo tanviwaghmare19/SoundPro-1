@@ -140,11 +140,6 @@ if (saveBtn) {
     });
 }
 
-const menuBtn = document.querySelector(".menu-btn");
-if (menuBtn) {
-    menuBtn.addEventListener("click", () => toggleSidebar());
-}
-
 const backBtn = document.querySelector(".back-btn");
 if (backBtn) {
     backBtn.addEventListener("click", function () {
