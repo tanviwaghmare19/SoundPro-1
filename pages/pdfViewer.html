@@ -20,6 +20,9 @@
         </button>
         <div class="menu-btn" style="display:none"></div>
         <h2>Bill & E-Way Bill</h2>
+        <button class="new-bill-btn" onclick="localStorage.removeItem('currentInvoice'); location.href='createBill.html'">
+            <i class="fa-solid fa-file-circle-plus"></i> New Bill
+        </button>
         <button class="print-btn" onclick="window.print()">
             <i class="fa-solid fa-print"></i> Print
         </button>

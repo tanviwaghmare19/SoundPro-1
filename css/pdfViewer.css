@@ -54,6 +54,19 @@ body {
     gap: 6px;
 }
 
+.new-bill-btn {
+    position: absolute;
+    right: 100px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .invoice-box {
     max-width: 850px;
     margin: auto;

@@ -304,6 +304,13 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "billPreview.html";
     });
 
+    const backBtn = document.querySelector(".back-btn");
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            window.location.href = "createBill.html";
+        });
+    }
+
     rebuildTableStructure(savedGstType || "No GST");
     updateSerialNumbers();
     calculateTotals();
