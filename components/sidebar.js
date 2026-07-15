@@ -77,7 +77,7 @@ function logout() {
         ["reports.html", "fa-file-lines", "Reports"],
         ["salesReport.html", "fa-chart-line", "Sales Report"],
         ["createBill.html", "fa-file-invoice", "Billing"],
-        ["returns.html", "fa-rotate-left", "Returns & Refunds"],
+        // ["returns.html", "fa-rotate-left", "Returns & Refunds"],
         ["settings.html", "fa-gear", "Settings"]
     ];
 

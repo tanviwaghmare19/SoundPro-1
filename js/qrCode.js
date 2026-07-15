@@ -74,23 +74,32 @@ function numberToWords(num) {
 document.getElementById("amountWords").textContent = numberToWords(invoice.grandTotal);
 
 // --- 6. OPTIMIZED HIGH-SPEED DATA QR INJECTION ---
-// Elements clean up state to match larger scanner scale
 const qrElement = document.getElementById("qrCode");
 if (qrElement) {
-    qrElement.innerHTML = ""; // Old trace lines clear setup
+    qrElement.innerHTML = "";
     
-    // Core payload generation
     const qrPayload = JSON.stringify({
-        Invoice: invoice.invoiceNo,
-        Customer: invoice.customer.name,
-        Amount: invoice.grandTotal
+        inv: invoice.invoiceNo,
+        dt: invoice.date,
+        from: "AudioTonic Traders",
+        gst: "27BUPPG3886C1ZC",
+        cust: invoice.customer?.name || "",
+        ph: invoice.customer?.mobile || "",
+        sub: Number(invoice.subtotal || 0),
+        gst: totalGst,
+        tot: Number(invoice.grandTotal || 0),
+        items: (invoice.products || []).map(p => ({
+            n: p.name,
+            q: Number(p.qty || 0),
+            r: Number(p.price || 0),
+            hsn: p.hsn || "8518"
+        }))
     });
 
-    // Dynamic QRCode Canvas mapping block for stable dimensional scale
     new QRCode(qrElement, {
         text: qrPayload,
-        width: 120,    // High resolution scaling data box diameter
-        height: 120,   // High resolution scaling data box diameter
-        correctLevel: QRCode.CorrectLevel.M // M level provides reliable standard grid contrast for direct scanning
+        width: 120,
+        height: 120,
+        correctLevel: QRCode.CorrectLevel.M
     });
 }

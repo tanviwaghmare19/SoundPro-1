@@ -152,21 +152,34 @@ window.onload = function () {
 
     // --- ENHANCED MAXIMUM DIMENSION LOGIC FOR BOTH PAGES ---
     setTimeout(() => {
-        const currentOrigin = window.location.origin; 
-        
         // A. Extra-Large Tax Invoice QR Rendering (Right Float Container Box)
         const invoiceBox = document.getElementById("largeInvoiceQr");
         if (invoiceBox) {
             invoiceBox.innerHTML = ""; 
             
-            const invoiceDataStr = encodeURIComponent(JSON.stringify(invoice));
-            const realInvoiceUrl = `${currentOrigin}/SoundPro/pages/pdfViewer.html?data=${invoiceDataStr}`;
+            const invoiceQrPayload = JSON.stringify({
+                inv: invoice.invoiceNo,
+                dt: invoice.date,
+                from: "AudioTonic Traders",
+                gst: "27BUPPG3886C1ZC",
+                cust: invoice.customer?.name || "",
+                ph: invoice.customer?.mobile || "",
+                sub: Number(invoice.subtotal || 0),
+                gst: totalGst,
+                tot: Number(invoice.grandTotal || 0),
+                items: (invoice.products || []).map(p => ({
+                    n: p.name,
+                    q: Number(p.qty || 0),
+                    r: Number(p.price || 0),
+                    hsn: p.hsn || "8518"
+                }))
+            });
             
             new QRCode(invoiceBox, {
-                text: realInvoiceUrl, 
-                width: 185,  // Size increased to massive 185px area for maximum visibility
-                height: 185, // Size increased to massive 185px area for maximum visibility
-                correctLevel: QRCode.CorrectLevel.H // High-density grid mapping
+                text: invoiceQrPayload, 
+                width: 185,
+                height: 185,
+                correctLevel: QRCode.CorrectLevel.M
             });
         }
 
@@ -183,14 +196,22 @@ window.onload = function () {
                 qrWrap.style.display = "inline-block";
                 ewayBox.appendChild(qrWrap);
 
-                const invoiceDataStr = encodeURIComponent(JSON.stringify(invoice));
-                const realEwayUrl = `${currentOrigin}/SoundPro/pages/pdfViewer.html?data=${invoiceDataStr}#ewayBillPage`;
+                const ewayQrPayload = JSON.stringify({
+                    ewb: "652066202588",
+                    inv: invoice.invoiceNo,
+                    dt: invoice.date,
+                    from: "AHMEDABAD",
+                    to: invoice.customer?.city || "",
+                    dist: 872,
+                    cust: invoice.customer?.name || "",
+                    amt: Number(invoice.grandTotal || 0)
+                });
                 
                 new QRCode(qrWrap, {
-                    text: realEwayUrl, 
-                    width: 165, // Stretches cleanly into the expanded 195px e-way container box
-                    height: 165, // Stretches cleanly into the expanded 195px e-way container box
-                    correctLevel: QRCode.CorrectLevel.H // High accuracy response block setup
+                    text: ewayQrPayload, 
+                    width: 165,
+                    height: 165,
+                    correctLevel: QRCode.CorrectLevel.M
                 });
             }
         }
