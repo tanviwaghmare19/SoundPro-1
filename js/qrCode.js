@@ -78,23 +78,36 @@ const qrElement = document.getElementById("qrCode");
 if (qrElement) {
     qrElement.innerHTML = "";
     
-    const qrPayload = JSON.stringify({
-        inv: invoice.invoiceNo,
-        dt: invoice.date,
-        from: "AudioTonic Traders",
-        gst: "27BUPPG3886C1ZC",
-        cust: invoice.customer?.name || "",
-        ph: invoice.customer?.mobile || "",
-        sub: Number(invoice.subtotal || 0),
-        gst: totalGst,
-        tot: Number(invoice.grandTotal || 0),
-        items: (invoice.products || []).map(p => ({
-            n: p.name,
-            q: Number(p.qty || 0),
-            r: Number(p.price || 0),
-            hsn: p.hsn || "8518"
-        }))
+    let itemsStr = "";
+    (invoice.products || []).forEach((p, i) => {
+        const qty = Number(p.qty || 0);
+        const rate = Number(p.price || 0);
+        const amount = qty * rate;
+        const itemGst = invoice.subtotal > 0
+            ? Math.round(amount * totalGst / Number(invoice.subtotal))
+            : 0;
+        const name = (p.name || "").length > 14 ? (p.name || "").substring(0, 14) : (p.name || "");
+        itemsStr += `${i+1}  ${name.padEnd(14)} ${(p.hsn||"8518").padEnd(4)} ${String(qty).padStart(3)} ${String(rate).padStart(6)} ${String(itemGst).padStart(5)} ${String(amount).padStart(6)}\n`;
     });
+
+    const qrPayload =
+`            TAX INVOICE
+────────────────────────────────
+Inv No : ${invoice.invoiceNo || ""}
+Date   : ${invoice.date || ""}
+
+AudioTonic Traders
+GSTIN : 27BUPPG3886C1ZC
+
+Customer : ${invoice.customer?.name || ""}
+Phone    : ${invoice.customer?.mobile || ""}
+
+#  Name           Code  Qty  Rate    GST   Total
+─────────────────────────────────────────────
+${itemsStr}─────────────────────────────────────────────
+Subtotal                        ${String(Number(invoice.subtotal||0)).padStart(6)}
+Total GST                       ${String(totalGst).padStart(6)}
+Grand Total              ₹${Number(invoice.grandTotal||0).toFixed(2).padStart(10)}`;
 
     new QRCode(qrElement, {
         text: qrPayload,
