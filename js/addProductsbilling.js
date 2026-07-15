@@ -9,6 +9,26 @@ document.addEventListener("DOMContentLoaded", () => {
         avatar.innerHTML = '<i class="fas fa-user"></i>';
     }
 
+    const savedGstType = localStorage.getItem("gstType");
+    if (savedGstType) {
+        const radio = document.querySelector(`input[name="gstType"][value="${savedGstType}"]`);
+        if (radio) {
+            radio.checked = true;
+            rebuildTableStructure(savedGstType);
+        }
+    }
+
+    const savedProducts = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+    savedProducts.forEach(p => addProductRow(p.name, p.price));
+    const restoredRows = document.querySelectorAll(".product-row");
+    restoredRows.forEach((row, i) => {
+        if (savedProducts[i]) {
+            const qtyInput = row.querySelector(".qty-input");
+            if (qtyInput) qtyInput.value = savedProducts[i].qty || 1;
+        }
+    });
+    if (savedProducts.length) calculateTotals();
+
     let allProducts = [];
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
