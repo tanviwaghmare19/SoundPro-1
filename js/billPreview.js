@@ -166,6 +166,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         localStorage.setItem("invoiceHistory", JSON.stringify(history));
 
+        const stockDeductions = products
+            .filter(p => p.id)
+            .map(p => ({ id: p.id, qty: p.qty }));
+
         fetch('/api/bills', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -180,7 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 sgst_amount: sgstAmt,
                 igst_amount: igstAmt,
                 discount: 0,
-                grand_total: invoiceData.grandTotal
+                grand_total: invoiceData.grandTotal,
+                products: stockDeductions
             })
         }).then(() => {
             window.location.href = "pdfViewer.html?print=1";

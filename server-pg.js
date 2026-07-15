@@ -119,12 +119,13 @@ app.delete('/api/clients/:id', async (req, res) => {
 // ──────────────────────────────────────────────
 
 app.post('/api/bills', async (req, res) => {
-  const {
+      const {
     invoice_no, customer_name, subtotal, cgst, sgst, igst,
     discount, grand_total, amount, gst_amount, total_with_gst,
     date, payment_mode, notes, user_email, gst_percentage,
     status, mode_of_transport, rr_gr_no, igst_enabled,
-    cgst_amount, sgst_amount, igst_amount
+    cgst_amount, sgst_amount, igst_amount,
+    products
   } = req.body;
 
   if (!invoice_no || !customer_name || subtotal === undefined) {
@@ -153,6 +154,18 @@ app.post('/api/bills', async (req, res) => {
         cgst_amount || 0, sgst_amount || 0, igst_amount || 0
       ]
     );
+
+    if (Array.isArray(products)) {
+      for (const item of products) {
+        if (item.id && item.qty > 0) {
+          await pool.query(
+            'UPDATE inventory_items SET quantity = quantity - $1 WHERE id = $2',
+            [item.qty, item.id]
+          );
+        }
+      }
+    }
+
     res.status(201).json({ success: true, message: 'Bill saved successfully' });
   } catch (err) {
     console.error('Save bill error:', err);

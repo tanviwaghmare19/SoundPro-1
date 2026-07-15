@@ -41,15 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const savedProducts = JSON.parse(localStorage.getItem("selectedProducts")) || [];
     const isRestoreCalc = savedCalcMode === "calculated";
-    savedProducts.forEach(p => addProductRow(p.name, isRestoreCalc ? (p.inclGst || p.price) : p.price));
+    savedProducts.forEach(p => addProductRow(p.name, p.price, p.id));
     const restoredRows = document.querySelectorAll(".product-row");
     restoredRows.forEach((row, i) => {
         if (savedProducts[i]) {
             const qtyInput = row.querySelector(".qty-input");
             if (qtyInput) qtyInput.value = savedProducts[i].qty || 1;
-            const inclInput = row.querySelector(".gst-inclusive-input");
-            if (inclInput && savedProducts[i].inclGst) {
-                inclInput.value = savedProducts[i].inclGst;
+            if (isRestoreCalc) {
+                const amountInput = row.querySelector(".amount-input");
+                if (amountInput && savedProducts[i].amount) {
+                    amountInput.value = savedProducts[i].amount;
+                }
             }
         }
     });
@@ -72,13 +74,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const settings = gstRateSettings[gstType];
         const isCalc = document.querySelector('input[name="calcMode"]:checked')?.value === "calculated";
 
-        const savedValues = [];
+        const savedData = [];
         document.querySelectorAll(".product-row").forEach(row => {
-            savedValues.push({
-                rateInp: row.querySelector(".rate-input")?.value || null,
-                qty: row.querySelector(".qty-input")?.value || "1",
-                inclGst: row.querySelector(".gst-inclusive-input")?.value || null
-            });
+            const name = row.querySelector(".product-name")?.textContent || "";
+            const qty = row.querySelector(".qty-input")?.value || "1";
+            let initPrice = 0;
+            if (isCalc) {
+                const existingAmount = row.querySelector(".amount-input")?.value;
+                if (existingAmount !== undefined) {
+                    initPrice = existingAmount;
+                } else {
+                    const rate = parseFloat(row.querySelector(".rate-input")?.value || row.querySelector(".rate-display")?.textContent || "0");
+                    const exclTotal = rate * (parseInt(qty) || 1);
+                    const totalGstRate = settings.rates.reduce((s, r) => s + r, 0);
+                    initPrice = totalGstRate > 0 ? (exclTotal * (1 + totalGstRate / 100)).toFixed(2) : exclTotal.toFixed(2);
+                }
+            } else {
+                const existingRate = row.querySelector(".rate-input")?.value;
+                if (existingRate !== undefined) {
+                    initPrice = existingRate;
+                } else {
+                    const amount = parseFloat(row.querySelector(".amount-input")?.value || row.querySelector(".amount")?.textContent || "0");
+                    const totalGstRate = settings.rates.reduce((s, r) => s + r, 0);
+                    const exclTotal = totalGstRate > 0 ? amount / (1 + totalGstRate / 100) : amount;
+                    initPrice = (parseInt(qty) || 1) > 0 ? (exclTotal / (parseInt(qty) || 1)).toFixed(2) : "0";
+                }
+            }
+            savedData.push({ name, qty, initPrice, productId: row.dataset.productId || "" });
         });
 
         tableHeaderRow.innerHTML = `
@@ -91,28 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
             <th>Delete</th>
         `;
 
+        tableBody.innerHTML = "";
+        savedData.forEach(({ name, qty, initPrice, productId }) => {
+            _addTableRow(name, initPrice, productId);
+        });
+
         document.querySelectorAll(".product-row").forEach((row, i) => {
-            const cells = row.querySelectorAll('td');
-            const srNo = cells[0].outerHTML;
-            const prodName = cells[1].outerHTML;
-            const rateInputCell = cells[2].outerHTML;
-            const qtyInputCell = cells[3].outerHTML;
-            const amountCell = cells[cells.length - 2].outerHTML;
-            const deleteBtnCell = cells[cells.length - 1].outerHTML;
-
-            const taxCellsHtml = settings.rates.map((rate, index) => {
-                return `<td class="tax-cell" data-gst-header="${settings.headers[index]}" data-gst-rate="${rate}">₹0.00 (${rate}%)</td>`;
-            }).join('');
-
-            row.innerHTML = `${srNo}${prodName}${rateInputCell}${qtyInputCell}${taxCellsHtml}${amountCell}${deleteBtnCell}`;
-
-            if (savedValues[i]) {
-                const rInp = row.querySelector(".rate-input");
-                if (rInp && savedValues[i].rateInp !== null) rInp.value = savedValues[i].rateInp;
+            if (savedData[i]) {
                 const qInp = row.querySelector(".qty-input");
-                if (qInp) qInp.value = savedValues[i].qty;
-                const iInp = row.querySelector(".gst-inclusive-input");
-                if (iInp && savedValues[i].inclGst !== null) iInp.value = savedValues[i].inclGst;
+                if (qInp) qInp.value = savedData[i].qty;
             }
         });
 
@@ -120,11 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return `<div class="summary-row"><span>${h}</span><span id="${h.toLowerCase()}SummaryAmount">₹0.00</span></div>`;
         }).join('');
 
+        updateSerialNumbers();
         attachInputListeners();
+        calculateTotals();
     }
 
     function attachInputListeners() {
-        document.querySelectorAll(".rate-input, .qty-input, .gst-inclusive-input").forEach(input => {
+        document.querySelectorAll(".rate-input, .qty-input, .amount-input").forEach(input => {
             input.removeEventListener("input", calculateTotals);
             input.removeEventListener("change", calculateTotals);
             input.addEventListener("input", calculateTotals);
@@ -149,32 +160,34 @@ document.addEventListener("DOMContentLoaded", () => {
         const isCalc = document.querySelector('input[name="calcMode"]:checked')?.value === "calculated";
         let subtotal = 0;
         let runningTaxes = { "CGST": 0, "SGST": 0, "IGST": 0 };
-        let expectedNetTotal = 0;
+        let expectedInclTotal = 0;
 
         document.querySelectorAll(".product-row").forEach(row => {
             const qtyInput = row.querySelector(".qty-input");
-            const amountCell = row.querySelector(".amount");
             const taxCells = row.querySelectorAll(".tax-cell");
             const qty = parseInt(qtyInput?.value) || 0;
 
             let rate = 0;
+            let amount = 0;
 
             if (isCalc) {
-                const inclInput = row.querySelector(".gst-inclusive-input");
-                const inclGst = parseFloat(inclInput?.value) || 0;
+                const amountInput = row.querySelector(".amount-input");
+                const inclTotal = parseFloat(amountInput?.value) || 0;
                 const totalGstRate = Array.from(taxCells).reduce((s, c) => s + parseFloat(c.dataset.gstRate), 0);
-                const divisor = 1 + totalGstRate / 100;
-                rate = totalGstRate > 0 ? Math.round(inclGst / divisor * 1000000) / 1000000 : inclGst;
+                const taxableValue = totalGstRate > 0 ? Math.round(inclTotal / (1 + totalGstRate / 100) * 1000000) / 1000000 : inclTotal;
                 const display = row.querySelector(".rate-display");
-                if (display) display.textContent = rate.toFixed(2);
-                expectedNetTotal += inclGst * qty;
+                if (display) display.textContent = qty > 0 ? (taxableValue / qty).toFixed(2) : "0.00";
+                expectedInclTotal += inclTotal;
+                rate = qty > 0 ? taxableValue / qty : 0;
+                amount = taxableValue;
             } else {
                 const rateInput = row.querySelector(".rate-input");
                 rate = parseFloat(rateInput?.value) || 0;
+                amount = rate * qty;
+                const amountCell = row.querySelector(".amount");
+                if (amountCell) amountCell.textContent = amount.toFixed(2);
             }
 
-            const amount = rate * qty;
-            amountCell.textContent = amount.toFixed(2);
             subtotal += amount;
 
             taxCells.forEach(taxCell => {
@@ -201,8 +214,8 @@ document.addEventListener("DOMContentLoaded", () => {
             netTotal += totalTaxAmount;
         });
 
-        if (isCalc && expectedNetTotal > 0) {
-            netTotal = expectedNetTotal;
+        if (isCalc && expectedInclTotal > 0) {
+            netTotal = expectedInclTotal;
         }
 
         document.getElementById("netTotal").textContent = "₹" + netTotal.toFixed(2);
@@ -248,7 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const item = btn.closest(".search-result-item");
                 const name = item.dataset.name;
                 const price = item.dataset.price;
-                addProductRow(name, price);
+                const productId = item.dataset.id;
+                addProductRow(name, price, productId);
                 searchResults.classList.remove("active");
                 searchResults.innerHTML = "";
                 searchInput.value = "";
@@ -256,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    function addProductRow(name, price) {
+    function _addTableRow(name, initPrice, productId) {
         const currentGstType = document.querySelector('input[name="gstType"]:checked')?.value || "No GST";
         const settings = gstRateSettings[currentGstType];
         const isCalc = document.querySelector('input[name="calcMode"]:checked')?.value === "calculated";
@@ -266,22 +280,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join('');
 
         const rateCellHtml = isCalc
-            ? `<td><div>Rate: <span class="rate-display">0.00</span></div><div class="incl-gst-wrap">Incl GST: <input type="number" class="gst-inclusive-input" value="${price}" step="any"></div></td>`
-            : `<td><input type="number" class="rate-input" value="${price}" step="any"></td>`;
+            ? `<td><div>Rate: <span class="rate-display">0.00</span></div></td>`
+            : `<td><input type="number" class="rate-input" value="${initPrice}" step="any"></td>`;
+
+        const amountCellHtml = isCalc
+            ? `<td><input type="number" class="amount-input" value="${initPrice}" step="any"></td>`
+            : `<td class="amount">0.00</td>`;
 
         const tr = document.createElement("tr");
         tr.className = "product-row";
+        tr.dataset.productId = productId || "";
         tr.innerHTML = `
             <td></td>
             <td class="product-name">${name}</td>
             ${rateCellHtml}
             <td><input type="number" class="qty-input" value="1" min="1"></td>
             ${taxCellsHtml}
-            <td class="amount">0.00</td>
+            ${amountCellHtml}
             <td><button class="delete-btn"><i class="fas fa-trash"></i></button></td>
         `;
-
         tableBody.appendChild(tr);
+    }
+
+    function addProductRow(name, price, productId) {
+        const isCalc = document.querySelector('input[name="calcMode"]:checked')?.value === "calculated";
+        if (isCalc) {
+            const currentGstType = document.querySelector('input[name="gstType"]:checked')?.value || "No GST";
+            const settings = gstRateSettings[currentGstType];
+            const totalGstRate = settings.rates.reduce((s, r) => s + r, 0);
+            price = totalGstRate > 0 ? (parseFloat(price) * (1 + totalGstRate / 100)).toFixed(2) : price;
+        }
+        _addTableRow(name, price, productId);
         updateSerialNumbers();
         calculateTotals();
         attachInputListeners();
@@ -290,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('input[name="gstType"]').forEach(radio => {
         radio.addEventListener("change", () => {
             rebuildTableStructure(radio.value);
-            calculateTotals();
         });
     });
 
@@ -298,7 +326,6 @@ document.addEventListener("DOMContentLoaded", () => {
         radio.addEventListener("change", () => {
             const gstType = document.querySelector('input[name="gstType"]:checked')?.value || "No GST";
             rebuildTableStructure(gstType);
-            calculateTotals();
         });
     });
 
@@ -312,14 +339,22 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".product-row").forEach(row => {
             const name = row.querySelector(".product-name").textContent.trim();
             const isCalc = document.querySelector('input[name="calcMode"]:checked')?.value === "calculated";
-            const rate = isCalc
-                ? parseFloat(row.querySelector(".rate-display")?.textContent) || 0
-                : parseFloat(row.querySelector(".rate-input")?.value) || 0;
             const qty = parseInt(row.querySelector(".qty-input").value) || 0;
             const taxCells = row.querySelectorAll(".tax-cell");
+            let rate, amount;
+            if (isCalc) {
+                const inclGst = parseFloat(row.querySelector(".amount-input")?.value) || 0;
+                const totalGstRate = Array.from(taxCells).reduce((s, c) => s + parseFloat(c.dataset.gstRate), 0);
+                const divisor = 1 + totalGstRate / 100;
+                const taxableValue = totalGstRate > 0 ? Math.round(inclGst / divisor * 1000000) / 1000000 : inclGst;
+                rate = qty > 0 ? taxableValue / qty : 0;
+                amount = taxableValue;
+            } else {
+                rate = parseFloat(row.querySelector(".rate-input")?.value) || 0;
+                amount = rate * qty;
+            }
 
             if (qty > 0) {
-                const amount = rate * qty;
                 subtotal += amount;
 
                 let productGstDetails = [];
@@ -330,10 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     productGstDetails.push({ type: settings.headers[index], rate: taxRate, amount: taxAmount });
                 });
 
-                const inclGst = isCalc
-                    ? parseFloat(row.querySelector(".gst-inclusive-input")?.value) || 0
-                    : 0;
-                products.push({ name, price: rate, qty, amount, hsn: "8518", tax: productGstDetails, inclGst });
+                products.push({ id: row.dataset.productId || "", name, price: rate, qty, amount, hsn: "8518", tax: productGstDetails, inclGst: 0 });
             }
         });
 
@@ -366,7 +398,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    rebuildTableStructure(savedGstType || "No GST");
-    updateSerialNumbers();
-    calculateTotals();
+    if (savedGstType) {
+        rebuildTableStructure(savedGstType);
+    } else {
+        rebuildTableStructure("No GST");
+    }
 });
