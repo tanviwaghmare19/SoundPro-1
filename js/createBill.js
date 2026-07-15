@@ -193,4 +193,9 @@ async function loadRecentCustomers() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadRecentCustomers);
+document.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('selectedProducts');
+    localStorage.removeItem('gstBreakdown');
+    localStorage.removeItem('gstType');
+    loadRecentCustomers();
+});
