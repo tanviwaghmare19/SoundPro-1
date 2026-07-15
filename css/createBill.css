@@ -255,42 +255,6 @@ body{
     cursor:pointer;
 }
 
-/* ================= SIDE MENU ================= */
-
-.side-menu{
-    position:fixed;
-    top:60px;
-    right:-260px;
-    width:250px;
-    height:100%;
-    background:#fff;
-    box-shadow:-2px 0 10px rgba(0,0,0,.15);
-    transition:.3s;
-    z-index:9999;
-}
-
-.side-menu.show{
-    right:0;
-}
-
-.side-menu a{
-    display:block;
-    padding:15px;
-    color:#333;
-    text-decoration:none;
-    border-bottom:1px solid #eee;
-    font-size:15px;
-}
-
-.side-menu a i{
-    width:25px;
-    color:#f57c00;
-}
-
-.side-menu a:hover{
-    background:#f5f5f5;
-}
-
 /* ================= TABLET ================= */
 
 @media (min-width:768px){
@@ -305,15 +269,6 @@ body{
     }
 }
 
-/* ================= DESKTOP ================= */
-
-@media(min-width:992px){
-
-    .side-menu{
-        height:calc(100% - 60px);
-    }
-}
- 
 .card-actions{
     display:flex;
     align-items:center;
