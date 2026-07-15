@@ -9,6 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
         avatar.innerHTML = '<i class="fas fa-user"></i>';
     }
 
+    let allProducts = [];
+    const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
+    const generateBtn = document.getElementById("generateBtn");
+    const tableHeaderRow = document.getElementById("tableHeaderRow");
+    const tableBody = document.getElementById("productTableBody");
+    const dynamicSummaryRows = document.getElementById("dynamicSummaryRows");
+
+    const gstRateSettings = {
+        "CGST+SGST": { headers: ["CGST", "SGST"], rates: [9, 9] },
+        "IGST": { headers: ["IGST"], rates: [18] },
+        "CGST+SGST+IGST": { headers: ["CGST", "SGST", "IGST"], rates: [9, 9, 18] },
+        "No GST": { headers: [], rates: [] }
+    };
+
     const savedGstType = localStorage.getItem("gstType");
     if (savedGstType) {
         const radio = document.querySelector(`input[name="gstType"][value="${savedGstType}"]`);
@@ -28,21 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     if (savedProducts.length) calculateTotals();
-
-    let allProducts = [];
-    const searchInput = document.getElementById("searchInput");
-    const searchResults = document.getElementById("searchResults");
-    const generateBtn = document.getElementById("generateBtn");
-    const tableHeaderRow = document.getElementById("tableHeaderRow");
-    const tableBody = document.getElementById("productTableBody");
-    const dynamicSummaryRows = document.getElementById("dynamicSummaryRows");
-
-    const gstRateSettings = {
-        "CGST+SGST": { headers: ["CGST", "SGST"], rates: [9, 9] },
-        "IGST": { headers: ["IGST"], rates: [18] },
-        "CGST+SGST+IGST": { headers: ["CGST", "SGST", "IGST"], rates: [9, 9, 18] },
-        "No GST": { headers: [], rates: [] }
-    };
 
     fetch("/api/products")
         .then(r => r.json())
@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalTaxes.forEach(t => totalNetValue += t);
 
         localStorage.setItem("selectedProducts", JSON.stringify(products));
-        localStorage.setItem("selectedCustomer", JSON.stringify(customer));
+        localStorage.setItem("selectedCustomer", JSON.stringify(customer || null));
         localStorage.setItem("subtotal", subtotal);
         localStorage.setItem("grandTotal", totalNetValue);
         localStorage.setItem("gstType", gstType);
@@ -304,14 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "billPreview.html";
     });
 
-    const backBtn = document.querySelector(".back-btn");
-    if (backBtn) {
-        backBtn.addEventListener("click", () => {
-            window.location.href = "createBill.html";
-        });
-    }
-
-    rebuildTableStructure("No GST");
+    rebuildTableStructure(savedGstType || "No GST");
     updateSerialNumbers();
     calculateTotals();
 });

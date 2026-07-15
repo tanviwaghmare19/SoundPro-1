@@ -105,7 +105,7 @@ window.onload = function () {
     if (ewayPage) {
         if (Number(invoice.grandTotal) >= 50000) {
             ewayPage.style.display = "block";
-            document.getElementById("mainEwayNo").textContent = "652066202588";
+            document.getElementById("mainEwayNo").textContent = invoice.ewayBillNo || "652066202588";
 
             // Headers Details
             document.getElementById("ewayDocNo").textContent = invoice.invoiceNo || "";
@@ -230,7 +230,7 @@ Grand Total       Rs ${Number(invoice.grandTotal||0).toFixed(2).padStart(10)}`;
                 const ewayRaw =
 `E-WAY BILL
 ==========================
-EWB No : 652066202588
+EWB No : ${invoice.ewayBillNo || "652066202588"}
 Inv No : ${invoice.invoiceNo || ""}
 Date   : ${invoice.date || ""}
 

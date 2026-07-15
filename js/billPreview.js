@@ -182,9 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 discount: 0,
                 grand_total: invoiceData.grandTotal
             })
+        }).then(() => {
+            window.location.href = "pdfViewer.html?print=1";
+        }).catch(() => {
+            window.location.href = "pdfViewer.html?print=1";
         });
-
-        window.location.href = "pdfViewer.html?print=1";
     });
 
     document.getElementById("editBillBtn")?.addEventListener("click", () => {
