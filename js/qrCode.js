@@ -47,8 +47,7 @@ invoice.products.forEach(product => {
 // --- 4. SUMMARY PRICING DETAILS ---
 document.getElementById("taxableAmount").textContent = Number(invoice.subtotal).toFixed(2);
 document.getElementById("gstAmount").textContent = totalGst.toFixed(2);
-document.getElementById("cgstAmount").textContent = (cgstAmt || totalGst / 2).toFixed(2);
-document.getElementById("sgstAmount").textContent = (sgstAmt || totalGst / 2).toFixed(2);
+
 document.getElementById("totalInvoiceAmount").textContent = Number(invoice.grandTotal).toFixed(2);
 
 // --- 5. AMOUNT TO WORDS SYSTEM (INDIAN CURRENCY FORMAT) ---

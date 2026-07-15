@@ -80,11 +80,21 @@ window.onload = function () {
     document.getElementById("totalPieces").textContent = totalQty + " Pcs";
     document.getElementById("grandTotal").textContent = Number(invoice.grandTotal).toFixed(2);
 
-    document.getElementById("gstPercent").textContent = (cgstRate + sgstRate + Number(invoice.igst || 0)) + "%";
-    document.getElementById("taxableAmount").textContent = Number(invoice.subtotal).toFixed(2);
-    document.getElementById("gstAmount").textContent = totalGst.toFixed(2);
-    document.getElementById("cgstAmount").textContent = Number(invoice.cgstAmount || 0).toFixed(2);
-    document.getElementById("sgstAmount").textContent = Number(invoice.sgstAmount || 0).toFixed(2);
+    const gstContainer = document.getElementById("gstSummaryContainer");
+    if (gstContainer) {
+        const breakdown = invoice.gstBreakdown || [];
+        if (breakdown.length > 0) {
+            const totalRate = breakdown.reduce((s, t) => s + Number(t.rate || 0), 0);
+            let html = `<table class="items-table no-border-top"><thead><tr><th rowspan="2">HSN/SAC</th><th rowspan="2">Tax Rate</th><th rowspan="2">Taxable Amt.</th>`;
+            breakdown.forEach(t => { html += `<th colspan="2">${t.type}</th>`; });
+            html += `<th rowspan="2">Total Tax</th></tr><tr>`;
+            breakdown.forEach(() => { html += `<th>Rate</th><th>Amt.</th>`; });
+            html += `</tr></thead><tbody><tr><td>8518</td><td>${totalRate}%</td><td>${Number(invoice.subtotal).toFixed(2)}</td>`;
+            breakdown.forEach(t => { html += `<td>${t.rate}%</td><td>₹${Number(t.totalAmount || 0).toFixed(2)}</td>`; });
+            html += `<td>${totalGst.toFixed(2)}</td></tr></tbody></table>`;
+            gstContainer.innerHTML = html;
+        }
+    }
     document.getElementById("amountWords").textContent = invoice.amountWords || "";
 
     
